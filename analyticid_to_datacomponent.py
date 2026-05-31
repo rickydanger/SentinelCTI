@@ -13,60 +13,51 @@ def safe_get_attr(obj, attr, default="N/A"):
     return getattr(obj, attr, default)
 
 def main():
-    # Get Analytic ID from command line
+    analytic_stix_id = "x-mitre-analytic--791dfdd4-b04d-498a-accc-ee9e2acc7b14"  # Analytic 0411
+
     if len(sys.argv) > 1:
-        analytic_input = sys.argv[1].strip()
-    else:
-        analytic_input = "x-mitre-analytic--791dfdd4-b04d-498a-accc-ee9e2acc7b14"  # Default (Windows one for T1485)
+        analytic_stix_id = sys.argv[1].strip()
 
     if not os.path.exists(STIX_FILE):
-        print(f"❌ {STIX_FILE} not found.")
-        print("Download it with: wget https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/enterprise-attack/enterprise-attack.json -O enterprise-attack.json")
+        print("❌ enterprise-attack.json not found.")
         return
 
     print("Loading ATT&CK data...\n")
     mitre_data = MitreAttackData(STIX_FILE)
 
-    print(f"{'='*90}")
-    print(f"🔍 ANALYTIC: {analytic_input}")
+    print(f"🔍 ANALYTIC: {analytic_stix_id}")
 
     try:
-        # Get the Analytic object
-        analytic = mitre_data.get_object(analytic_input)
-        
+        # Get the Analytic
+        analytic = mitre_data.get_object_by_stix_id(analytic_stix_id)
         if not analytic:
             print("❌ Analytic not found.")
             return
 
-        analytic_id = safe_get_attr(analytic, 'x_mitre_id', 'N/A')
-        name = safe_get_attr(analytic, 'name', 'N/A')
-        platforms = safe_get_attr(analytic, 'x_mitre_platforms', [])
+        print(f"Name: {safe_get_attr(analytic, 'name')}")
+        print(f"ID:   {safe_get_attr(analytic, 'id')}\n")
 
-        print(f"Name: {name}")
-        print(f"ID:   {analytic_id}")
-        if platforms:
-            print(f"Platforms: {', '.join(platforms)}")
-        print()
-
-        # Get Data Components used by this Analytic
-        data_components = mitre_data.get_datacomponents_by_analytic(analytic.id)
-        
-        print(f"📊 Associated Data Components ({len(data_components)}):")
-        
-        if not data_components:
-            print("   → No Data Components linked to this analytic.")
+        # === Get the Technique this Analytic detects (T1485) ===
+        technique = mitre_data.get_object_by_attack_id("T1485", "attack-pattern")
+        if not technique:
+            print("❌ Technique T1485 not found.")
             return
 
-        for dc_entry in data_components:
-            dc = dc_entry.get('object') if isinstance(dc_entry, dict) else getattr(dc_entry, 'object', dc_entry)
-            
-            dc_id = safe_get_attr(dc, 'x_mitre_id', 'N/A')
-            dc_name = safe_get_attr(dc, 'name', 'N/A')
-            dc_description = safe_get_attr(dc, 'description', '')[:150]
-            
-            print(f"   • {dc_id} - {dc_name}")
-            if dc_description:
-                print(f"     Description: {dc_description}...")
+        # === Get Data Components that detect this Technique ===
+        print("📊 Associated Data Components:")
+        
+        data_components = mitre_data.get_datacomponents_detecting_technique(technique.id)
+
+        if not data_components:
+            print("   No Data Components returned.")
+        else:
+            for entry in data_components:
+                dc = entry.get('object') if isinstance(entry, dict) else getattr(entry, 'object', entry)
+                
+                dc_id = safe_get_attr(dc, 'x_mitre_id', safe_get_attr(dc, 'id', 'N/A'))
+                dc_name = safe_get_attr(dc, 'name', 'N/A')
+                
+                print(f"   • {dc_name} ({dc_id})")
 
     except Exception as e:
         print(f"❌ Error: {e}")
