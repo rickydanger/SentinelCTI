@@ -17,7 +17,7 @@ def main():
     search_term = sys.argv[1].lower().strip() if len(sys.argv) > 1 else "blackenergy"
 
     if not os.path.exists(STIX_FILE):
-        print("❌ enterprise-attack.json not found!")
+        print("enterprise-attack.json not found!")
         print("Download it with:")
         print("wget https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/enterprise-attack/enterprise-attack.json -O enterprise-attack.json")
         return
@@ -41,18 +41,18 @@ def main():
             search_term in attack_id or 
             any(search_term in a for a in aliases)):
             malware = software
-            print(f"✅ Found: {safe_get_attr(software, 'name')} "
+            print(f"Found: {safe_get_attr(software, 'name')} "
                   f"({safe_get_attr(software, 'x_mitre_id', 'S0089')})")
             break
 
     if not malware:
-        print("❌ BlackEnergy not found.")
+        print("BlackEnergy not found.")
         return
 
     # Get all techniques used by this malware
     techniques = mitre_data.get_techniques_used_by_software(malware.id)
 
-    print(f"\n📋 BlackEnergy uses {len(techniques)} Techniques:\n")
+    print(f"\nBlackEnergy uses {len(techniques)} Techniques:\n")
     print("-" * 90)
     print(f"{'T-CODE':<12} | TECHNIQUE NAME")
     print("-" * 90)

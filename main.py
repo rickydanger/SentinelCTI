@@ -13,8 +13,8 @@ def main():
     print("=== MITRE ATT&CK Orchestrator ===\n")
 
     #List all software
-    if user_input == "software":
-        print("Listing ALL MITRE ATT&CK Software / Malware...\n")
+    if user_input == "malware":
+        print("Listing ALL MITRE ATT&CK Malware...\n")
         software_list = list_all_software()
         
         print(f"Found {len(software_list)} software entries:\n")
