@@ -8,8 +8,8 @@
             "name": "Python Debugger: Python File",
             "type": "debugpy",
             "request": "launch",
-            "program": "${file}",
-            "args": ["BlackEnergy"]
+            "program": "main.py",          //"${file}",
+            "args": ["BlackEnergy", "windows"]
         }
     ]
 }

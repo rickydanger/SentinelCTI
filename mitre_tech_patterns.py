@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 from mitreattack.stix20 import MitreAttackData
 
-def get_techniques_for_malware(malware_name="blackenergy", stix_file="enterprise-attack.json"):
+def get_techniques_for_malware(malware_name, mitre_data):
     """Return list of (Technique Pattern ID, Technique Name) used by a malware"""
-    mitre_data = MitreAttackData(stix_file)
     
     # Find the malware
     for malware in mitre_data.get_software():
@@ -20,16 +19,15 @@ def get_techniques_for_malware(malware_name="blackenergy", stix_file="enterprise
             result = []
             for entry in techniques:
                 tech = entry.get('object') if isinstance(entry, dict) else getattr(entry, 'object', entry)
-                tpattern = getattr(tech, 'id', 'N/A')
-                tname = getattr(tech, 'name', 'N/A')
-                result.append((tpattern, tname))
+                pattern_id = getattr(tech, 'id', 'N/A')
+                pattern_name = getattr(tech, 'name', 'N/A')
+                result.append((pattern_id, pattern_name))
             return result
     
     return []
 
-def list_all_malware(stix_file="enterprise-attack.json"):
+def list_all_malware(mitre_data):
     """Return list of all malware (name, ID)"""
-    mitre_data = MitreAttackData(stix_file)
     result = []
     
     for malware in mitre_data.get_software():
