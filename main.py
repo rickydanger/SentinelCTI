@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
+
 from mitreattack.stix20 import MitreAttackData
 from mitre_tech_patterns import get_techniques_for_malware,list_all_malware
 from mitre_tech_analytics import get_analytics_for_technique
 from mitre_log_sources import get_log_sources_for_analytic
-from plotly_charts import get_sankey
+from mca_telem_plotly_charts import get_sankey
+import json
 import sys
 
 def main():
     analytic_list = []
+    source_list = []
+    mca_telemetry_json = []
+
     mitre_data = MitreAttackData("enterprise-attack.json")
 
     # If no argument is given → exit silently (no output)
@@ -37,26 +42,40 @@ def main():
     tech_list = get_techniques_for_malware(user_input, mitre_data)
     
     if tech_list:
-        #print("Techniques:")
         for pattern_id, pattern_name in tech_list:
             print(f"{pattern_id} : {pattern_name}")
+            #extract analytics from mitre stix 20 database based on techniques
             analytics = get_analytics_for_technique(pattern_id, platform_input, mitre_data)
-            for analytic_id, analytic_name, analytic_platform in analytics:
-                analytic_list.append((pattern_id, pattern_name, analytic_id, analytic_name, analytic_platform))
 
-        for pattern_id, pattern_name, analytic_id, analytic_name, analytic_platform in analytic_list:
-            print(f"\t{pattern_id} : {pattern_name} : {analytic_id} : {analytic_name} : {analytic_platform}")
-        #Use , Data Destruction to get the analytic_id
+            # Build JSON structure
+            technique_entry = {
+                "technique_id": pattern_id,
+                "technique_name": pattern_name,
+                "analytics": [
+                    {
+                        "analytic_id": a[0],
+                        "analytic_name": a[1],
+                        "platform": a[2],
 
-        #issues is the pattern_id needs to be used get the analytic_id
-        #sourcelist = get_log_sources_for_analytic("x-mitre-analytic--791dfdd4-b04d-498a-accc-ee9e2acc7b14")
-        #print(sourcelist)
-        #pids = get_analytics_for_technique("attack-pattern--d45a3d09-b3cf-48f4-9f0f-f521ee5cb05c")
-        #print(pids)
+                        "log_sources": [
+                            {"name": s[0], "channel": s[1]} 
+                            #extract log sources from mitre stix 20 database based on analytics
+                            for s in get_log_sources_for_analytic(a[0], mitre_data)
+                        ]
+                        
+                    }
+                    for a in analytics
+                ]
+            }
+
+            mca_telemetry_json.append(technique_entry)
+
+        print(json.dumps(mca_telemetry_json, indent=2))
+
     else:
         print(f"No techniques found for '{user_input}'")
 
-    #get_sankey(user_input, tech_list)
+    #get_sankey(user_input, mca_telemetry_json)
 
 if __name__ == "__main__":
     main()

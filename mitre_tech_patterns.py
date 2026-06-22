@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-from mitreattack.stix20 import MitreAttackData
-
 def get_techniques_for_malware(malware_name, mitre_data):
     """Return list of (Technique Pattern ID, Technique Name) used by a malware"""
     

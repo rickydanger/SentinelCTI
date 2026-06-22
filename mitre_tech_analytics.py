@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-import os
-
 def safe_get_attr(obj, attr, default="N/A"):
     if isinstance(obj, dict):
         return obj.get(attr, default)
@@ -39,7 +37,7 @@ def get_analytics_for_technique(technique_stix_id, platform, mitre_data):
         strat_id = safe_get_attr(strategy, 'id')
         strat_name = safe_get_attr(strategy, 'name')
         #print(f"Detection Strategy: {strat_id} - {strat_name}")
-        #print(f"\t{strat_id} : {strat_name}")
+        print(f"\t{strat_id}")
 
         # Get analytics for this strategy
         analytics = mitre_data.get_analytics_by_detection_strategy(strategy.id)
@@ -56,8 +54,7 @@ def get_analytics_for_technique(technique_stix_id, platform, mitre_data):
                 analytic_id = safe_get_attr(analytic, 'id')
                 analytic_name = safe_get_attr(analytic, 'name')
 
-                #print(f"\t\t{analytic_id} : {analytic_name} : {analytic_platform[0]}")
+                print(f"\t\t{analytic_id} : {analytic_name} : {analytic_platform[0]}")
                 results.append((analytic_id, analytic_name, analytic_platform[0]))
-        #print()
 
     return results
