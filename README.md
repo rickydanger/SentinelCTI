@@ -8,4 +8,4 @@ Usage: Pythin main.py <malware> <platform/operating system>
 
 Example: python main.py lockbit windows
 
-![Lockbit Telementry](images/lockbit.png)
+![Lockbit Telemetry](lockbit.png)
