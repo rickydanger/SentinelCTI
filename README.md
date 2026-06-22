@@ -7,3 +7,5 @@ Warning: Only supports malware and Windows at this time, will add other APT's an
 Usage: Pythin main.py <malware> <platform/operating system>
 
 Example: python main.py lockbit windows
+
+![Lockbit Telementry](images/lockbit.png)
