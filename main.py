@@ -75,7 +75,7 @@ def main():
     else:
         print(f"No techniques found for '{user_input}'")
 
-    #get_sankey(user_input, mca_telemetry_json)
+    get_sankey(user_input, mca_telemetry_json)
 
 if __name__ == "__main__":
     main()
