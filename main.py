@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 from mitreattack.stix20 import MitreAttackData
+from create_json_file import get_json
 from mitre_tech_patterns import get_techniques_for_malware,list_all_malware
 from mitre_tech_analytics import get_analytics_for_technique
 from mitre_log_sources import get_log_sources_for_analytic
 from mca_telem_plotly_charts import get_sankey
-import json
 import sys
 
 def main():
@@ -21,6 +21,7 @@ def main():
 
     user_input = sys.argv[1].strip()
     platform_input = sys.argv[2].strip()
+    threshold_input = sys.argv[3].strip()
 
     print("=== MITRE ATT&CK Orchestrator ===")
 
@@ -35,6 +36,8 @@ def main():
         for pattern_name, mid in malware_list:
             print(f"{pattern_name:<40} | {mid}")
         return
+
+
 
     print(f"Input received: {user_input} {platform_input}")
 
@@ -70,12 +73,12 @@ def main():
 
             mca_telemetry_json.append(technique_entry)
 
-        print(json.dumps(mca_telemetry_json, indent=2))
+        get_json(mca_telemetry_json)
 
     else:
         print(f"No techniques found for '{user_input}'")
 
-    get_sankey(user_input, mca_telemetry_json)
+    get_sankey(user_input, mca_telemetry_json, int(threshold_input))
 
 if __name__ == "__main__":
     main()

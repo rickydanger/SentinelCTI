@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-def get_techniques_for_malware(malware_name, mitre_data):
+def get_techniques_for_malware(input_name, mitre_data):
     """Return list of (Technique Pattern ID, Technique Name) used by a malware"""
     
     # Find the malware
@@ -8,9 +8,10 @@ def get_techniques_for_malware(malware_name, mitre_data):
             continue
             
         name = malware.name.lower()
-        aliases = [a.lower() for a in getattr(malware, 'x_mitre_aliases', [])]
-        
-        if malware_name.lower() in name or any(malware_name.lower() in a for a in aliases):
+
+        # Exact match (case insensitive)
+        if input_name.lower() == name:
+            print(name + " was found in the MITRE ATT&CK database.")
             # Get all techniques used by this malware
             techniques = mitre_data.get_techniques_used_by_software(malware.id)
             

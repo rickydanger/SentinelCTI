@@ -1,0 +1,73 @@
+[
+    {
+        "technique_id": "attack-pattern--3c4a2599-71ee-4405-ba1e-0e28414b4bc5",
+        "technique_name": "Data from Local System",
+        "analytics": [
+            {
+                "analytic_id": "x-mitre-analytic--79ecfad5-3439-4a04-919a-236d47652ba0",
+                "analytic_name": "Analytic 1070",
+                "platform": "Windows",
+                "log_sources": [
+                    {
+                        "name": "WinEventLog:Security",
+                        "channel": "EventCode=4688"
+                    },
+                    {
+                        "name": "WinEventLog:Sysmon",
+                        "channel": "EventCode=11"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "technique_id": "attack-pattern--b3d682b6-98f2-4fb0-aa3b-b4df007ca70a",
+        "technique_name": "Obfuscated Files or Information",
+        "analytics": [
+            {
+                "analytic_id": "x-mitre-analytic--1dee558e-720e-4f3b-9414-192a63eb8909",
+                "analytic_name": "Analytic 1064",
+                "platform": "Windows",
+                "log_sources": [
+                    {
+                        "name": "WinEventLog:Security",
+                        "channel": "EventCode=4688"
+                    },
+                    {
+                        "name": "WinEventLog:Sysmon",
+                        "channel": "EventCode=11"
+                    },
+                    {
+                        "name": "WinEventLog:Sysmon",
+                        "channel": "EventCode=1"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "technique_id": "attack-pattern--1c34f7aa-9341-4a48-bfab-af22e51aca6c",
+        "technique_name": "Local Data Staging",
+        "analytics": [
+            {
+                "analytic_id": "x-mitre-analytic--561fb700-686a-4583-96a9-77a55358d357",
+                "analytic_name": "Analytic 0724",
+                "platform": "Windows",
+                "log_sources": [
+                    {
+                        "name": "WinEventLog:Sysmon",
+                        "channel": "EventCode=11"
+                    },
+                    {
+                        "name": "WinEventLog:Sysmon",
+                        "channel": "EventCode=1"
+                    },
+                    {
+                        "name": "WinEventLog:Security",
+                        "channel": "EventCode=4663, 4670, 4656"
+                    }
+                ]
+            }
+        ]
+    }
+]
