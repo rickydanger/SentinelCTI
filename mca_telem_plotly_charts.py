@@ -30,7 +30,7 @@ def get_sankey(name, mca_telemetry_json, threshold=1):
                 channel_logsource_count[(channel, log_name)] += 1
                 technique_total[tech_name] += 1
 
-# === Calculate totals ===
+    # === Calculate totals ===
     channel_total = defaultdict(int)
     for (channel, _), count in channel_logsource_count.items():
         channel_total[channel] += count
@@ -77,7 +77,6 @@ def get_sankey(name, mca_telemetry_json, threshold=1):
     # Final label order
     labels = [name] + sorted_technique_names + sorted_channel_names + sorted_logsource_names
     label_to_index = {label: i for i, label in enumerate(labels)}
-
 
     source = []
     target = []

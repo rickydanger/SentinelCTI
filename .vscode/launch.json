@@ -9,7 +9,7 @@
             "type": "debugpy",
             "request": "launch",
             "program": "main.py",          //"${file}",
-            "args": ["punchtrack", "windows", "1"]
+            "args": ["--malware", "punchtrack", "--platform", "windows", "--threshold", "2"]
         }
     ]
 }
