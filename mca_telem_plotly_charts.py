@@ -12,45 +12,45 @@ def get_sankey(mca_telemetry_json):
         return
 
     # Counters for connections
-    malware_tech = defaultdict(int)
+    entity_tech = defaultdict(int)
     tech_channel = defaultdict(int)
     channel_source = defaultdict(int)
 
-    malware_total = Counter()
+    entity_total = Counter()
     tech_total = Counter()
     channel_total = Counter()
     source_total = Counter()
 
     for r in mca_telemetry_json:
-        m = r["malware_name"]
+        e = r["entity_name"]
         t = r["technique_name"]
         c = r["log_source_channel"]
         s = r["log_source_name"]
 
-        malware_tech[(m, t)] += 1
+        entity_tech[(e, t)] += 1
         tech_channel[(t, c)] += 1
         channel_source[(c, s)] += 1
 
-        malware_total[m] += 1
+        entity_total[e] += 1
         tech_total[t] += 1
         channel_total[c] += 1
         source_total[s] += 1
 
     # Sort nodes by strength (most connected first)
-    malware_names = [m for m, _ in malware_total.most_common()]
+    entity_names = [m for m, _ in entity_total.most_common()]
     technique_names = [t for t, _ in tech_total.most_common()]
     channel_names = [c for c, _ in channel_total.most_common()]
     source_names = [s for s, _ in source_total.most_common()]
 
     # Build labels and index
-    labels = malware_names + technique_names + channel_names + source_names
+    labels = entity_names + technique_names + channel_names + source_names
     idx = {label: i for i, label in enumerate(labels)}
 
     # Build links
     source, target, value = [], [], []
 
-    for (m, t), cnt in malware_tech.items():
-        source.append(idx[m])
+    for (e, t), cnt in entity_tech.items():
+        source.append(idx[e])
         target.append(idx[t])
         value.append(cnt)
 
@@ -72,7 +72,7 @@ def get_sankey(mca_telemetry_json):
             line=dict(color="black", width=0.4),
             label=labels,
             color=(
-                ["#1E88E5"] * len(malware_names) +      # Blue - Malware
+                ["#1E88E5"] * len(entity_names) +      # Blue - Malware
                 ["#43A047"] * len(technique_names) +    # Green - Technique
                 ["#FB8C00"] * len(channel_names) +      # Orange - Channel
                 ["#8E24AA"] * len(source_names)         # Purple - Log Source

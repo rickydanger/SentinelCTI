@@ -1,4 +1,25 @@
 #!/usr/bin/env python3
+
+def get_techniques_for_group(input_name, mitre_data):
+    """Return list of (Technique Pattern ID, Technique Name) used by a group (APT)"""
+    
+    for group in mitre_data.get_groups():
+        name = group.name.lower()
+
+        if input_name.lower() == name:
+            print(f"{name} was found as a group in the MITRE ATT&CK database.")
+            techniques = mitre_data.get_techniques_used_by_group(group.id)
+            
+            result = []
+            for entry in techniques:
+                tech = entry.get('object') if isinstance(entry, dict) else getattr(entry, 'object', entry)
+                pattern_id = getattr(tech, 'id', 'N/A')
+                pattern_name = getattr(tech, 'name', 'N/A')
+                result.append((pattern_id, pattern_name))
+            return result
+    
+    return []
+
 def get_techniques_for_malware(input_name, mitre_data):
     """Return list of (Technique Pattern ID, Technique Name) used by a malware"""
     
@@ -24,6 +45,17 @@ def get_techniques_for_malware(input_name, mitre_data):
             return result
     
     return []
+
+def list_all_groups(mitre_data):
+    """Return list of all groups / APTs (name, ID)"""
+    result = []
+    
+    for group in mitre_data.get_groups():
+        name = getattr(group, 'name', 'N/A')
+        gid = getattr(group, 'id', 'N/A')
+        result.append((name, gid))
+    
+    return sorted(result)
 
 def list_all_malware(mitre_data):
     """Return list of all malware (name, ID)"""
