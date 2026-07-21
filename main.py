@@ -13,7 +13,29 @@ def main():
     mitre_data = MitreAttackData("enterprise-attack.json")
 
     parser = argparse.ArgumentParser(
-        description="Generate Sankey diagram from MITRE ATT&CK telemetry data"
+    description="Generate a Sankey diagram from MITRE ATT&CK telemetry data (malware & APTs).",
+    formatter_class=argparse.RawTextHelpFormatter,
+    epilog="""
+    Notes:
+    - If a malware or group name contains spaces, you must wrap it in quotes.
+        Example: "volt typhoon", "Lazarus Group"
+
+    Examples:
+    # List all malware
+    python main.py -e malware
+
+    # List all groups / APTs
+    python main.py -e groups
+
+    # Process a single entity
+    python main.py -e punchtrack -p windows
+
+    # Process multiple entities (use quotes for names with spaces)
+    python main.py -e punchtrack "volt typhoon" APT29 -p windows
+
+    # Keep only the top 5 most frequent log source channels
+    python main.py -e "volt typhoon" -p windows -t 5
+    """
     )
 
     parser.add_argument(
