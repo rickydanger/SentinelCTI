@@ -18,25 +18,13 @@ def get_analytics_for_technique(technique_stix_id, platform, mitre_data):
         print(f"Technique {technique_stix_id} not found.")
         return []
 
-    #tech_name = safe_get_attr(tech, 'name')
-    #tech_id = safe_get_attr(tech, 'id')
-    #print(f"Technique: {tech_name} ({tech_id})")
-
     # Get detection strategies for this technique
     strategies = mitre_data.get_detection_strategies_detecting_technique(tech.id)
-
-    #if not strategies:
-    #    print("No detection strategies found.")
-    #    return []
-
-    #print(f"Found {len(strategies)} Detection Strategy(ies)\n")
 
     for entry in strategies:
         strategy = entry.get('object') if isinstance(entry, dict) else getattr(entry, 'object', entry)
 
         strat_id = safe_get_attr(strategy, 'id')
-        strat_name = safe_get_attr(strategy, 'name')
-        #print(f"Detection Strategy: {strat_id} - {strat_name}")
         print(f"\t{strat_id}")
 
         # Get analytics for this strategy

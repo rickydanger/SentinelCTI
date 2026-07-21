@@ -1,141 +1,95 @@
-from collections import defaultdict
+from collections import defaultdict, Counter
 import plotly.graph_objects as go
 
-def get_sankey(name, mca_telemetry_json, threshold=1):
+def get_sankey(mca_telemetry_json):
     """
-    Creates a 4-layer Sankey diagram:
-    Malware Name → Technique → Channel → Log Source
-
-    Parameters:
-        name (str): Name of the malware/MCA (used in title)
-        mca_telemetry_json (list): Your structured data
-        threshold (int): Minimum count required for Channel → Log Source links.
-                         Links with count < threshold are removed.
-                         Default = 1 (show all)
+    Builds a 4-layer Sankey:
+    Malware → Technique → Log Source Channel → Log Source
+    Nodes are sorted by connection strength for better readability.
     """
-    print(f"Generating Sankey diagram for {name} (threshold={threshold})")
+    if not mca_telemetry_json:
+        print("No data to plot.")
+        return
 
-    technique_channel_count = defaultdict(int)
-    channel_logsource_count = defaultdict(int)
-    technique_total = defaultdict(int)
+    # Counters for connections
+    malware_tech = defaultdict(int)
+    tech_channel = defaultdict(int)
+    channel_source = defaultdict(int)
 
-    for tech in mca_telemetry_json:
-        tech_name = tech["technique_name"]
-        for analytic in tech["analytics"]:
-            for log in analytic["log_sources"]:
-                channel = log["channel"]
-                log_name = log["name"]
+    malware_total = Counter()
+    tech_total = Counter()
+    channel_total = Counter()
+    source_total = Counter()
 
-                technique_channel_count[(tech_name, channel)] += 1
-                channel_logsource_count[(channel, log_name)] += 1
-                technique_total[tech_name] += 1
+    for r in mca_telemetry_json:
+        m = r["malware_name"]
+        t = r["technique_name"]
+        c = r["log_source_channel"]
+        s = r["log_source_name"]
 
-    # === Calculate totals ===
-    channel_total = defaultdict(int)
-    for (channel, _), count in channel_logsource_count.items():
-        channel_total[channel] += count
+        malware_tech[(m, t)] += 1
+        tech_channel[(t, c)] += 1
+        channel_source[(c, s)] += 1
 
-    logsource_total = defaultdict(int)
-    for (_, log_name), count in channel_logsource_count.items():
-        logsource_total[log_name] += count
+        malware_total[m] += 1
+        tech_total[t] += 1
+        channel_total[c] += 1
+        source_total[s] += 1
 
-    # === Filter channels based on threshold ===
-    filtered_channels = {ch for ch, count in channel_total.items() if count >= threshold}
+    # Sort nodes by strength (most connected first)
+    malware_names = [m for m, _ in malware_total.most_common()]
+    technique_names = [t for t, _ in tech_total.most_common()]
+    channel_names = [c for c, _ in channel_total.most_common()]
+    source_names = [s for s, _ in source_total.most_common()]
 
-    # === Calculate effective technique total (only valid channels) ===
-    effective_technique_total = defaultdict(int)
-    for (t, ch), cnt in technique_channel_count.items():
-        if ch in filtered_channels:
-            effective_technique_total[t] += cnt
+    # Build labels and index
+    labels = malware_names + technique_names + channel_names + source_names
+    idx = {label: i for i, label in enumerate(labels)}
 
-    # === Only keep techniques that still have connections after threshold filtering ===
-    valid_techniques = {t for t, total in effective_technique_total.items() if total > 0}
+    # Build links
+    source, target, value = [], [], []
 
-    sorted_techniques = sorted(
-        [(t, effective_technique_total[t]) for t in valid_techniques],
-        key=lambda x: x[1], reverse=True
-    )
-    sorted_technique_names = [t[0] for t in sorted_techniques]
+    for (m, t), cnt in malware_tech.items():
+        source.append(idx[m])
+        target.append(idx[t])
+        value.append(cnt)
 
-    # === Sort and filter Channels ===
-    sorted_channels = sorted(
-        [(ch, count) for ch, count in channel_total.items() if ch in filtered_channels],
-        key=lambda x: x[1], reverse=True
-    )
-    sorted_channel_names = [c[0] for c in sorted_channels]
+    for (t, c), cnt in tech_channel.items():
+        source.append(idx[t])
+        target.append(idx[c])
+        value.append(cnt)
 
-    # === Sort and filter Log Sources ===
-    valid_logsources = {
-        ln for (ch, ln) in channel_logsource_count.keys() if ch in filtered_channels
-    }
-    sorted_logsources = sorted(
-        [(ln, logsource_total[ln]) for ln in valid_logsources],
-        key=lambda x: x[1], reverse=True
-    )
-    sorted_logsource_names = [l[0] for l in sorted_logsources]
-
-    # Final label order
-    labels = [name] + sorted_technique_names + sorted_channel_names + sorted_logsource_names
-    label_to_index = {label: i for i, label in enumerate(labels)}
-
-    source = []
-    target = []
-    value = []
-
-    # Link 0: Malware Name → Technique
-    for tech_name in sorted_technique_names:
-        count = effective_technique_total[tech_name]   # ← Use the filtered total
-        source.append(label_to_index[name])
-        target.append(label_to_index[tech_name])
-        value.append(count)
-
-    # Link 1: Technique → Channel
-    for tech_name in sorted_technique_names:
-        connected_channels = [
-            (ch, cnt) for (t, ch), cnt in technique_channel_count.items() 
-            if t == tech_name and ch in filtered_channels
-        ]
-        connected_channels.sort(key=lambda x: sorted_channel_names.index(x[0]))
-
-        for channel, count in connected_channels:
-            source.append(label_to_index[tech_name])
-            target.append(label_to_index[channel])
-            value.append(count)
-
-    # Link 2: Channel → Log Source (already filtered)
-    for channel in sorted_channel_names:
-        connected_logs = [(ln, cnt) for (ch, ln), cnt in channel_logsource_count.items() if ch == channel]
-        connected_logs.sort(key=lambda x: x[1], reverse=True)
-
-        for log_name, count in connected_logs:
-            source.append(label_to_index[channel])
-            target.append(label_to_index[log_name])
-            value.append(count)
+    for (c, s), cnt in channel_source.items():
+        source.append(idx[c])
+        target.append(idx[s])
+        value.append(cnt)
 
     # Create Sankey
-    fig = go.Figure(data=[go.Sankey(
+    fig = go.Figure(go.Sankey(
         node=dict(
-            pad=25,
-            thickness=20,
-            line=dict(color="black", width=0.5),
+            pad=20,
+            thickness=18,
+            line=dict(color="black", width=0.4),
             label=labels,
-            color=["#1E88E5"] +                           # Malware Name
-                  ["#43A047"] * len(sorted_technique_names) +   # Techniques
-                  ["#FB8C00"] * len(sorted_channel_names) +     # Channels
-                  ["#8E24AA"] * len(sorted_logsource_names)     # Log Sources
+            color=(
+                ["#1E88E5"] * len(malware_names) +      # Blue - Malware
+                ["#43A047"] * len(technique_names) +    # Green - Technique
+                ["#FB8C00"] * len(channel_names) +      # Orange - Channel
+                ["#8E24AA"] * len(source_names)         # Purple - Log Source
+            )
         ),
         link=dict(
             source=source,
             target=target,
             value=value,
-            hovertemplate='%{source.label} → %{target.label}<br>Count: %{value}<extra></extra>'
+            hovertemplate="%{source.label} → %{target.label}<br>Count: %{value}<extra></extra>"
         )
-    )])
+    ))
 
     fig.update_layout(
-        title_text=f"Sankey Diagram - {name}",
+        title_text="Sankey: Malware → Technique → Log Source Channel → Log Source",
         font_size=12,
-        height=1000
+        height=900
     )
 
     fig.show()
