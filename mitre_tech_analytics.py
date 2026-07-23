@@ -10,8 +10,6 @@ def get_analytics_for_technique(technique_stix_id, platform, mitre_data):
     """
     results = []
 
-    #print("Loading ATT&CK data...\n")
-
     # Get the technique
     tech = mitre_data.get_object_by_stix_id(technique_stix_id)
     if not tech:
@@ -25,7 +23,7 @@ def get_analytics_for_technique(technique_stix_id, platform, mitre_data):
         strategy = entry.get('object') if isinstance(entry, dict) else getattr(entry, 'object', entry)
 
         strat_id = safe_get_attr(strategy, 'id')
-        print(f"\t{strat_id}")
+        #print(f"\t{strat_id}")
 
         # Get analytics for this strategy
         analytics = mitre_data.get_analytics_by_detection_strategy(strategy.id)
@@ -42,7 +40,7 @@ def get_analytics_for_technique(technique_stix_id, platform, mitre_data):
                 analytic_id = safe_get_attr(analytic, 'id')
                 analytic_name = safe_get_attr(analytic, 'name')
 
-                print(f"\t\t{analytic_id} : {analytic_name} : {analytic_platform[0]}")
+                #print(f"\t\t{analytic_id} : {analytic_name} : {analytic_platform[0]}")
                 results.append((analytic_id, analytic_name, analytic_platform[0]))
 
     return results

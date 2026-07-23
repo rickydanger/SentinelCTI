@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
 from mitreattack.stix20 import MitreAttackData
-from build_mca_telem_json import get_mca_telem_json
-from create_json_file import get_json
-from filter_mca_telem_json import get_filtered_json
+from build_mca_db import get_mca_telem_json
+from write_output_json import get_json
+from filter_mca_db import get_filtered_json
 from mitre_tech_patterns import list_all_malware, list_all_groups
-from mca_telem_plotly_charts import get_sankey
+from plot_mca import get_sankey
 import argparse
 
 def main():
@@ -17,7 +17,7 @@ def main():
     formatter_class=argparse.RawTextHelpFormatter,
     epilog="""
     Notes:
-    - If a malware or group name contains spaces, you must wrap it in quotes.
+    - If a malware or group name contains spaces, wrap it in quotes.
         Example: "volt typhoon", "Lazarus Group"
 
     Examples:
@@ -27,14 +27,17 @@ def main():
     # List all groups / APTs
     python main.py -e groups
 
-    # Process a single entity
+    # Default filters (mean for both technique and channel)
     python main.py -e punchtrack -p windows
 
-    # Process multiple entities (use quotes for names with spaces)
-    python main.py -e punchtrack "volt typhoon" APT29 -p windows
+    # Bypass both filters (keep everything)
+    python main.py -e punchtrack -p windows --channel-top 0 --technique-top 0
 
-    # Keep only the top 5 most frequent log source channels
-    python main.py -e "volt typhoon" -p windows -t 5
+    # Keep top 5 channels + mean techniques
+    python main.py -e "volt typhoon" -p windows --channel-top 5
+
+    # Keep top 10 techniques + top 3 channels
+    python main.py -e APT29 -p windows --technique-top 10 --channel-top 3
     """
     )
 
@@ -52,12 +55,24 @@ def main():
     )
 
     parser.add_argument(
-        "-t", "--top",
+        "--channel-top",
         type=int,
         default=None,
-        help="Top N most frequent log_source_channel to keep (default: keep all)"   
+        help="Filter log_source_channel:\n"
+             "  None = keep count >= mean (default)\n"
+             "  0    = keep all\n"
+             "  N    = keep top N"
     )
 
+    parser.add_argument(
+        "--technique-top",
+        type=int,
+        default=None,
+        help="Filter technique_name:\n"
+             "  None = keep count >= mean (default)\n"
+             "  0    = keep all\n"
+             "  N    = keep top N"
+    )
     args = parser.parse_args()
 
     # === List mode ===
@@ -83,9 +98,13 @@ def main():
         return
 
     mca_telemetry_json = get_mca_telem_json(args.entities, args.platform, mitre_data)
-    mca_telemetry_json = get_filtered_json(mca_telemetry_json, args.top)
+    get_json(mca_telemetry_json, "mca_db.json")
+
+    mca_telemetry_json = get_filtered_json(
+        mca_telemetry_json, args.channel_top, args.technique_top
+    )  
+    get_json(mca_telemetry_json, "filtered_mca_db.json")
     
-    get_json(mca_telemetry_json)
     get_sankey(mca_telemetry_json)
 
 if __name__ == "__main__":
