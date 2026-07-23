@@ -4,6 +4,7 @@ Advanced persistent threat (APT) or malicious cyber activity (MCA) telemetry cal
 
 Warning: Only supports Windows at this time, will add other platforms in time.
 
+python main.py --entities "volt typhoon" APT29 "scattered spider" akira "lumma stealer" --platform windows --channel-top 10 --technique-top 20
 ![Top 5 MCA](top5mca.png)
 
 Usage: python main.py --help
