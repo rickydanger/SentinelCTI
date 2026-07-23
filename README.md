@@ -4,8 +4,8 @@ Advanced persistent threat (APT) or malicious cyber activity (MCA) telemetry cal
 
 Warning: Only supports malware and Windows at this time, will add other APT's and platforms in time
 
-Usage: Pythin main.py `<malware>` `<platform/operating system>`
+![Top 5 MCA](top5mca.png)
 
-Example: python main.py lockbit windows
+Usage: python main.py --help
 
-![Lockbit Telemetry](lockbit.png)
+![Help Menu](help_statement.png)
