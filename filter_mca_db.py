@@ -1,7 +1,7 @@
 from collections import Counter
 from statistics import median
 
-def get_filtered_json(mca_telem_json, channel_top=None, technique_top=None):
+def get_filtered_json(mca_telem_json, technique_top=None):
     """
     Filters records by technique_name and/or log_source_channel frequency.
 
@@ -33,7 +33,5 @@ def get_filtered_json(mca_telem_json, channel_top=None, technique_top=None):
 
 
     mca_telem_json = apply_filter(mca_telem_json, "technique_name", technique_top, "Technique")
-    mca_telem_json = apply_filter(mca_telem_json, "log_source_channel", channel_top, "Channel")
-
 
     return mca_telem_json
