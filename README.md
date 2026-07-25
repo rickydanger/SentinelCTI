@@ -2,10 +2,11 @@ APT/MCA Telemetry Calculator (Powered by MITRE ATT&CK)
 
 Advanced persistent threat (APT) or malicious cyber activity (MCA) telemetry calculator. A python project to consolidate MITRE ATT&CK techniques and visualize correlations with data sources. Intent is to encourage cyber analysts to ask what is being collected and why.
 
-Warning: Only supports malware and Windows at this time, will add other APT's and platforms in time
+Warning: Only supports Windows at this time, will add other platforms in time.
 
-Usage: Pythin main.py `<malware>` `<platform/operating system>`
+python main.py --entities "volt typhoon" APT29 "scattered spider" akira "lumma stealer" --platform windows --technique-top 20 --channel-top 10 
+![Top 5 MCA](top5mca.png)
 
-Example: python main.py lockbit windows
+Usage: python main.py --help
 
-![Lockbit Telemetry](lockbit.png)
+![Help Menu](help_statement.png)
