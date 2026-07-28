@@ -1,0 +1,30 @@
+{
+  "last_run": "lumma",
+  "configs": {
+    "voltt_apt29": {
+      "mca_db_path": "voltt_apt29_db.json",
+      "entities": [
+        "volt typhoon",
+        "APT29"
+      ],
+      "platform": "windows",
+      "created": "2026-07-25T20:13:13"
+    },
+    "akira": {
+      "mca_db_path": "akira_db.json",
+      "entities": [
+        "akira"
+      ],
+      "platform": "windows",
+      "created": "2026-07-27T20:31:14"
+    },
+    "lumma": {
+      "mca_db_path": "lumma_db.json",
+      "entities": [
+        "lumma stealer"
+      ],
+      "platform": "windows",
+      "created": "2026-07-27T20:51:12"
+    }
+  }
+}
