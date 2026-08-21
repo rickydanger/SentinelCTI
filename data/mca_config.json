@@ -1,5 +1,5 @@
 {
-  "last_run": "apt29_scatt_akira",
+  "last_run": "voltt_apt29_scatt_akira_lumma",
   "configs": {
     "voltt_apt29": {
       "mca_db_path": "voltt_apt29_db.json",
@@ -36,7 +36,7 @@
         "lumma stealer"
       ],
       "platform": "windows",
-      "created": "2026-08-21T09:42:11"
+      "created": "2026-08-21T14:38:11"
     },
     "apt29_akira": {
       "mca_db_path": "apt29_akira_db.json",

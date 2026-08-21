@@ -1,0 +1,2 @@
+plotly==6.9.0
+mitreattack-python==6.1.0
