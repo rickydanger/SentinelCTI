@@ -1,0 +1,2 @@
+ pyreverse -o dot -p SentinelCTI -f ALL main.py src/
+ dot -Tpng -Gdpi=200 -Gbgcolor=white -Gfontname="Segoe UI" -Nfontname="Segoe UI" -Nshape=box -Nstyle="filled,rounded" -Nfillcolor="#E8F0FE" -Ncolor="#1A73E8" -Ecolor="#5F6368" "-Earrowsize=0.7" packages_SentinelCTI.dot -o docs/architecture.png

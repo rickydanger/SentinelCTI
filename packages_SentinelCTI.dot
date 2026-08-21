@@ -1,0 +1,32 @@
+digraph "packages_SentinelCTI" {
+rankdir=BT
+charset="utf-8"
+"main" [color="black", label=<main>, shape="box", style="solid"];
+"src" [color="black", label=<src>, shape="box", style="solid"];
+"src.build_db" [color="black", label=<src.build_db>, shape="box", style="solid"];
+"src.config_db" [color="black", label=<src.config_db>, shape="box", style="solid"];
+"src.filter_db" [color="black", label=<src.filter_db>, shape="box", style="solid"];
+"src.last_db" [color="black", label=<src.last_db>, shape="box", style="solid"];
+"src.list_entities" [color="black", label=<src.list_entities>, shape="box", style="solid"];
+"src.mitre" [color="black", label=<src.mitre>, shape="box", style="solid"];
+"src.mitre.mitre_log_sources" [color="black", label=<src.mitre.mitre_log_sources>, shape="box", style="solid"];
+"src.mitre.mitre_tech_analytics" [color="black", label=<src.mitre.mitre_tech_analytics>, shape="box", style="solid"];
+"src.mitre.mitre_tech_patterns" [color="black", label=<src.mitre.mitre_tech_patterns>, shape="box", style="solid"];
+"src.new_db" [color="black", label=<src.new_db>, shape="box", style="solid"];
+"src.plot_mca" [color="black", label=<src.plot_mca>, shape="box", style="solid"];
+"src.write_json" [color="black", label=<src.write_json>, shape="box", style="solid"];
+"main" -> "src.config_db" [arrowhead="open", arrowtail="none"];
+"main" -> "src.filter_db" [arrowhead="open", arrowtail="none"];
+"main" -> "src.last_db" [arrowhead="open", arrowtail="none"];
+"main" -> "src.list_entities" [arrowhead="open", arrowtail="none"];
+"main" -> "src.new_db" [arrowhead="open", arrowtail="none"];
+"main" -> "src.plot_mca" [arrowhead="open", arrowtail="none"];
+"main" -> "src.write_json" [arrowhead="open", arrowtail="none"];
+"src.build_db" -> "src.mitre.mitre_log_sources" [arrowhead="open", arrowtail="none"];
+"src.build_db" -> "src.mitre.mitre_tech_analytics" [arrowhead="open", arrowtail="none"];
+"src.build_db" -> "src.mitre.mitre_tech_patterns" [arrowhead="open", arrowtail="none"];
+"src.list_entities" -> "src.mitre.mitre_tech_patterns" [arrowhead="open", arrowtail="none"];
+"src.new_db" -> "src.build_db" [arrowhead="open", arrowtail="none"];
+"src.new_db" -> "src.config_db" [arrowhead="open", arrowtail="none"];
+"src.new_db" -> "src.write_json" [arrowhead="open", arrowtail="none"];
+}
