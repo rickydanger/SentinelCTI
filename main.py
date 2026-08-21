@@ -5,48 +5,42 @@ import argparse
 
 from src.write_json import get_json
 from src.filter_db import get_filtered_json
-from src.plot_mca import get_sankey
+from src.plot_mca import get_sankey, get_table
 from src.config_db import load_config
 from src.list_entities import get_entities_list
 from src.last_db import get_last_db
 from src.new_db import get_new_db
+
 
 def main():
     mitre_data = MitreAttackData("enterprise-attack.json")
     config = load_config()
 
     parser = argparse.ArgumentParser(
-        description="Generate a Sankey diagram from MITRE ATT&CK telemetry data (malware & APTs).",
+        description="Generate a Sankey diagram or Table from MITRE ATT&CK telemetry data (malware & APTs).",
         formatter_class=argparse.RawTextHelpFormatter,
         epilog="""
-    Notes:
-  - If a malware or group name contains spaces, wrap it in quotes.
-    Example: "volt typhoon", "Lazarus Group"
+Notes:
+  - Wrap names with spaces in quotes (e.g. "volt typhoon")
 
-    Examples:
-    # List all malware
-    python main.py -e malware
+Examples:
+  # List all malware / groups
+  python main.py -e malware
+  python main.py -e groups
 
-    # List all groups / APTs
-    python main.py -e groups
+  # Extract new data and show Sankey
+  python main.py -e "volt typhoon" APT29 -p windows -v sankey
 
-    # Extract new data (filename is automatic)
-    python main.py -e "volt typhoon" APT29 -p windows
+  # Use last run (Sankey or Table)
+  python main.py -l -v sankey
+  python main.py -l -v table
 
-    # Quickly return the last run
-    python main.py -l
+  # Use specific database
+  python main.py -d my_old_db.json -v table
 
-    # Use a specific existing database file
-    python main.py -d my_old_db.json
-
-    # Keep only the top 10 techniques
-    python main.py -e APT29 -p windows -t 10
-
-    # Return last run and keep top 5 techniques
-    python main.py -l -t 5
-
-    # Return last run and list all techniques (no filtering)
-    python main.py -l -t 0
+  # Filter techniques
+  python main.py -l -t 10 -v sankey      # top 10
+  python main.py -l -t 0 -v table        # no filter
 """
     )
 
@@ -55,11 +49,13 @@ def main():
     parser.add_argument("-p", "--platform",
                         help="Platform (e.g. windows). Required when extracting new data.")
     parser.add_argument("-l", "--last", action="store_true",
-                        help="Return the last database from the config file")
+                        help="Use the last database from the config file")
     parser.add_argument("-d", "--db",
-                        help="Path to an existing mca database file to use")
+                        help="Path to an existing mca database file")
     parser.add_argument("-t", "--technique-top", type=int, default=None,
                         help="Filter technique_name (None=median, 0=all, N=top N)")
+    parser.add_argument("-v", "--view", choices=["sankey", "table"], required=True,
+                        help="Visualization type: sankey or table")
 
     args = parser.parse_args()
 
@@ -79,11 +75,15 @@ def main():
         if mca_telem_json is None:
             return
 
-    # === Filter + Sankey ===
+    # === Filter ===
     mca_telem_json = get_filtered_json(mca_telem_json, args.technique_top)
     get_json(mca_telem_json, "filtered_mca_db.json")
 
-    get_sankey(mca_telem_json)
+    # === Visualize ===
+    if args.view == "table":
+        get_table(mca_telem_json)
+    else:
+        get_sankey(mca_telem_json)
 
 
 if __name__ == "__main__":
