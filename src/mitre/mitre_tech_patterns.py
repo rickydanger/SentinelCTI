@@ -1,48 +1,51 @@
 #!/usr/bin/env python3
 
+def extract_techniques(entries):
+    """Shared helper to extract (technique_id, technique_name, tactics) from technique entries."""
+    result = []
+    
+    for entry in entries:
+        tech = entry.get('object') if isinstance(entry, dict) else getattr(entry, 'object', entry)
+        
+        pattern_id = getattr(tech, 'id', 'N/A')
+        pattern_name = getattr(tech, 'name', 'N/A')
+        
+        # Extract tactics from kill_chain_phases
+        tactics = []
+        for phase in getattr(tech, 'kill_chain_phases', []):
+            if getattr(phase, 'kill_chain_name', '') == 'mitre-attack':
+                tactic = getattr(phase, 'phase_name', None)
+                if tactic:
+                    tactics.append(tactic)
+        
+        result.append((pattern_id, pattern_name, tactics))
+    
+    return result
+
+
 def get_techniques_for_group(input_name, mitre_data):
-    """Return list of (Technique Pattern ID, Technique Name) used by a group (APT)"""
+    """Return list of (Technique ID, Technique Name, Tactics) used by a group (APT)"""
     
     for group in mitre_data.get_groups():
-        name = group.name.lower()
-
-        if input_name.lower() == name:
-            print(f"{name} was found as a group in the MITRE ATT&CK database.")
+        if input_name.lower() == group.name.lower():
+            print(f"{group.name} was found as a group in the MITRE ATT&CK database.")
             techniques = mitre_data.get_techniques_used_by_group(group.id)
-            
-            result = []
-            for entry in techniques:
-                tech = entry.get('object') if isinstance(entry, dict) else getattr(entry, 'object', entry)
-                pattern_id = getattr(tech, 'id', 'N/A')
-                pattern_name = getattr(tech, 'name', 'N/A')
-                result.append((pattern_id, pattern_name))
-            return result
+            return extract_techniques(techniques)
     
     return []
 
+
 def get_techniques_for_malware(input_name, mitre_data):
-    """Return list of (Technique Pattern ID, Technique Name) used by a malware"""
+    """Return list of (Technique ID, Technique Name, Tactics) used by a malware"""
     
-    # Find the malware
     for malware in mitre_data.get_software():
         if malware.type != "malware":
             continue
             
-        name = malware.name.lower()
-
-        # Exact match (case insensitive)
-        if input_name.lower() == name:
-            print(name + " was found in the MITRE ATT&CK database.")
-            # Get all techniques used by this malware
+        if input_name.lower() == malware.name.lower():
+            print(f"{malware.name} was found in the MITRE ATT&CK database.")
             techniques = mitre_data.get_techniques_used_by_software(malware.id)
-            
-            result = []
-            for entry in techniques:
-                tech = entry.get('object') if isinstance(entry, dict) else getattr(entry, 'object', entry)
-                pattern_id = getattr(tech, 'id', 'N/A')
-                pattern_name = getattr(tech, 'name', 'N/A')
-                result.append((pattern_id, pattern_name))
-            return result
+            return extract_techniques(techniques)
     
     return []
 

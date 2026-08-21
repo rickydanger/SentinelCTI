@@ -2,50 +2,61 @@ from collections import defaultdict, Counter
 import plotly.graph_objects as go
 
 
-def _count_connections(mca_telemetry_json):
+def count_connections(mca_telemetry_json):
     """Count all the connections and totals from the records."""
-    entity_tech = defaultdict(int)
+    entity_tactic = defaultdict(int)
+    tactic_tech = defaultdict(int)
     tech_channel = defaultdict(int)
     channel_source = defaultdict(int)
 
     entity_total = Counter()
+    tactic_total = Counter()
     tech_total = Counter()
     channel_total = Counter()
     source_total = Counter()
 
     for r in mca_telemetry_json:
         e = r["entity_name"]
+        tac = r["tactic"]
         t = r["technique_name"]
         c = r["log_source_channel"]
         s = r["log_source_name"]
 
-        entity_tech[(e, t)] += 1
+        entity_tactic[(e, tac)] += 1
+        tactic_tech[(tac, t)] += 1
         tech_channel[(t, c)] += 1
         channel_source[(c, s)] += 1
 
         entity_total[e] += 1
+        tactic_total[tac] += 1
         tech_total[t] += 1
         channel_total[c] += 1
         source_total[s] += 1
 
-    return entity_tech, tech_channel, channel_source, entity_total, tech_total, channel_total, source_total
+    return (entity_tactic, tactic_tech, tech_channel, channel_source, entity_total, tactic_total, tech_total, channel_total, source_total)
 
 
-def _sort_nodes(entity_total, tech_total, channel_total, source_total):
+def sort_nodes(entity_total, tactic_total, tech_total, channel_total, source_total):
     """Sort each layer by connection strength (most connected first)."""
     entity_names = [m for m, _ in entity_total.most_common()]
+    tactic_names = [t for t, _ in tactic_total.most_common()]
     technique_names = [t for t, _ in tech_total.most_common()]
     channel_names = [c for c, _ in channel_total.most_common()]
     source_names = [s for s, _ in source_total.most_common()]
-    return entity_names, technique_names, channel_names, source_names
+    return entity_names, tactic_names, technique_names, channel_names, source_names
 
 
-def _build_links(entity_tech, tech_channel, channel_source, idx):
+def build_links(entity_tactic, tactic_tech, tech_channel, channel_source, idx):
     """Build the source, target, and value lists for the Sankey links."""
     source, target, value = [], [], []
 
-    for (e, t), cnt in entity_tech.items():
+    for (e, tac), cnt in entity_tactic.items():
         source.append(idx[e])
+        target.append(idx[tac])
+        value.append(cnt)
+
+    for (tac, t), cnt in tactic_tech.items():
+        source.append(idx[tac])
         target.append(idx[t])
         value.append(cnt)
 
@@ -64,27 +75,27 @@ def _build_links(entity_tech, tech_channel, channel_source, idx):
 
 def get_sankey(mca_telemetry_json):
     """
-    Builds a 4-layer Sankey:
-    Entity → Technique → Log Source Channel → Log Source
+    Builds a 5-layer Sankey:
+    Entity → Tactic → Technique → Log Source Channel → Log Source
     """
     if not mca_telemetry_json:
         print("No data to plot.")
         return
 
     # 1. Count connections
-    entity_tech, tech_channel, channel_source, entity_total, tech_total, channel_total, source_total = _count_connections(mca_telemetry_json)
+    entity_tactic, tactic_tech, tech_channel, channel_source, entity_total, tactic_total, tech_total, channel_total, source_total = count_connections(mca_telemetry_json)
 
     # 2. Sort nodes
-    entity_names, technique_names, channel_names, source_names = _sort_nodes(
-        entity_total, tech_total, channel_total, source_total
+    entity_names, tactic_names, technique_names, channel_names, source_names = sort_nodes(
+        entity_total, tactic_total, tech_total, channel_total, source_total
     )
 
     # 3. Build labels and index
-    labels = entity_names + technique_names + channel_names + source_names
+    labels = entity_names + tactic_names + technique_names + channel_names + source_names
     idx = {label: i for i, label in enumerate(labels)}
 
     # 4. Build links
-    source, target, value = _build_links(entity_tech, tech_channel, channel_source, idx)
+    source, target, value = build_links(entity_tactic, tactic_tech, tech_channel, channel_source, idx)
 
     # 6. Create and show the chart
     fig = go.Figure(go.Sankey(
@@ -95,6 +106,7 @@ def get_sankey(mca_telemetry_json):
             label=labels,
             color= (
                 ["#1E88E5"] * len(entity_names) +
+                ["#00897B"] * len(tactic_names) +
                 ["#43A047"] * len(technique_names) +
                 ["#FB8C00"] * len(channel_names) +
                 ["#8E24AA"] * len(source_names)
@@ -111,11 +123,11 @@ def get_sankey(mca_telemetry_json):
     fig.update_layout(
         title_text=(
             "MCA Telemetry Calculator"
-            "<br>Entity → Technique → Log Source Channel → Log Source"
+            "<br>Entity → Tactic → Technique → Log Source Channel → Log Source"
             "<br><span style='font-size:12px'>Powered by MITRE ATT&CK</span>"
         ),
         font_size=14,
-        height=900
+        height=950
     )
 
     fig.show()

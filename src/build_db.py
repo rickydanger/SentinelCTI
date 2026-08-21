@@ -27,24 +27,32 @@ def get_mca_telem_json(names, platform, mitre_data):
 
         print(f"→ Processing {entity_type}: {name}")
 
-        for pattern_id, pattern_name in tech_list:
+        for pattern_id, pattern_name, tactics in tech_list:
+
+            if not tactics:
+                tactics = ["unknown"]
+
             analytics = get_analytics_for_technique(pattern_id, platform, mitre_data)
+            
 
             for a in analytics:
                 analytic_id, analytic_name, platform_name = a
 
                 for log_source_name, channel in get_log_sources_for_analytic(analytic_id, mitre_data):
-                    record = {
-                        "entity_type": entity_type,
-                        "entity_name": name,
-                        "technique_id": pattern_id,
-                        "technique_name": pattern_name,
-                        "analytic_id": analytic_id,
-                        "analytic_name": analytic_name,
-                        "platform": platform_name,
-                        "log_source_name": log_source_name,
-                        "log_source_channel": channel
-                    }
-                    mca_telemetry_json.append(record)
+                    
+                    for tactic in tactics:
+                        record = {
+                            "entity_type": entity_type,
+                            "entity_name": name,
+                            "tactic": tactic,
+                            "technique_id": pattern_id,
+                            "technique_name": pattern_name,
+                            "analytic_id": analytic_id,
+                            "analytic_name": analytic_name,
+                            "platform": platform_name,
+                            "log_source_name": log_source_name,
+                            "log_source_channel": channel
+                        }
+                        mca_telemetry_json.append(record)
 
     return mca_telemetry_json

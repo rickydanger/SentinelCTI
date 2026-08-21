@@ -44,6 +44,9 @@ def main():
 
     # Return last run and keep top 5 techniques
     python main.py -l -t 5
+
+    # Return last run and list all techniques (no filtering)
+    python main.py -l -t 0
 """
     )
 
