@@ -1,4 +1,4 @@
-from mitre_tech_patterns import list_all_malware, list_all_groups
+from src.mitre.mitre_tech_patterns import list_all_malware, list_all_groups
 
 def get_entities_list(args, mitre_data):
     """Handle -e malware / -e groups. Returns True if list mode was used."""

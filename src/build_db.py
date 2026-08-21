@@ -1,8 +1,8 @@
 # build_mca_telemetry.py
 
-from mitre_tech_patterns import get_techniques_for_malware, get_techniques_for_group
-from mitre_tech_analytics import get_analytics_for_technique
-from mitre_log_sources import get_log_sources_for_analytic
+from src.mitre.mitre_tech_patterns import get_techniques_for_malware, get_techniques_for_group
+from src.mitre.mitre_tech_analytics import get_analytics_for_technique
+from src.mitre.mitre_log_sources import get_log_sources_for_analytic
 
 def get_mca_telem_json(names, platform, mitre_data):
     """

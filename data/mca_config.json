@@ -1,5 +1,5 @@
 {
-  "last_run": "lumma",
+  "last_run": "apt29_scatt_akira",
   "configs": {
     "voltt_apt29": {
       "mca_db_path": "voltt_apt29_db.json",
@@ -24,7 +24,38 @@
         "lumma stealer"
       ],
       "platform": "windows",
-      "created": "2026-07-27T20:51:12"
+      "created": "2026-08-21T09:38:54"
+    },
+    "voltt_apt29_scatt_akira_lumma": {
+      "mca_db_path": "voltt_apt29_scatt_akira_lumma_db.json",
+      "entities": [
+        "volt typhoon",
+        "APT29",
+        "scattered spider",
+        "akira",
+        "lumma stealer"
+      ],
+      "platform": "windows",
+      "created": "2026-08-21T09:42:11"
+    },
+    "apt29_akira": {
+      "mca_db_path": "apt29_akira_db.json",
+      "entities": [
+        "APT29",
+        "akira"
+      ],
+      "platform": "windows",
+      "created": "2026-08-21T09:57:58"
+    },
+    "apt29_scatt_akira": {
+      "mca_db_path": "apt29_scatt_akira_db.json",
+      "entities": [
+        "APT29",
+        "scattered spider",
+        "akira"
+      ],
+      "platform": "windows",
+      "created": "2026-08-21T10:03:41"
     }
   }
 }

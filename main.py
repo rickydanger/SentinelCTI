@@ -3,13 +3,13 @@
 from mitreattack.stix20 import MitreAttackData
 import argparse
 
-from write_json import get_json
-from filter_db import get_filtered_json
-from plot_mca import get_sankey
-from config_db import load_config
-from list_entities import get_entities_list
-from last_db import get_last_db
-from new_db import get_new_db
+from src.write_json import get_json
+from src.filter_db import get_filtered_json
+from src.plot_mca import get_sankey
+from src.config_db import load_config
+from src.list_entities import get_entities_list
+from src.last_db import get_last_db
+from src.new_db import get_new_db
 
 def main():
     mitre_data = MitreAttackData("enterprise-attack.json")
