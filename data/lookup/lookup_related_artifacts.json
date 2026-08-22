@@ -1,0 +1,96 @@
+{
+  "EventCode=1": [
+    "Prefetch",
+    "Amcache",
+    "Shimcache",
+    "UserAssist",
+    "BAM/DAM",
+    "RecentApps"
+  ],
+  "EventCode=4688": [
+    "Prefetch",
+    "Amcache",
+    "Shimcache",
+    "UserAssist"
+  ],
+  "EventCode=5": [
+    "Prefetch",
+    "Amcache"
+  ],
+  "EventCode=7": [
+    "Amcache",
+    "Shimcache"
+  ],
+  "EventCode=8": [
+    "Prefetch",
+    "Amcache"
+  ],
+  "EventCode=10": [
+    "Amcache",
+    "Prefetch"
+  ],
+  "EventCode=11": [
+    "$MFT",
+    "USN Journal ($J)",
+    "Prefetch",
+    "Amcache",
+    "LNK files"
+  ],
+  "EventCode=23": [
+    "$MFT",
+    "USN Journal ($J)",
+    "Recycle Bin ($I / $R files)"
+  ],
+  "EventCode=6": [
+    "Amcache",
+    "Shimcache"
+  ],
+  "EventCode=3, 22": [
+    "SRUM (System Resource Usage Monitor)",
+    "Prefetch"
+  ],
+  "EventCode=3": [
+    "SRUM (System Resource Usage Monitor)"
+  ],
+  "EventCode=22": [
+    "SRUM (System Resource Usage Monitor)"
+  ],
+  "EventCode=7045": [
+    "Services (SYSTEM hive)",
+    "Prefetch",
+    "Amcache"
+  ],
+  "EventCode=4698": [
+    "Scheduled Tasks (Task Cache + XML)"
+  ],
+  "EventCode=4702": [
+    "Scheduled Tasks (Task Cache + XML)"
+  ],
+  "EventCode=4697": [
+    "Services (SYSTEM hive)"
+  ],
+  "EventCode=13, 14": [
+    "Run / RunOnce keys",
+    "AppCompatFlags",
+    "Registry Transaction Logs (.LOG)"
+  ],
+  "EventCode=12": [
+    "Run / RunOnce keys",
+    "Registry Transaction Logs (.LOG)"
+  ],
+  "EventCode=4663, 4670, 4656": [
+    "$MFT",
+    "USN Journal ($J)"
+  ],
+  "EventCode=4657": [
+    "Registry Transaction Logs (.LOG)"
+  ],
+  "EventCode=4103, 4104, 4105, 4106": [
+    "Prefetch",
+    "Amcache"
+  ],
+  "EventCode=2": [
+    "$MFT",
+    "USN Journal ($J)"
+  ]
+}

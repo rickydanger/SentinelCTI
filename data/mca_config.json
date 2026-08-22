@@ -1,5 +1,5 @@
 {
-  "last_run": "voltt",
+  "last_run": "voltt_saltt_apt29_apt28_lazar_scatt_akira_qilin_lockb_cl0p_play_drago_thege_apt41_apt31_kimsu_andar_musta_sandw_black_notpe_emote_trick_cobal_apt10_apt1_equat_turla_fin7",
   "configs": {
     "voltt_apt29_scatt_akira_lumma": {
       "mca_db_path": "voltt_apt29_scatt_akira_lumma_db.json",
@@ -20,6 +20,42 @@
       ],
       "platform": "windows",
       "created": "2026-08-21T16:43:53"
+    },
+    "voltt_saltt_apt29_apt28_lazar_scatt_akira_qilin_lockb_cl0p_play_drago_thege_apt41_apt31_kimsu_andar_musta_sandw_black_notpe_emote_trick_cobal_apt10_apt1_equat_turla_fin7": {
+      "mca_db_path": "voltt_saltt_apt29_apt28_lazar_scatt_akira_qilin_lockb_cl0p_play_drago_thege_apt41_apt31_kimsu_andar_musta_sandw_black_notpe_emote_trick_cobal_apt10_apt1_equat_turla_fin7_db.json",
+      "entities": [
+        "volt typhoon",
+        "salt typhoon",
+        "APT29",
+        "APT28",
+        "Lazarus",
+        "scattered spider",
+        "akira",
+        "qilin",
+        "lockbit",
+        "cl0p",
+        "play",
+        "dragonforce",
+        "the gentlemen",
+        "APT41",
+        "APT31",
+        "kimsuky",
+        "andariel",
+        "mustang panda",
+        "sandworm",
+        "blackenergy",
+        "notpetya",
+        "emotet",
+        "trickbot",
+        "cobalt strike",
+        "apt10",
+        "apt1",
+        "equation group",
+        "turla",
+        "fin7"
+      ],
+      "platform": "windows",
+      "created": "2026-08-21T19:29:16"
     }
   }
 }
