@@ -10,61 +10,61 @@ def prepare_data(mca_telemetry_json):
     entity_tactic = defaultdict(int)
     tactic_tech = defaultdict(int)
     tech_channel = defaultdict(int)
-    channel_source = defaultdict(int)
+    channel_artifact = defaultdict(int)
 
     entity_total = Counter()
     tactic_total = Counter()
     tech_total = Counter()
     channel_total = Counter()
-    source_total = Counter()
+    artifact_total = Counter()
 
     for r in mca_telemetry_json:
         e = r["entity_name"]
         tac = r["tactic"]
         t = r["technique_name"]
         c = r["log_source_channel"]
-        s = r["log_source_name"]
+        a = r["related_artifact"]
 
         entity_tactic[(e, tac)] += 1
         tactic_tech[(tac, t)] += 1
         tech_channel[(t, c)] += 1
-        channel_source[(c, s)] += 1
+        channel_artifact[(c, a)] += 1
 
         entity_total[e] += 1
         tactic_total[tac] += 1
         tech_total[t] += 1
         channel_total[c] += 1
-        source_total[s] += 1
+        artifact_total[a] += 1
 
     # Sort each layer (most connected first, then by your priority)
     entity_names = [m for m, _ in entity_total.most_common()]
     tactic_names = [t for t, _ in tactic_total.most_common()]
     technique_names = [t for t, _ in tech_total.most_common()]
     channel_names = [c for c, _ in channel_total.most_common()]
-    source_names = [s for s, _ in source_total.most_common()]
+    artifact_names = [a for a, _ in artifact_total.most_common()]
 
     return {
         "entity_tactic": entity_tactic,
         "tactic_tech": tactic_tech,
         "tech_channel": tech_channel,
-        "channel_source": channel_source,
+        "channel_artifact": channel_artifact,
         "entity_names": entity_names,
         "tactic_names": tactic_names,
         "technique_names": technique_names,
         "channel_names": channel_names,
-        "source_names": source_names,
+        "artifact_names": artifact_names,
         "entity_total": entity_total,
         "tactic_total": tactic_total,
         "tech_total": tech_total,
         "channel_total": channel_total,
-        "source_total": source_total,
+        "artifact_total": artifact_total,
     }
 
 
 def get_sankey(mca_telemetry_json):
     """
     Builds a 5-layer Sankey:
-    Entity → Tactic → Technique → Log Source Channel → Log Source
+    Entity → Tactic → Technique → Log Source → Related Artifact
     """
     if not mca_telemetry_json:
         print("No data to plot.")
@@ -74,7 +74,7 @@ def get_sankey(mca_telemetry_json):
 
     # Build labels and index
     labels = (data["entity_names"] + data["tactic_names"] +
-              data["technique_names"] + data["channel_names"] + data["source_names"])
+              data["technique_names"] + data["channel_names"] + data["artifact_names"])
     idx = {label: i for i, label in enumerate(labels)}
 
     # Build links
@@ -95,9 +95,9 @@ def get_sankey(mca_telemetry_json):
         target.append(idx[c])
         value.append(cnt)
 
-    for (c, s), cnt in data["channel_source"].items():
+    for (c, a), cnt in data["channel_artifact"].items():
         source.append(idx[c])
-        target.append(idx[s])
+        target.append(idx[a])
         value.append(cnt)
 
     # Create and show the chart
@@ -112,7 +112,7 @@ def get_sankey(mca_telemetry_json):
                 ["#00897B"] * len(data["tactic_names"]) +
                 ["#43A047"] * len(data["technique_names"]) +
                 ["#FB8C00"] * len(data["channel_names"]) +
-                ["#8E24AA"] * len(data["source_names"])
+                ["#8E24AA"] * len(data["artifact_names"])
             )
         ),
         link=dict(
@@ -126,7 +126,7 @@ def get_sankey(mca_telemetry_json):
     fig.update_layout(
         title_text=(
             "MCA Telemetry Calculator"
-            "<br>Entity → Tactic → Technique → Log Source Channel → Log Source"
+            "<br>Entity → Tactic → Technique → Log Source → Related Artifact"
             "<br><span style='font-size:12px'>Powered by MITRE ATT&CK</span>"
         ),
         font_size=14,
@@ -140,7 +140,7 @@ def get_table(mca_telemetry_json):
     """
     Displays an interactive table in the browser.
     Columns:
-    entity | tactic | technique | technique count | log source channel | log source channel count | log source
+    entity | tactic | technique | technique count | log source | log source count | related artifact
     """
     if not mca_telemetry_json:
         print("No data to display.")
@@ -156,7 +156,7 @@ def get_table(mca_telemetry_json):
             r["tactic"],
             r["technique_name"],
             r["log_source_channel"],
-            r["log_source_name"]
+            r["related_artifact"]
         )
 
         if key not in rows:
@@ -167,7 +167,7 @@ def get_table(mca_telemetry_json):
                 "technique_count": data["tech_total"][r["technique_name"]],
                 "log_source_channel": r["log_source_channel"],
                 "log_source_channel_count": data["channel_total"][r["log_source_channel"]],
-                "log_source": r["log_source_name"]
+                "related_artifact": r["related_artifact"]
             }
 
     # Sort by counts with this priority (technique strongest):
@@ -177,14 +177,14 @@ def get_table(mca_telemetry_json):
         -r["technique_count"],                 # highest technique count first
         -r["log_source_channel_count"],        # then highest channel count
         r["tactic"],
-        r["log_source"],
+        r["related_artifact"],
         r["entity"]
     ))
 
     fig = go.Figure(data=[go.Table(
         header=dict(
             values=["Entity", "Tactic", "Technique", "Technique Count",
-                    "Log Source Channel", "Channel Count", "Log Source"],
+                    "Log Source", "Channel Count", "Related Artifact"],
             fill_color="#1E88E5",
             font=dict(color="white", size=13),
             align="left"
@@ -197,7 +197,7 @@ def get_table(mca_telemetry_json):
                 [row["technique_count"] for row in table_data],
                 [row["log_source_channel"] for row in table_data],
                 [row["log_source_channel_count"] for row in table_data],
-                [row["log_source"] for row in table_data],
+                [row["related_artifact"] for row in table_data],
             ],
             fill_color="#F5F5F5",
             align="left",

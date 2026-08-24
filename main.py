@@ -8,7 +8,7 @@ from src.filter_db import get_filtered_json
 from src.plot_mca import get_sankey, get_table
 from src.config_db import load_config
 from src.list_entities import get_entities_list
-from src.last_db import get_last_db
+from src.last_db import get_db
 from src.new_db import get_new_db
 
 
@@ -65,7 +65,7 @@ Examples:
 
     # === Get last database ===
     if args.last or args.db:
-        mca_telem_json = get_last_db(args, config)
+        mca_telem_json = get_db(args, config)
         if mca_telem_json is None:
             return
 

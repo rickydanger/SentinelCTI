@@ -1,0 +1,172 @@
+{
+  "source": "!SANS_Triage",
+  "naming": "FOR500 Windows Forensic Analysis Poster / FOR508 Hunt Evil Poster",
+  "notes": [
+    "Compound target names are omitted.",
+    "List is the uncompounded !SANS_Triage collection, renamed to SANS poster language.",
+    "Some poster artifacts (UserAssist, Shimcache, BAM/DAM, USBSTOR, specific event logs) are not separate KAPE targets. They are recovered from Registry Hives and Event Logs collections."
+  ],
+  "artifacts": {
+    "evidence_of_application_execution": [
+      "Prefetch",
+      "Amcache.hve",
+      "AppCompatPCA",
+      "RecentFileCache",
+      "Syscache",
+      "SRUM",
+      "Windows Timeline (ActivitiesCache.db)"
+    ],
+    "evidence_of_file_knowledge_file_access": [
+      "LNK files",
+      "Jump Lists",
+      "Thumbcache / Thumbs.db",
+      "Windows Search database (Windows.edb)"
+    ],
+    "evidence_of_deleted_files": [
+      "Recycle Bin $I files",
+      "$MFT",
+      "USN Journal ($J)",
+      "$LogFile",
+      "$SDS",
+      "$Boot",
+      "$T"
+    ],
+    "persistence_system_artifacts": [
+      "Scheduled Tasks",
+      "BITS",
+      "WMI Repository (WBEM)",
+      "WER",
+      "SUM",
+      "Group Policy",
+      "Services and system configuration stored in the SYSTEM hive"
+    ],
+    "event_logs_and_related_logs": [
+      "Security Event Log",
+      "System Event Log",
+      "Application Event Log",
+      "PowerShell Event Log",
+      "Sysmon Event Log",
+      "Task Scheduler Event Log",
+      "Windows Defender Event Log",
+      "Terminal Services / RDP Event Logs",
+      "Event Trace Logs",
+      "PowerShell Console Log",
+      "PowerShell Transcripts",
+      "Windows Firewall Log",
+      "USB Device SetupAPI Logs"
+    ],
+    "registry_artifacts_from_hive_collection": [
+      "Shimcache (AppCompatCache)",
+      "UserAssist",
+      "BAM / DAM",
+      "RecentApps",
+      "Task Bar Feature Usage",
+      "CapabilityAccessManager",
+      "RecentDocs",
+      "OpenSavePidlMRU / LastVisitedPidlMRU",
+      "ShellBags",
+      "Run / RunOnce",
+      "USBSTOR",
+      "MountedDevices",
+      "NTUSER.DAT",
+      "UsrClass.dat",
+      "SYSTEM hive",
+      "SOFTWARE hive",
+      "SAM hive",
+      "SECURITY hive"
+    ],
+    "browser_activity": [
+      "Chrome History / Downloads / Cookies",
+      "Edge History / Downloads / Cookies",
+      "Internet Explorer History",
+      "Firefox History / Downloads / Cookies",
+      "Brave",
+      "Opera",
+      "Vivaldi",
+      "Other Chromium-based browsers collected by the browser targets"
+    ],
+    "cloud_storage_metadata": [
+      "OneDrive",
+      "Google Drive",
+      "Dropbox",
+      "Box",
+      "MegaSync",
+      "Rclone",
+      "FreeFileSync",
+      "Kopia"
+    ],
+    "communications_messaging": [
+      "Microsoft Teams",
+      "Slack",
+      "Discord",
+      "Skype",
+      "Signal",
+      "Telegram",
+      "WhatsApp",
+      "Viber",
+      "Mattermost",
+      "Cisco Jabber",
+      "HexChat",
+      "IceChat",
+      "mIRC"
+    ],
+    "remote_access_lateral_movement": [
+      "RDP Bitmap Cache",
+      "RDP Logs",
+      "AnyDesk",
+      "TeamViewer",
+      "ScreenConnect",
+      "Splashtop",
+      "RustDesk",
+      "LogMeIn",
+      "VNC",
+      "Ammyy",
+      "Quick Assist",
+      "Other remote admin tools collected by RemoteAdmin"
+    ],
+    "external_device_usb": [
+      "USB Device SetupAPI Logs",
+      "USBSTOR",
+      "MountedDevices"
+    ],
+    "ftp_and_network_scanners": [
+      "FileZilla Client",
+      "FileZilla Server",
+      "WinSCP",
+      "Robo-FTP",
+      "Advanced IP Scanner",
+      "Advanced Port Scanner",
+      "SoftPerfect Network Scanner"
+    ],
+    "antivirus": [
+      "Windows Defender",
+      "Microsoft Safety Scanner",
+      "CrowdStrike Falcon",
+      "SentinelOne",
+      "Cybereason",
+      "Cylance",
+      "Elastic Defend",
+      "Symantec",
+      "McAfee",
+      "McAfee ePO",
+      "Sophos",
+      "ESET",
+      "Bitdefender",
+      "Trend Micro",
+      "Malwarebytes",
+      "Avast",
+      "AVG",
+      "Avira",
+      "F-Secure",
+      "Webroot",
+      "VIPRE",
+      "HitmanPro",
+      "ComboFix",
+      "RogueKiller",
+      "SecureAge",
+      "SUPERAntiSpyware",
+      "Emsisoft",
+      "TotalAV"
+    ]
+  }
+}

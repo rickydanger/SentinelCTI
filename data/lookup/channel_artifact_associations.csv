@@ -1,0 +1,574 @@
+channel,artifact,strength,why,vantage
+API calls,Event Trace Logs,strong,ETW is the native record of API/stack traces named by the channel.,host
+API calls,Sysmon Event Log,moderate,"Sysmon records some API-visible actions (process, image load, network) but not arbitrary API names.",host
+API tracing / stack tracing via ETW or telemetry-based EDR,Elastic Defend,strong,EDR telemetry of the same class as the channel (API/behavior traces).,host
+API tracing / stack tracing via ETW or telemetry-based EDR,Event Trace Logs,strong,ETW/stack traces are this channel.,host
+API tracing / stack tracing via ETW or telemetry-based EDR,Sysmon Event Log,moderate,"Host telemetry that overlaps some traced behaviors, not full stacks.",host
+"Abnormal sign-in from scripting tools (PowerShell, AADInternals)",PowerShell Console Log,moderate,"Console history of the same session, less complete than 4104/transcripts.",host
+"Abnormal sign-in from scripting tools (PowerShell, AADInternals)",PowerShell Event Log,strong,Scripting tool execution and cmdlets used to authenticate.,host
+"Abnormal sign-in from scripting tools (PowerShell, AADInternals)",PowerShell Transcripts,strong,Full script content including AADInternals/auth calls.,host
+"Abnormal sign-in from scripting tools (PowerShell, AADInternals)",Security Event Log,strong,Logon events (4624/4625/4648) record the sign-in.,host
+Accessed SharePoint files or pages,Chrome History / Downloads / Cookies,moderate,Browser visit/download of SharePoint URLs when access was via Chrome.,host
+Accessed SharePoint files or pages,Edge History / Downloads / Cookies,moderate,Same as Chrome when Edge was the client.,host
+Accessed SharePoint files or pages,OneDrive,strong,SharePoint/OneDrive client leaves sync and access metadata for those files.,host
+Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents,CrowdStrike Falcon,strong,Same process+network endpoint telemetry class.,host
+Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents,Elastic Defend,strong,Same process+network endpoint telemetry class.,host
+Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents,Security Event Log,moderate,4688 covers process create; network is incomplete without 5156 or Sysmon.,host
+Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents,Sysmon Event Log,strong,Process create plus network connect is the host equivalent of those two MDE tables.,host
+Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents,PCAP / PCAPNG,moderate,Full packets if you need payload behind those network events.,network
+Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,Sensor session record matching DeviceNetworkEvents 5-tuple.,network
+Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents,"dns.log (DNS queries and responses, passive DNS from the wire)",moderate,Wire DNS for the same host that MDE would log as network.,network
+Amsi/Script content + API verdicts during in-memory staging,PowerShell Event Log,strong,Script block / AMSI-related PowerShell events hold script content.,host
+Amsi/Script content + API verdicts during in-memory staging,PowerShell Transcripts,strong,Full in-memory staging commands if transcribed.,host
+Amsi/Script content + API verdicts during in-memory staging,Windows Defender,strong,Defender product artifacts include AMSI/scan verdicts.,host
+Amsi/Script content + API verdicts during in-memory staging,Windows Defender Event Log,strong,AMSI and Defender verdicts land here.,host
+Anomalous logon without MFA enforcement,Security Event Log,moderate,"Records the logon. MFA enforcement itself is often IdP/cloud, not this log.",host
+App reputation telemetry,Amcache.hve,moderate,Shows binaries present/executed that reputation would score; not the verdict.,host
+App reputation telemetry,Windows Defender,strong,Defender product telemetry for reputation.,host
+App reputation telemetry,Windows Defender Event Log,strong,SmartScreen/reputation decisions are Defender events.,host
+AssemblyLoad/ModuleLoad (Loader keyword) from Microsoft-Windows-DotNETRuntime,Amcache.hve,moderate,"On-disk assembly that was loaded, not the ETW load event.",host
+AssemblyLoad/ModuleLoad (Loader keyword) from Microsoft-Windows-DotNETRuntime,Event Trace Logs,strong,DotNETRuntime ETW loader keyword is this channel.,host
+Behavioral rule for registry enumeration under credential-related paths,NTUSER.DAT,moderate,User hive credential-adjacent keys after the fact.,host
+Behavioral rule for registry enumeration under credential-related paths,SOFTWARE hive,moderate,"Hive contents after the fact, not the enumeration event.",host
+Behavioral rule for registry enumeration under credential-related paths,Security Event Log,strong,4656/4663/4657 can record access/changes to those keys if audited.,host
+Behavioral rule for registry enumeration under credential-related paths,Sysmon Event Log,strong,Event 12/13 registry events on those paths.,host
+"Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",Brave,strong,Chromium profile for Brave.,host
+"Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",Chrome History / Downloads / Cookies,strong,"Chrome profile stores extensions, history, and related logs.",host
+"Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",Edge History / Downloads / Cookies,strong,Edge profile equivalent.,host
+"Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",Firefox History / Downloads / Cookies,strong,Firefox profile equivalent.,host
+"Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",Internet Explorer History,moderate,IE/Trident history; extension model is thinner.,host
+"Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",Opera,strong,Chromium profile for Opera.,host
+"Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",Other Chromium-based browsers collected by the browser targets,strong,Same class of browser profile artifacts.,host
+"Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",Vivaldi,strong,Chromium profile for Vivaldi.,host
+CLSID activation events where ProcessName=mmc.exe and CLSID not in allowed baseline,Amcache.hve,strong,Execution/presence of mmc and loaded COM servers.,host
+CLSID activation events where ProcessName=mmc.exe and CLSID not in allowed baseline,Prefetch,strong,Shows mmc.exe execution and referenced files.,host
+CLSID activation events where ProcessName=mmc.exe and CLSID not in allowed baseline,SOFTWARE hive,strong,CLSID registration lives in SOFTWARE.,host
+CLSID activation events where ProcessName=mmc.exe and CLSID not in allowed baseline,UserAssist,moderate,"User-launched mmc.exe evidence, not the CLSID.",host
+Cmdlet - New-InboxRule,PowerShell Console Log,moderate,Console history may show the cmdlet.,host
+Cmdlet - New-InboxRule,PowerShell Event Log,strong,4104/4103 record New-InboxRule.,host
+Cmdlet - New-InboxRule,PowerShell Transcripts,strong,Transcript of the cmdlet and parameters.,host
+CodeIntegrity/WDAC events indicating unsigned/invalid DLL loads,Amcache.hve,moderate,"The unsigned DLL on disk, not the CI verdict.",host
+CodeIntegrity/WDAC events indicating unsigned/invalid DLL loads,Application Event Log,moderate,Some CodeIntegrity events also write here.,host
+CodeIntegrity/WDAC events indicating unsigned/invalid DLL loads,Windows Defender,strong,WDAC/CI is Defender/CI stack.,host
+CodeIntegrity/WDAC events indicating unsigned/invalid DLL loads,Windows Defender Event Log,strong,CI/WDAC operational events.,host
+Command Line Telemetry,PowerShell Event Log,strong,PowerShell command lines in 4103/4104.,host
+Command Line Telemetry,Security Event Log,strong,4688 includes command line if process auditing + command line is on.,host
+Command Line Telemetry,Sysmon Event Log,strong,Event 1 includes CommandLine.,host
+CommandLine=copy-item or robocopy from UNC path,$MFT,moderate,Destination file created on disk.,host
+CommandLine=copy-item or robocopy from UNC path,PowerShell Event Log,strong,Copy-Item is a PowerShell cmdlet; 4104 records it.,host
+CommandLine=copy-item or robocopy from UNC path,PowerShell Transcripts,strong,Full Copy-Item/UNC arguments.,host
+CommandLine=copy-item or robocopy from UNC path,Prefetch,moderate,robocopy.exe / powershell.exe execution.,host
+CommandLine=copy-item or robocopy from UNC path,Security Event Log,strong,4688 command line plus 5140/5145 for the UNC share.,host
+CommandLine=copy-item or robocopy from UNC path,USN Journal ($J),moderate,Create/write USN reasons for the copied file.,host
+CommandLine=copy-item or robocopy from UNC path,PCAP / PCAPNG,moderate,Payload of the file copy if needed.,network
+CommandLine=copy-item or robocopy from UNC path,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,Session to 445/139.,network
+CommandLine=copy-item or robocopy from UNC path,smb_cmd.log (SMB commands),moderate,SMB commands used for the copy.,network
+CommandLine=copy-item or robocopy from UNC path,smb_files.log (SMB file access),strong,SMB file copy on the wire.,network
+CommandLine=copy-item or robocopy from UNC path,smb_mapping.log (share / tree connects),strong,Tree connect to the UNC share.,network
+"Creation or modification of __EventFilter, __FilterToConsumerBinding, or CommandLineEventConsumer",Sysmon Event Log,strong,Event 19/20/21 WMI activity.,host
+"Creation or modification of __EventFilter, __FilterToConsumerBinding, or CommandLineEventConsumer",WMI Repository (WBEM),strong,Those objects are stored in the WMI repository.,host
+Device Object Creation,SYSTEM hive,moderate,CurrentControlSet Enum/services reflect devices after creation.,host
+Device Object Creation,Sysmon Event Log,strong,Sysmon records device-related / driver object activity in relevant events.,host
+"Enrollment events (e.g., MDMDeviceRegistration)",Group Policy,moderate,MDM/GPO overlap for device config.,host
+"Enrollment events (e.g., MDMDeviceRegistration)",SOFTWARE hive,strong,Enrollment/MDM state is in SOFTWARE.,host
+"Enrollment events (e.g., MDMDeviceRegistration)",System Event Log,moderate,DeviceManagement-Enterprise-Diagnostics and related system events.,host
+Enumerate Winlogon subkeys for unknown or unsigned binaries,Amcache.hve,moderate,Unknown/unsigned binaries referenced by those values.,host
+Enumerate Winlogon subkeys for unknown or unsigned binaries,SOFTWARE hive,strong,Winlogon keys are in SOFTWARE.,host
+Enumerate Winlogon subkeys for unknown or unsigned binaries,Security Event Log,moderate,Registry audit events if those keys are audited.,host
+Enumerate Winlogon subkeys for unknown or unsigned binaries,Sysmon Event Log,strong,Registry query/set events on Winlogon paths.,host
+EventCode=1,Amcache.hve,moderate,Corroborates execution/presence of that image.,host
+EventCode=1,BAM / DAM,moderate,Background/desktop activity execution evidence.,host
+EventCode=1,Prefetch,moderate,Corroborates execution of that image.,host
+EventCode=1,Security Event Log,moderate,4688 is the same question in Security.,host
+EventCode=1,Shimcache (AppCompatCache),moderate,Evidence the OS saw the binary.,host
+EventCode=1,Sysmon Event Log,strong,Event 1 is process create in Sysmon.,host
+EventCode=1,UserAssist,moderate,GUI-launched execution only.,host
+EventCode=10,Sysmon Event Log,strong,Event 10 is process access in Sysmon.,host
+EventCode=1000,Application Event Log,strong,1000 is application error in Application log.,host
+EventCode=1000,WER,strong,Windows Error Reporting pairs with 1000 crashes.,host
+EventCode=1006,Application Event Log,strong,1006-class application errors live here.,host
+EventCode=1006,WER,moderate,May have a companion crash report.,host
+EventCode=106,Scheduled Tasks,strong,On-disk task XML/registration.,host
+EventCode=106,Task Scheduler Event Log,strong,106 is task registration in Task Scheduler Operational.,host
+"EventCode=106, 200",Scheduled Tasks,strong,On-disk task definition that fired.,host
+"EventCode=106, 200",Task Scheduler Event Log,strong,106 registration and 200 task executed.,host
+EventCode=1074,System Event Log,strong,"1074 is shutdown/restart initiated, System log.",host
+EventCode=11,$MFT,strong,New file record.,host
+EventCode=11,Sysmon Event Log,strong,Event 11 is file create.,host
+EventCode=11,USN Journal ($J),strong,File create USN reason.,host
+EventCode=1102,Security Event Log,strong,1102 is Security log cleared.,host
+EventCode=12,NTUSER.DAT,moderate,Resulting key in NTUSER.,host
+EventCode=12,Run / RunOnce,moderate,If the key was a Run key.,host
+EventCode=12,SOFTWARE hive,moderate,Resulting key in SOFTWARE.,host
+EventCode=12,SYSTEM hive,moderate,Resulting key in SYSTEM.,host
+EventCode=12,Sysmon Event Log,strong,Event 12 registry object create/delete.,host
+"EventCode=13, 14",NTUSER.DAT,moderate,Resulting value.,host
+"EventCode=13, 14",Run / RunOnce,moderate,If persistence Run keys were changed.,host
+"EventCode=13, 14",SOFTWARE hive,moderate,Resulting value.,host
+"EventCode=13, 14",SYSTEM hive,moderate,Resulting value.,host
+"EventCode=13, 14",Sysmon Event Log,strong,"13 value set, 14 key/value rename.",host
+EventCode=15,$MFT,strong,ADS is an MFT attribute.,host
+EventCode=15,Sysmon Event Log,strong,Event 15 file create stream hash (ADS).,host
+"EventCode=1502, 1503",Group Policy,strong,1502/1503 are Group Policy processing events.,host
+EventCode=17,Sysmon Event Log,strong,Event 17 pipe created.,host
+EventCode=2,$MFT,strong,SI/FN timestamps.,host
+EventCode=2,Sysmon Event Log,strong,Event 2 file creation time change.,host
+EventCode=2,USN Journal ($J),strong,Basic info change / timestamp USN.,host
+EventCode=2003,Task Scheduler Event Log,moderate,Task Scheduler also uses 2003 in some operational views.,host
+EventCode=2003,Windows Firewall Log,moderate,Firewall-with-Advanced-Security uses 2003-class events depending on channel.,host
+"EventCode=2004, 2005, 2006",SYSTEM hive,strong,Firewall policy is stored under SYSTEM.,host
+"EventCode=2004, 2005, 2006",Windows Firewall Log,strong,2004/2005/2006 are firewall rule add/change/delete.,host
+EventCode=23,$MFT,strong,Deleted record / orphan.,host
+EventCode=23,Recycle Bin $I files,moderate,If deleted to Recycle Bin.,host
+EventCode=23,Sysmon Event Log,strong,Event 23 file delete logged.,host
+EventCode=23,USN Journal ($J),strong,File delete USN reason.,host
+EventCode=25,Amcache.hve,moderate,Original image presence.,host
+EventCode=25,Prefetch,moderate,Original image execution.,host
+EventCode=25,Sysmon Event Log,strong,Event 25 process tampering.,host
+"EventCode=3, 22",SRUM,moderate,Network usage bytes/time for the same process.,host
+"EventCode=3, 22",Sysmon Event Log,strong,Event 3 network connect and Event 22 DNS query.,host
+"EventCode=3, 22",Windows Firewall Log,moderate,5-tuple allow/block complementary to Event 3.,host
+"EventCode=3, 22",PCAP / PCAPNG,moderate,Packets for those connections/queries.,network
+"EventCode=3, 22","conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",strong,Wire 5-tuple counterpart to Sysmon Event 3.,network
+"EventCode=3, 22","dns.log (DNS queries and responses, passive DNS from the wire)",strong,Wire DNS counterpart to Sysmon Event 22.,network
+EventCode=31001,Application Event Log,moderate,Sometimes mirrored in Application.,host
+EventCode=31001,Windows Defender,strong,Product log for that event.,host
+EventCode=31001,Windows Defender Event Log,strong,Defender/AppLocker-style 31001 class events.,host
+EventCode=4,SYSTEM hive,moderate,Service configuration.,host
+EventCode=4,Sysmon Event Log,strong,Event 4 Sysmon service state.,host
+EventCode=4,System Event Log,moderate,Service control events alongside Sysmon service.,host
+"EventCode=400, 403",PowerShell Console Log,moderate,Same session leftovers.,host
+"EventCode=400, 403",PowerShell Event Log,strong,400 engine start / 403 engine stop.,host
+"EventCode=400, 403",PowerShell Transcripts,moderate,Transcripts start with engine sessions.,host
+"EventCode=4103, 4104, 4105, 4106",PowerShell Console Log,moderate,Overlapping command history.,host
+"EventCode=4103, 4104, 4105, 4106",PowerShell Event Log,strong,These are PowerShell operational/script-block event IDs.,host
+"EventCode=4103, 4104, 4105, 4106",PowerShell Transcripts,strong,Same script content as 4104 when transcripts are on.,host
+EventCode=4624,Security Event Log,strong,4624 successful logon.,host
+"EventCode=4624, 4625, 4768, 4769",Security Event Log,strong,Logon success/fail plus Kerberos TGT/TGS.,host
+"EventCode=4624, 4625, 4768, 4769","conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,Auth session 5-tuple.,network
+"EventCode=4624, 4625, 4768, 4769",kerberos.log,strong,Kerberos on the wire for 4768/4769.,network
+"EventCode=4624, 4625, 4768, 4769",ntlm.log,moderate,NTLM on the wire when the logon is NTLM.,network
+"EventCode=4624, 4648",Security Event Log,strong,Logon plus explicit credentials.,host
+EventCode=4625,Security Event Log,strong,4625 failed logon.,host
+"EventCode=4625, 4771, 4648",Security Event Log,strong,"Failed logon, Kerberos pre-auth fail, explicit creds.",host
+"EventCode=4625, 4771, 4648",kerberos.log,moderate,Failed Kerberos pre-auth can appear in kerberos.log.,network
+"EventCode=4625, 4771, 4648",ntlm.log,moderate,Failed NTLM on the wire.,network
+EventCode=4648,Security Event Log,strong,4648 logon with explicit credentials.,host
+EventCode=4657,NTUSER.DAT,moderate,Resulting NTUSER value.,host
+EventCode=4657,Run / RunOnce,moderate,If a Run value was the change.,host
+EventCode=4657,SOFTWARE hive,moderate,Resulting SOFTWARE value.,host
+EventCode=4657,SYSTEM hive,moderate,Resulting SYSTEM value.,host
+EventCode=4657,Security Event Log,strong,4657 registry value changed.,host
+EventCode=4661,SAM hive,moderate,Account object that was targeted.,host
+EventCode=4661,Security Event Log,strong,4661 handle to an object (often SAM/DS).,host
+EventCode=4662,Security Event Log,strong,4662 directory service object operation.,host
+"EventCode=4663, 4670, 4656",$MFT,moderate,Target file on NTFS.,host
+"EventCode=4663, 4670, 4656",Security Event Log,strong,"Object access, permissions change, handle request.",host
+"EventCode=4663, 4670, 4656",USN Journal ($J),moderate,File access/change USN.,host
+EventCode=4672,Security Event Log,strong,4672 special privileges assigned at logon.,host
+"EventCode=4672, 4634",Security Event Log,strong,Privileged logon plus logoff.,host
+EventCode=4673,Security Event Log,strong,4673 privileged service called.,host
+EventCode=4688,Amcache.hve,moderate,Execution corroboration.,host
+EventCode=4688,BAM / DAM,moderate,Execution activity evidence.,host
+EventCode=4688,Prefetch,moderate,Execution corroboration.,host
+EventCode=4688,Security Event Log,strong,4688 process create.,host
+EventCode=4688,Shimcache (AppCompatCache),moderate,OS saw the binary.,host
+EventCode=4688,UserAssist,moderate,GUI launch only.,host
+EventCode=4697,Amcache.hve,moderate,Service binary present/executed.,host
+EventCode=4697,Prefetch,moderate,Service binary executed.,host
+EventCode=4697,Security Event Log,strong,4697 service installed.,host
+EventCode=4697,Services and system configuration stored in the SYSTEM hive,strong,Service key created.,host
+EventCode=4698,Scheduled Tasks,strong,Task XML on disk.,host
+EventCode=4698,Security Event Log,strong,4698 scheduled task created.,host
+EventCode=4698,Task Scheduler Event Log,strong,Operational task events.,host
+EventCode=4702,Scheduled Tasks,strong,Updated task XML.,host
+EventCode=4702,Security Event Log,strong,4702 scheduled task updated.,host
+EventCode=4702,Task Scheduler Event Log,strong,Operational task events.,host
+EventCode=4704,Security Event Log,strong,4704 user right assigned.,host
+EventCode=4720,SAM hive,strong,New account in SAM.,host
+EventCode=4720,Security Event Log,strong,4720 user account created.,host
+"EventCode=4728, 4729, 4732, 4733, 4756, 4757",SAM hive,strong,Group membership in SAM.,host
+"EventCode=4728, 4729, 4732, 4733, 4756, 4757",Security Event Log,strong,Local/global/universal group membership changes.,host
+"EventCode=4738, 4728, 4670",SAM hive,moderate,Resulting account/group state.,host
+"EventCode=4738, 4728, 4670",Security Event Log,strong,"Account change, group add, permissions change.",host
+EventCode=4739,Group Policy,strong,Policy objects that changed.,host
+EventCode=4739,Security Event Log,strong,4739 domain policy changed.,host
+EventCode=4768,Security Event Log,strong,4768 Kerberos TGT requested.,host
+EventCode=4768,PCAP / PCAPNG,moderate,AS-REQ/AS-REP if needed.,network
+EventCode=4768,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,Session to 88.,network
+EventCode=4768,kerberos.log,strong,TGT request is kerberos.log.,network
+EventCode=4769,Security Event Log,strong,4769 Kerberos service ticket requested.,host
+EventCode=4769,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,Session to 88.,network
+EventCode=4769,kerberos.log,strong,TGS request is kerberos.log.,network
+"EventCode=4776, 4625",Security Event Log,strong,NTLM credential validation and failed logon.,host
+"EventCode=4776, 4625","conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,Session carrying NTLM.,network
+"EventCode=4776, 4625",ntlm.log,strong,NTLM validation on the wire.,network
+"EventCode=4776, 4771, 4770",Security Event Log,strong,"NTLM validation, Kerberos pre-auth fail, ticket revoked.",host
+"EventCode=4776, 4771, 4770",kerberos.log,moderate,4771/4770 are Kerberos.,network
+"EventCode=4776, 4771, 4770",ntlm.log,strong,NTLM on the wire.,network
+"EventCode=4778, EventCode=4779",RDP Bitmap Cache,moderate,"Session content, not the connect/disconnect IDs.",host
+"EventCode=4778, EventCode=4779",RDP Logs,strong,RDP client/server logs for that session.,host
+"EventCode=4778, EventCode=4779",Security Event Log,strong,4778/4779 session reconnect/disconnect.,host
+"EventCode=4778, EventCode=4779",Terminal Services / RDP Event Logs,strong,RDP session operational events.,host
+"EventCode=4778, EventCode=4779",PCAP / PCAPNG,moderate,RDP payload if unencrypted enough to use.,network
+"EventCode=4778, EventCode=4779","conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",strong,3389 session.,network
+"EventCode=4778, EventCode=4779",rdp.log,strong,RDP session metadata on the wire.,network
+"EventCode=4798, 4799",SAM hive,moderate,Groups that were enumerated.,host
+"EventCode=4798, 4799",Security Event Log,strong,Local group membership enumerated.,host
+"EventCode=4800, 4801",Security Event Log,strong,Workstation locked/unlocked.,host
+EventCode=4929,Security Event Log,strong,AD replica source removed / related DS event.,host
+EventCode=5,Sysmon Event Log,strong,Event 5 process terminated.,host
+EventCode=5136,Security Event Log,strong,5136 directory service object modified.,host
+EventCode=5140,Security Event Log,strong,5140 network share accessed.,host
+EventCode=5140,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",strong,Session to 445.,network
+EventCode=5140,smb_files.log (SMB file access),moderate,Files touched on that share.,network
+EventCode=5140,smb_mapping.log (share / tree connects),strong,Share access on the wire.,network
+EventCode=5145,Security Event Log,strong,5145 detailed file share access.,host
+EventCode=5145,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,SMB session.,network
+EventCode=5145,smb_cmd.log (SMB commands),strong,SMB commands for that path.,network
+EventCode=5145,smb_files.log (SMB file access),strong,Detailed SMB file access on the wire.,network
+"EventCode=5156, 5157",Security Event Log,strong,WFP allow (5156) and block (5157).,host
+"EventCode=5156, 5157",Windows Firewall Log,strong,Same allow/block decision in firewall logging.,host
+"EventCode=5156, 5157",PCAP / PCAPNG,moderate,Packets for that WFP decision.,network
+"EventCode=5156, 5157",Suricata alerts (signature hits on the wire),moderate,May alert on the same flow.,network
+"EventCode=5156, 5157","conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",strong,Allowed/blocked 5-tuple on the wire.,network
+"EventCode=5857, 5858, 5860, 5861",System Event Log,moderate,WMI-Activity events often surface here/related channels.,host
+"EventCode=5857, 5858, 5860, 5861",WMI Repository (WBEM),strong,WMI activity/registration tied to these event IDs.,host
+EventCode=6,Amcache.hve,moderate,Driver file present/executed.,host
+EventCode=6,SYSTEM hive,strong,Services/drivers keys.,host
+EventCode=6,Shimcache (AppCompatCache),moderate,OS saw the driver image.,host
+EventCode=6,Sysmon Event Log,strong,Event 6 driver loaded.,host
+EventCode=7,Amcache.hve,moderate,Loaded image on disk.,host
+EventCode=7,Shimcache (AppCompatCache),moderate,OS saw the image.,host
+EventCode=7,Sysmon Event Log,strong,Event 7 image loaded.,host
+EventCode=7035,Services and system configuration stored in the SYSTEM hive,moderate,Service that was controlled.,host
+EventCode=7035,System Event Log,strong,7035 service send-control success.,host
+EventCode=7036,Services and system configuration stored in the SYSTEM hive,moderate,Service state in SYSTEM.,host
+EventCode=7036,System Event Log,strong,7036 service running/stopped.,host
+EventCode=7045,Amcache.hve,moderate,Service binary presence.,host
+EventCode=7045,Prefetch,moderate,Service binary execution.,host
+EventCode=7045,Services and system configuration stored in the SYSTEM hive,strong,New service key.,host
+EventCode=7045,System Event Log,strong,7045 service installed.,host
+EventCode=8,Amcache.hve,moderate,Source/target images on disk.,host
+EventCode=8,Prefetch,moderate,Source/target process image execution.,host
+EventCode=8,Sysmon Event Log,strong,Event 8 CreateRemoteThread.,host
+"EventCode=8001, 8002, 8003",Amcache.hve,moderate,Targeted binary.,host
+"EventCode=8001, 8002, 8003",Application Event Log,moderate,Sometimes duplicated.,host
+"EventCode=8001, 8002, 8003",Prefetch,moderate,Targeted binary execution.,host
+"EventCode=8001, 8002, 8003",Windows Defender,strong,Defender product artifacts.,host
+"EventCode=8001, 8002, 8003",Windows Defender Event Log,strong,Defender 800x detection/action class events.,host
+EventCode=9,$MFT,moderate,Volume/file that was raw-read.,host
+EventCode=9,Sysmon Event Log,strong,Event 9 RawAccessRead.,host
+Excessive lookups for domains with suspicious WHOIS or short TTL values,Sysmon Event Log,moderate,Event 22 can show query volume and names. No WHOIS or TTL.,host
+Excessive lookups for domains with suspicious WHOIS or short TTL values,PCAP / PCAPNG,moderate,Raw DNS PDUs.,network
+Excessive lookups for domains with suspicious WHOIS or short TTL values,"dns.log (DNS queries and responses, passive DNS from the wire)",strong,"Query volume, names, and TTL are in dns.log. WHOIS is still external.",network
+Excessive lookups for domains with suspicious WHOIS or short TTL values,intel.log (hits on threat-intel indicators),moderate,If those domains are in Zeek intel.,network
+Exchange logs or header artifacts,PowerShell Event Log,moderate,Admin/Exchange cmdlets; not the mail header store.,host
+Exchange logs or header artifacts,PowerShell Transcripts,moderate,"Same, if headers were pulled via script.",host
+Exchange logs or header artifacts,PCAP / PCAPNG,moderate,Mail on the wire if unencrypted.,network
+Exchange logs or header artifacts,smtp.log,moderate,"SMTP envelope/headers on the wire, not the Exchange store.",network
+Execution of 'Get-WmiObject Win32_Product' or similar PowerShell cmdlets,PowerShell Console Log,moderate,Console history.,host
+Execution of 'Get-WmiObject Win32_Product' or similar PowerShell cmdlets,PowerShell Event Log,strong,4104 records Get-WmiObject.,host
+Execution of 'Get-WmiObject Win32_Product' or similar PowerShell cmdlets,PowerShell Transcripts,strong,Full cmdlet text.,host
+Execution of 'Get-WmiObject Win32_Product' or similar PowerShell cmdlets,WMI Repository (WBEM),moderate,"WMI was queried; repo shows classes, not the query event.",host
+First-time egress to non-approved update hosts right after install/update,Amcache.hve,strong,First-seen binary timing.,host
+First-time egress to non-approved update hosts right after install/update,Prefetch,strong,New binary execution timing.,host
+First-time egress to non-approved update hosts right after install/update,SRUM,moderate,Network usage spike after the new binary.,host
+First-time egress to non-approved update hosts right after install/update,Sysmon Event Log,strong,Event 1 plus Event 3/22 for the egress.,host
+First-time egress to non-approved update hosts right after install/update,Windows Firewall Log,moderate,Outbound allow to that host.,host
+First-time egress to non-approved update hosts right after install/update,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",strong,First sessions to that update host.,network
+First-time egress to non-approved update hosts right after install/update,"dns.log (DNS queries and responses, passive DNS from the wire)",strong,First resolution of that host.,network
+First-time egress to non-approved update hosts right after install/update,"http.log (URLs, User-Agents, Referrers, MIME types, status codes)",moderate,HTTP update URLs if not TLS-only.,network
+First-time egress to non-approved update hosts right after install/update,software.log (software / version fingerprints),moderate,User-agent/software fingerprint of the updater.,network
+First-time egress to non-approved update hosts right after install/update,"ssl.log (TLS handshake: SNI, version, cipher)",moderate,SNI of the update host.,network
+Firewall Rule Modification,SYSTEM hive,strong,Firewall policy keys.,host
+Firewall Rule Modification,Windows Firewall Log,strong,Rule add/change/delete events.,host
+High-frequency or suspicious sequence of QueryPerformanceCounter/GetTickCount API calls from a non-standard process lineage,Event Trace Logs,strong,API call sequence is an ETW/trace question.,host
+High-frequency or suspicious sequence of QueryPerformanceCounter/GetTickCount API calls from a non-standard process lineage,Sysmon Event Log,moderate,"Process lineage (parent/child), not the API names.",host
+"ICMP/UDP traffic (Wireshark, Suricata, Zeek)",Sysmon Event Log,moderate,Event 3 can record UDP. ICMP coverage is limited.,host
+"ICMP/UDP traffic (Wireshark, Suricata, Zeek)",Windows Firewall Log,moderate,Allow/block for those protocols if logged.,host
+"ICMP/UDP traffic (Wireshark, Suricata, Zeek)",PCAP / PCAPNG,strong,What Wireshark would open.,network
+"ICMP/UDP traffic (Wireshark, Suricata, Zeek)",Suricata alerts (signature hits on the wire),moderate,UDP/ICMP alerts if a rule fired.,network
+"ICMP/UDP traffic (Wireshark, Suricata, Zeek)","conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",strong,Zeek conn.log is ICMP/UDP/TCP sessions.,network
+"ICMP/UDP traffic (Wireshark, Suricata, Zeek)",traceroute.log,moderate,ICMP traceroute-like patterns.,network
+"ICMP/UDP traffic (Wireshark, Suricata, Zeek)",weird.log (protocol violations and odd behavior),moderate,Odd ICMP/UDP protocol behavior.,network
+Inbound HTTP POST with suspicious payload size or user-agent,Extracted files (carved from Zeek or Suricata),moderate,Carved POST payload.,network
+Inbound HTTP POST with suspicious payload size or user-agent,PCAP / PCAPNG,strong,Full POST body and headers.,network
+Inbound HTTP POST with suspicious payload size or user-agent,Suricata alerts (signature hits on the wire),moderate,HTTP POST / UA signatures.,network
+Inbound HTTP POST with suspicious payload size or user-agent,"files.log (files observed on the wire: hashes, MIME, size)",moderate,POST body carved as a file.,network
+Inbound HTTP POST with suspicious payload size or user-agent,"http.log (URLs, User-Agents, Referrers, MIME types, status codes)",strong,"Method, URI, user-agent, request body length, status.",network
+Inbound HTTP POST with suspicious payload size or user-agent,http2.log,moderate,Same request if spoken as HTTP/2.,network
+"Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",RDP Bitmap Cache,moderate,"Content of a successful RDP session, not the reset flood.",host
+"Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",RDP Logs,strong,RDP session logs.,host
+"Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",Security Event Log,strong,4624/4625/4778 on 3389/5985 and 5140 on 445.,host
+"Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",Terminal Services / RDP Event Logs,strong,RDP accept/fail for 3389.,host
+"Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",Windows Firewall Log,strong,Denied inbound and later allowed outbound.,host
+"Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",PCAP / PCAPNG,moderate,Reset flood and follow-on sessions.,network
+"Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",Suricata alerts (signature hits on the wire),moderate,Scan/brute signatures on those ports.,network
+"Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.","conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",strong,"Inbound 445/3389/5985-86, rejects/resets, then new outbound sessions.",network
+"Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",kerberos.log,moderate,Kerberos on those inbound sessions.,network
+"Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",ntlm.log,moderate,Auth on those inbound sessions.,network
+"Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",rdp.log,moderate,If 3389 became an RDP session.,network
+"Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",smb_mapping.log (share / tree connects),moderate,If 445 progressed to a tree connect.,network
+LDAP Bind/Search,Security Event Log,moderate,Directory Service Access / 4662 can record binds/searches on a DC if audited.,host
+LDAP Bind/Search,PCAP / PCAPNG,strong,Bind/search filters are in the packets.,network
+LDAP Bind/Search,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,Sessions to 389/636. No dedicated ldap.log on the SO list.,network
+LDAP Bind/Search,dce_rpc.log (Windows RPC on the wire),moderate,Related AD RPC if the same activity moved off LDAP.,network
+LDAP Bind/Search,kerberos.log,moderate,LDAP often bound with Kerberos.,network
+LDAP Bind/Search,"ssl.log (TLS handshake: SNI, version, cipher)",moderate,LDAPS handshake to 636.,network
+Outbound Connection,SRUM,moderate,That process sent bytes off-host.,host
+Outbound Connection,Sysmon Event Log,strong,Event 3 outbound connect.,host
+Outbound Connection,Windows Firewall Log,moderate,Outbound allow/block 5-tuple.,host
+Outbound Connection,PCAP / PCAPNG,moderate,Payload of those sessions.,network
+Outbound Connection,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",strong,Outbound sessions.,network
+Outbound Connection,"dns.log (DNS queries and responses, passive DNS from the wire)",moderate,Name that preceded the connect.,network
+Outbound Connection,"ssl.log (TLS handshake: SNI, version, cipher)",moderate,If the outbound was TLS (SNI).,network
+"Outbound resolution to hidden service domains (e.g., `.onion`)",Sysmon Event Log,strong,Event 22 query name is the .onion lookup.,host
+"Outbound resolution to hidden service domains (e.g., `.onion`)",PCAP / PCAPNG,moderate,Raw DNS.,network
+"Outbound resolution to hidden service domains (e.g., `.onion`)","conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,Follow-on sessions after resolution.,network
+"Outbound resolution to hidden service domains (e.g., `.onion`)","dns.log (DNS queries and responses, passive DNS from the wire)",strong,Query name is the .onion lookup.,network
+"Outbound resolution to hidden service domains (e.g., `.onion`)",intel.log (hits on threat-intel indicators),moderate,If .onion indicators are loaded.,network
+Process Tree + Script Block Logging,PowerShell Event Log,strong,4104 script block plus 4103.,host
+Process Tree + Script Block Logging,PowerShell Transcripts,strong,Script content.,host
+Process Tree + Script Block Logging,Security Event Log,strong,4688 process tree.,host
+Process Tree + Script Block Logging,Sysmon Event Log,strong,Event 1 process tree.,host
+"Process lineage and API usage enrichment (GetSystemTime, GetTimeZoneInformation, NtQuerySystemTime)",Event Trace Logs,strong,Named APIs are ETW/trace.,host
+"Process lineage and API usage enrichment (GetSystemTime, GetTimeZoneInformation, NtQuerySystemTime)",Sysmon Event Log,moderate,Lineage only.,host
+ScriptBlockLogging + AMSI,PowerShell Event Log,strong,Script block logging.,host
+ScriptBlockLogging + AMSI,PowerShell Transcripts,strong,Script content.,host
+ScriptBlockLogging + AMSI,Windows Defender,strong,AMSI provider artifacts.,host
+ScriptBlockLogging + AMSI,Windows Defender Event Log,strong,AMSI scan events.,host
+"Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types",Extracted files (carved from Zeek or Suricata),strong,Carved attachments.,network
+"Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types",PCAP / PCAPNG,strong,Full message if not TLS-only.,network
+"Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types",Strelka file analysis metadata,moderate,Attachment type/hash analysis.,network
+"Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types",Suricata alerts (signature hits on the wire),moderate,Mail/attachment signatures.,network
+"Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types","files.log (files observed on the wire: hashes, MIME, size)",strong,Attachments observed on the wire.,network
+"Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types",smtp.log,strong,"Envelope, headers, mail from/to on the wire.",network
+Send/Receive: Inbound emails containing embedded or shortened URLs,PCAP / PCAPNG,strong,Mail body with the URL.,network
+Send/Receive: Inbound emails containing embedded or shortened URLs,"http.log (URLs, User-Agents, Referrers, MIME types, status codes)",moderate,Later fetch of the embedded/short URL.,network
+Send/Receive: Inbound emails containing embedded or shortened URLs,smtp.log,strong,Inbound mail and headers on the wire.,network
+Send/Receive: Inbound emails with attachments from suspicious or spoofed senders,$MFT,moderate,Attachment written to disk.,host
+Send/Receive: Inbound emails with attachments from suspicious or spoofed senders,LNK files,moderate,If the attachment was an LNK or created one.,host
+Send/Receive: Inbound emails with attachments from suspicious or spoofed senders,USN Journal ($J),moderate,File create of the attachment.,host
+Send/Receive: Inbound emails with attachments from suspicious or spoofed senders,Extracted files (carved from Zeek or Suricata),strong,Carved attachment.,network
+Send/Receive: Inbound emails with attachments from suspicious or spoofed senders,PCAP / PCAPNG,strong,Full message/attachment.,network
+Send/Receive: Inbound emails with attachments from suspicious or spoofed senders,Strelka file analysis metadata,moderate,Attachment analysis.,network
+Send/Receive: Inbound emails with attachments from suspicious or spoofed senders,"files.log (files observed on the wire: hashes, MIME, size)",strong,Attachment on the wire.,network
+Send/Receive: Inbound emails with attachments from suspicious or spoofed senders,pe.log (Windows PE metadata from transferred binaries),moderate,If the attachment was a PE.,network
+Send/Receive: Inbound emails with attachments from suspicious or spoofed senders,smtp.log,strong,Sender and inbound mail session.,network
+"SendOnBehalf, MessageSend, ClickThrough, MailItemsAccessed",PowerShell Event Log,moderate,If those mailbox operations were done or queried via PowerShell.,host
+"SendOnBehalf, MessageSend, ClickThrough, MailItemsAccessed",PowerShell Transcripts,moderate,Same.,host
+"SendOnBehalf, MessageSend, ClickThrough, MailItemsAccessed","http.log (URLs, User-Agents, Referrers, MIME types, status codes)",moderate,ClickThrough is an HTTP fetch.,network
+"SendOnBehalf, MessageSend, ClickThrough, MailItemsAccessed",smtp.log,moderate,MessageSend may appear as SMTP on the wire. ClickThrough/MailItemsAccessed are mailbox audit.,network
+SendOnBehalf/SendAs: Emails sent where the sending identity mismatches account ownership,PowerShell Event Log,moderate,Admin/SendAs cmdlets.,host
+SendOnBehalf/SendAs: Emails sent where the sending identity mismatches account ownership,PowerShell Transcripts,moderate,Same.,host
+SendOnBehalf/SendAs: Emails sent where the sending identity mismatches account ownership,Security Event Log,moderate,"Auth of the sending session, not the MIME From.",host
+SendOnBehalf/SendAs: Emails sent where the sending identity mismatches account ownership,PCAP / PCAPNG,moderate,Full message headers.,network
+SendOnBehalf/SendAs: Emails sent where the sending identity mismatches account ownership,smtp.log,strong,MAIL FROM vs header identity on the wire.,network
+Service stopped or RecoveryDisabled set via REAgentC,Prefetch,moderate,reagentc.exe execution.,host
+Service stopped or RecoveryDisabled set via REAgentC,Services and system configuration stored in the SYSTEM hive,strong,Service/WinRE config.,host
+Service stopped or RecoveryDisabled set via REAgentC,System Event Log,strong,Service stop and WinRE related system events.,host
+Session Transfer Content,RDP Bitmap Cache,strong,Cached bitmaps are transferred session content.,host
+Session Transfer Content,RDP Logs,moderate,Session existed; not the screen content.,host
+Session Transfer Content,Terminal Services / RDP Event Logs,moderate,Session connect/disconnect.,host
+Session Transfer Content,PCAP / PCAPNG,moderate,RDP stream if you reconstruct session data.,network
+Session Transfer Content,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,RDP 5-tuple.,network
+Session Transfer Content,rdp.log,moderate,RDP session existed; bitmap cache is still the content store.,network
+Set-ADUser or Set-ADAuthenticationPolicy with MFA attributes disabled,PowerShell Event Log,strong,Those cmdlets in 4104.,host
+Set-ADUser or Set-ADAuthenticationPolicy with MFA attributes disabled,PowerShell Transcripts,strong,Full cmdlet and parameters.,host
+Set-ADUser or Set-ADAuthenticationPolicy with MFA attributes disabled,Security Event Log,moderate,Directory changes (4738/5136) if audited.,host
+SetFileTime,$MFT,strong,Changed SI timestamps.,host
+SetFileTime,Sysmon Event Log,strong,Event 2 file create time change.,host
+SetFileTime,USN Journal ($J),strong,Basic info change.,host
+"Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",Brave,strong,Visited URL.,host
+"Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",Chrome History / Downloads / Cookies,strong,Visited URL and download.,host
+"Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",Edge History / Downloads / Cookies,strong,Visited URL and download.,host
+"Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",Firefox History / Downloads / Cookies,strong,Visited URL and download.,host
+"Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",Internet Explorer History,strong,Visited URL.,host
+"Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",Other Chromium-based browsers collected by the browser targets,strong,Visited URL.,host
+"Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",Sysmon Event Log,moderate,"Event 22 has the domain, not path or GET/POST.",host
+"Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",PCAP / PCAPNG,moderate,Full request.,network
+"Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST","dns.log (DNS queries and responses, passive DNS from the wire)",strong,Domain and TLD lookups.,network
+"Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST","http.log (URLs, User-Agents, Referrers, MIME types, status codes)",strong,"URL, method, host, status.",network
+"Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",http2.log,moderate,Same if HTTP/2.,network
+"Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",intel.log (hits on threat-intel indicators),moderate,Listed bad domains.,network
+"Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST","ssl.log (TLS handshake: SNI, version, cipher)",moderate,SNI for HTTPS shorteners.,network
+Suspicious file execution on removable media path,Amcache.hve,strong,Binary on removable path executed.,host
+Suspicious file execution on removable media path,LNK files,moderate,Recent access to the removable file.,host
+Suspicious file execution on removable media path,MountedDevices,strong,Drive letter / volume mapping.,host
+Suspicious file execution on removable media path,Prefetch,strong,Execution from that path.,host
+Suspicious file execution on removable media path,Shimcache (AppCompatCache),strong,OS saw the binary on that path.,host
+Suspicious file execution on removable media path,USB Device SetupAPI Logs,strong,When that USB volume arrived.,host
+Suspicious file execution on removable media path,USBSTOR,strong,USB device that supplied the path.,host
+TCP/UDP,SRUM,moderate,Per-app network usage.,host
+TCP/UDP,Security Event Log,moderate,5156/5157 WFP 5-tuple if audited.,host
+TCP/UDP,Sysmon Event Log,strong,Event 3 5-tuple.,host
+TCP/UDP,Windows Firewall Log,moderate,5-tuple allow/block.,host
+TCP/UDP,PCAP / PCAPNG,strong,Those packets.,network
+TCP/UDP,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",strong,Every TCP/UDP session.,network
+TCP/UDP,known_services.log,moderate,Services Zeek has seen on those ports.,network
+TLS Handshake/Network Flow,PCAP / PCAPNG,strong,Handshake bytes.,network
+TLS Handshake/Network Flow,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",strong,The flow.,network
+TLS Handshake/Network Flow,known_certs.log,moderate,Certs Zeek has seen before.,network
+TLS Handshake/Network Flow,"ssl.log (TLS handshake: SNI, version, cipher)",strong,TLS handshake fields.,network
+TLS Handshake/Network Flow,x509.log (certificate details),strong,Certs from that handshake.,network
+TLS handshake + HTTP headers,Chrome History / Downloads / Cookies,moderate,"URL and some request metadata the browser stored, not raw handshake/headers.",host
+TLS handshake + HTTP headers,Edge History / Downloads / Cookies,moderate,Same for Edge.,host
+TLS handshake + HTTP headers,Firefox History / Downloads / Cookies,moderate,Same for Firefox.,host
+TLS handshake + HTTP headers,PCAP / PCAPNG,strong,Handshake plus headers.,network
+TLS handshake + HTTP headers,"http.log (URLs, User-Agents, Referrers, MIME types, status codes)",strong,HTTP headers after or beside TLS (or HTTP on 80).,network
+TLS handshake + HTTP headers,http2.log,moderate,HTTP/2 headers.,network
+TLS handshake + HTTP headers,"ssl.log (TLS handshake: SNI, version, cipher)",strong,Handshake.,network
+TLS handshake + HTTP headers,x509.log (certificate details),moderate,Cert presented in the handshake.,network
+Task registration/execution shortly after a time discovery event,Prefetch,moderate,schtasks.exe / taskeng execution.,host
+Task registration/execution shortly after a time discovery event,Scheduled Tasks,strong,Task definition.,host
+Task registration/execution shortly after a time discovery event,Security Event Log,strong,4698/4702 timing.,host
+Task registration/execution shortly after a time discovery event,Task Scheduler Event Log,strong,106/200 timing.,host
+Token issuance events showing anomalous claims or issuers,Security Event Log,moderate,Logon/Kerberos ticket events; claims/issuer detail is often IdP.,host
+Traffic on RPC DRSUAPI,Security Event Log,moderate,Some DC replication / DS events. Not the RPC PDU.,host
+Traffic on RPC DRSUAPI,PCAP / PCAPNG,strong,DRSUAPI PDUs.,network
+Traffic on RPC DRSUAPI,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,RPC session 5-tuple.,network
+Traffic on RPC DRSUAPI,dce_rpc.log (Windows RPC on the wire),strong,DRSUAPI is DCE/RPC on the wire.,network
+Transport Rule Modification,PowerShell Event Log,strong,New/Set-TransportRule cmdlets.,host
+Transport Rule Modification,PowerShell Transcripts,strong,Full rule change text.,host
+Unexpected DLL or component loaded at Office startup,Amcache.hve,strong,DLL present/loaded.,host
+Unexpected DLL or component loaded at Office startup,Prefetch,moderate,Office process and referenced files.,host
+Unexpected DLL or component loaded at Office startup,Shimcache (AppCompatCache),moderate,OS saw the DLL.,host
+Unexpected DLL or component loaded at Office startup,Sysmon Event Log,strong,Event 7 image load into Office.,host
+Unexpected DLL or component loaded at Office startup,Windows Defender Event Log,moderate,If CI/AV flagged the DLL.,host
+Unsigned or invalid image for newly installed/updated binaries,Amcache.hve,strong,New binary and publisher metadata.,host
+Unsigned or invalid image for newly installed/updated binaries,Prefetch,moderate,New binary executed.,host
+Unsigned or invalid image for newly installed/updated binaries,Shimcache (AppCompatCache),moderate,OS saw the new image.,host
+Unsigned or invalid image for newly installed/updated binaries,Windows Defender,strong,CI/AV product artifacts.,host
+Unsigned or invalid image for newly installed/updated binaries,Windows Defender Event Log,strong,Unsigned/invalid image events.,host
+Unusual external domain access,Chrome History / Downloads / Cookies,strong,Browser destination.,host
+Unusual external domain access,Edge History / Downloads / Cookies,strong,Browser destination.,host
+Unusual external domain access,Sysmon Event Log,moderate,Event 22/3 show the domain/connect; unusual is baseline.,host
+Unusual external domain access,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",strong,Sessions to the resolved hosts.,network
+Unusual external domain access,"dns.log (DNS queries and responses, passive DNS from the wire)",strong,The domain query.,network
+Unusual external domain access,"http.log (URLs, User-Agents, Referrers, MIME types, status codes)",moderate,If the access was HTTP.,network
+Unusual external domain access,intel.log (hits on threat-intel indicators),moderate,If the domain is intel-listed.,network
+Unusual external domain access,"ssl.log (TLS handshake: SNI, version, cipher)",moderate,If the access was TLS (SNI).,network
+"UserLogin, ConditionalAccessPolicyEvaluated",Security Event Log,moderate,Host logon record. Conditional Access evaluation is Entra/IdP.,host
+"VPN, Citrix, or remote access gateway logs showing external IP addresses",PCAP / PCAPNG,moderate,Packets to the gateway.,network
+"VPN, Citrix, or remote access gateway logs showing external IP addresses","conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,Sessions to the gateway. Not the gateway's own client-IP log.,network
+"VPN, Citrix, or remote access gateway logs showing external IP addresses","ssl.log (TLS handshake: SNI, version, cipher)",moderate,TLS to the gateway (SNI).,network
+Volume Shadow Copy Creation,$MFT,moderate,Shadow copy files under System Volume Information.,host
+Volume Shadow Copy Creation,System Event Log,strong,VSS service events.,host
+Volume Shadow Copy Creation,USN Journal ($J),moderate,Creates related to snapshot.,host
+WMI Object Creation Events,Sysmon Event Log,strong,WMI Event 19/20/21.,host
+WMI Object Creation Events,WMI Repository (WBEM),strong,Created WMI objects persist here.,host
+Windows Backup Catalog deletion or catalog corruption,$MFT,strong,Catalog files deleted/corrupted.,host
+Windows Backup Catalog deletion or catalog corruption,System Event Log,moderate,Backup/VSS errors.,host
+Windows Backup Catalog deletion or catalog corruption,USN Journal ($J),strong,Delete/modify of catalog files.,host
+"api_call: CreateProcessWithTokenW, CreateProcessAsUserW",Event Trace Logs,strong,Named APIs via ETW.,host
+"api_call: CreateProcessWithTokenW, CreateProcessAsUserW",Security Event Log,strong,4688 plus 4624/4648 token logon.,host
+"api_call: CreateProcessWithTokenW, CreateProcessAsUserW",Sysmon Event Log,strong,Event 1 with parent/logon context of the spawned process.,host
+"api_call: DuplicateTokenEx, ImpersonateLoggedOnUser, SetThreadToken",Event Trace Logs,strong,Named token APIs.,host
+"api_call: DuplicateTokenEx, ImpersonateLoggedOnUser, SetThreadToken",Security Event Log,moderate,Privilege/logon events around impersonation.,host
+"api_call: DuplicateTokenEx, ImpersonateLoggedOnUser, SetThreadToken",Sysmon Event Log,moderate,"Resulting process/thread behavior, not the API name.",host
+"api_call: LogonUser(A|W), LsaLogonUser, SetThreadToken, ImpersonateLoggedOnUser",Event Trace Logs,strong,Named logon/impersonation APIs.,host
+"api_call: LogonUser(A|W), LsaLogonUser, SetThreadToken, ImpersonateLoggedOnUser",Security Event Log,strong,The logon those APIs produce (4624/4648).,host
+"api_call: LogonUser(A|W), LsaLogonUser, SetThreadToken, ImpersonateLoggedOnUser",Sysmon Event Log,moderate,Follow-on process activity.,host
+api_call: UpdateProcThreadAttribute (PROC_THREAD_ATTRIBUTE_PARENT_PROCESS) and CreateProcess* with EXTENDED_STARTUPINFO_PRESENT / StartupInfoEx,Prefetch,moderate,Child image executed.,host
+api_call: UpdateProcThreadAttribute (PROC_THREAD_ATTRIBUTE_PARENT_PROCESS) and CreateProcess* with EXTENDED_STARTUPINFO_PRESENT / StartupInfoEx,Security Event Log,moderate,"4688 parent field, weaker than Sysmon.",host
+api_call: UpdateProcThreadAttribute (PROC_THREAD_ATTRIBUTE_PARENT_PROCESS) and CreateProcess* with EXTENDED_STARTUPINFO_PRESENT / StartupInfoEx,Sysmon Event Log,strong,Event 1 parent PID vs real parent / parent spoof indicators.,host
+dns.log,Sysmon Event Log,moderate,"Event 22 is host DNS, same question different vantage. Not Zeek dns.log.",host
+dns.log,PCAP / PCAPNG,moderate,Raw DNS.,network
+dns.log,"dns.log (DNS queries and responses, passive DNS from the wire)",strong,This channel is Zeek dns.log.,network
+dns.log,intel.log (hits on threat-intel indicators),moderate,Intel hits on queried names.,network
+"ftp.log, smb_files.log",FileZilla Client,strong,FTP client logs when FileZilla was used.,host
+"ftp.log, smb_files.log",FileZilla Server,strong,FTP server logs if this host served FTP.,host
+"ftp.log, smb_files.log",Robo-FTP,strong,Robo-FTP logs.,host
+"ftp.log, smb_files.log",Security Event Log,strong,5140/5145 for SMB file access on this host.,host
+"ftp.log, smb_files.log",WinSCP,strong,WinSCP session logs for FTP/SFTP.,host
+"ftp.log, smb_files.log",Extracted files (carved from Zeek or Suricata),moderate,Carved FTP/SMB files.,network
+"ftp.log, smb_files.log",PCAP / PCAPNG,moderate,Those transfers.,network
+"ftp.log, smb_files.log","files.log (files observed on the wire: hashes, MIME, size)",moderate,Transferred files logged by Zeek files.,network
+"ftp.log, smb_files.log",ftp.log,strong,This channel includes ftp.log.,network
+"ftp.log, smb_files.log",smb_cmd.log (SMB commands),moderate,SMB commands around those files.,network
+"ftp.log, smb_files.log",smb_files.log (SMB file access),strong,This channel includes smb_files.log.,network
+"ftp.log, smb_files.log",smb_mapping.log (share / tree connects),moderate,Share connect that precedes smb_files.,network
+"http.log, ftp.log",Chrome History / Downloads / Cookies,moderate,"HTTP URLs the browser fetched, not full http.log.",host
+"http.log, ftp.log",Edge History / Downloads / Cookies,moderate,Same for Edge.,host
+"http.log, ftp.log",FileZilla Client,strong,FTP if FileZilla was the client.,host
+"http.log, ftp.log",Robo-FTP,strong,FTP if Robo-FTP was the client.,host
+"http.log, ftp.log",WinSCP,strong,FTP if WinSCP was the client.,host
+"http.log, ftp.log",Extracted files (carved from Zeek or Suricata),moderate,Carved files.,network
+"http.log, ftp.log",PCAP / PCAPNG,moderate,Those sessions.,network
+"http.log, ftp.log","files.log (files observed on the wire: hashes, MIME, size)",moderate,Objects transferred on HTTP/FTP.,network
+"http.log, ftp.log",ftp.log,strong,This channel includes ftp.log.,network
+"http.log, ftp.log","http.log (URLs, User-Agents, Referrers, MIME types, status codes)",strong,This channel includes http.log.,network
+"http.log, ssl.log",Chrome History / Downloads / Cookies,moderate,"HTTPS destinations/URLs, not Zeek HTTP/TLS fields.",host
+"http.log, ssl.log",Edge History / Downloads / Cookies,moderate,Same for Edge.,host
+"http.log, ssl.log",Firefox History / Downloads / Cookies,moderate,Same for Firefox.,host
+"http.log, ssl.log",Sysmon Event Log,moderate,"Event 3/22 show connect and name, not HTTP or TLS handshake fields.",host
+"http.log, ssl.log",PCAP / PCAPNG,moderate,Those sessions.,network
+"http.log, ssl.log","http.log (URLs, User-Agents, Referrers, MIME types, status codes)",strong,This channel includes http.log.,network
+"http.log, ssl.log",http2.log,moderate,HTTP/2 variant of the web session.,network
+"http.log, ssl.log","ssl.log (TLS handshake: SNI, version, cipher)",strong,This channel includes ssl.log.,network
+"http.log, ssl.log",x509.log (certificate details),moderate,Certs from the TLS side.,network
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",$MFT,moderate,Script file written to disk.,host
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",Brave,strong,Same Chromium history/downloads.,host
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",Chrome History / Downloads / Cookies,strong,Requested script URL and download.,host
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",Edge History / Downloads / Cookies,strong,Same.,host
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",Firefox History / Downloads / Cookies,strong,Same.,host
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",Internet Explorer History,moderate,"URL visit, weaker content-type.",host
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",Other Chromium-based browsers collected by the browser targets,strong,Same.,host
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",USN Journal ($J),moderate,Create of the downloaded script.,host
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",Extracted files (carved from Zeek or Suricata),strong,Carved script.,network
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",PCAP / PCAPNG,strong,Full JS/body.,network
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",Strelka file analysis metadata,moderate,File analysis of the script.,network
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources","files.log (files observed on the wire: hashes, MIME, size)",strong,"Script object on the wire (MIME, hash, size).",network
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources","http.log (URLs, User-Agents, Referrers, MIME types, status codes)",strong,"URI, content-type, referrer, status.",network
+"http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",http2.log,moderate,Same on HTTP/2.,network
+"modification to Winlogon registry keys such as Shell, Notify, or Userinit",Run / RunOnce,moderate,"Related logon persistence, not the Winlogon values themselves.",host
+"modification to Winlogon registry keys such as Shell, Notify, or Userinit",SOFTWARE hive,strong,Those values are in SOFTWARE Winlogon.,host
+"modification to Winlogon registry keys such as Shell, Notify, or Userinit",Security Event Log,strong,4657 if those keys are audited.,host
+"modification to Winlogon registry keys such as Shell, Notify, or Userinit",Sysmon Event Log,strong,Event 13 on those values.,host
+new rule allowing inbound or outbound connections for remote desktop software,SYSTEM hive,strong,Firewall policy.,host
+new rule allowing inbound or outbound connections for remote desktop software,Windows Firewall Log,strong,2004/2005/2006 rule add/change.,host
+new rule allowing inbound or outbound connections for remote desktop software,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,New RDP sessions after the rule exists. Not the rule change itself.,network
+new rule allowing inbound or outbound connections for remote desktop software,rdp.log,moderate,RDP metadata if sessions start.,network
+port 5900 inbound,Prefetch,moderate,VNC server/client binary executed.,host
+port 5900 inbound,Security Event Log,moderate,Logon if VNC triggered an auth event.,host
+port 5900 inbound,VNC,strong,VNC product logs/config listen on 5900.,host
+port 5900 inbound,Windows Firewall Log,strong,Inbound 5900 allow/block.,host
+port 5900 inbound,PCAP / PCAPNG,strong,VNC protocol on that port.,network
+port 5900 inbound,Suricata alerts (signature hits on the wire),moderate,VNC signatures.,network
+port 5900 inbound,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",strong,Inbound sessions to 5900.,network
+port 5900 inbound,known_services.log,moderate,Zeek noting VNC/5900.,network
+process_start: EventHeader.ProcessId true parent vs reported PPID mismatch,Security Event Log,moderate,4688 parent PID only.,host
+process_start: EventHeader.ProcessId true parent vs reported PPID mismatch,Sysmon Event Log,strong,Event 1 parent vs real parent / spoof.,host
+query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes,Group Policy,moderate,GPO objects that were queried.,host
+query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes,Security Event Log,moderate,DS access / 4662 volume on a DC.,host
+query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes,PCAP / PCAPNG,strong,LDAP filters in the PDUs. No ldap.log on the SO list.,network
+query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,High-volume sessions to 389/636.,network
+query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes,dce_rpc.log (Windows RPC on the wire),moderate,Follow-on AD RPC.,network
+query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes,"ssl.log (TLS handshake: SNI, version, cipher)",moderate,LDAPS.,network
+rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes,Security Event Log,strong,Share enumeration / 5140 noise plus 4688 for the unusual process.,host
+rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes,Sysmon Event Log,strong,Event 1 of the unusual process and Event 3 to 445.,host
+rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes,PCAP / PCAPNG,strong,The RPC call.,network
+rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",moderate,Session to 445.,network
+rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes,dce_rpc.log (Windows RPC on the wire),strong,srvsvc is DCE/RPC.,network
+rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes,smb_cmd.log (SMB commands),strong,NetShareEnum is an SMB/RPC command.,network
+rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes,smb_mapping.log (share / tree connects),moderate,Shares returned/connected.,network
+smtp.log,Extracted files (carved from Zeek or Suricata),moderate,Carved attachments.,network
+smtp.log,PCAP / PCAPNG,moderate,SMTP session.,network
+smtp.log,"files.log (files observed on the wire: hashes, MIME, size)",moderate,Mail attachments on the wire.,network
+smtp.log,smtp.log,strong,This channel is Zeek smtp.log.,network
+ssl.log - Certificate Analysis,PCAP / PCAPNG,strong,Certificate bytes.,network
+ssl.log - Certificate Analysis,known_certs.log,moderate,Whether Zeek has seen that cert.,network
+ssl.log - Certificate Analysis,"ssl.log (TLS handshake: SNI, version, cipher)",strong,Handshake and cert references.,network
+ssl.log - Certificate Analysis,x509.log (certificate details),strong,Certificate fields.,network
+token_analysis: API calls such as DuplicateTokenEx or ImpersonateLoggedOnUser,Event Trace Logs,strong,Named token APIs.,host
+token_analysis: API calls such as DuplicateTokenEx or ImpersonateLoggedOnUser,Security Event Log,moderate,Logon/privilege events from the impersonation.,host
+token_analysis: API calls such as DuplicateTokenEx or ImpersonateLoggedOnUser,Sysmon Event Log,moderate,Follow-on process under the stolen token.,host
+uncommon ports,Security Event Log,moderate,5156/5157 include ports if WFP audit is on.,host
+uncommon ports,Sysmon Event Log,strong,Event 3 dest port.,host
+uncommon ports,Windows Firewall Log,strong,Dest/src port is logged.,host
+uncommon ports,PCAP / PCAPNG,moderate,Those flows.,network
+uncommon ports,Suricata alerts (signature hits on the wire),moderate,Alerts on uncommon ports.,network
+uncommon ports,"conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",strong,Dest/src ports on every session.,network
+uncommon ports,known_services.log,moderate,Unexpected services Zeek saw.,network
+uncommon ports,notice.log (Zeek noteworthy events),moderate,Zeek notices on odd services/ports.,network

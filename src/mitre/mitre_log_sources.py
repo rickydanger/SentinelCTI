@@ -5,4 +5,4 @@ def get_log_sources_for_analytic(analytic_id, mitre_data):
         return []
     
     sources = getattr(analytic, 'x_mitre_log_source_references', [])
-    return [(s.get('name', 'N/A'), s.get('channel', 'N/A')) for s in sources]
+    return [(s.get('channel', 'N/A')) for s in sources]

@@ -1,0 +1,78 @@
+{
+  "source": "Security Onion (self-generated network visibility)",
+  "naming": "FOR572 Advanced Network Forensics Poster (PCAP / Logs)",
+  "notes": [
+    "Only artifacts Security Onion generates itself from traffic. No host agent, syslog ingest, or NetFlow export.",
+    "FOR572 poster piles are Full Packet Capture and Logs. SO does not generate NetFlow; conn.log is the NetFlow-like session view.",
+    "Default metadata engine is Zeek. If mdengine is set to SURICATA, protocol coverage is the shorter Suricata metadata set plus alerts and PCAP.",
+    "Extracted files and Strelka metadata are derived from PCAP/Zeek, same way carved objects come from a capture.",
+    "ICS/OT Zeek logs are included because SO ships parsers for them; they are not on the core FOR572 poster."
+  ],
+  "artifacts": {
+    "full_packet_capture": [
+      "PCAP / PCAPNG"
+    ],
+    "connection_and_session_logs": [
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)"
+    ],
+    "name_resolution_logs": [
+      "dns.log (DNS queries and responses, passive DNS from the wire)"
+    ],
+    "web_and_encrypted_web_logs": [
+      "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+      "http2.log",
+      "ssl.log (TLS handshake: SNI, version, cipher)",
+      "x509.log (certificate details)"
+    ],
+    "file_transfer_and_mail_logs": [
+      "ftp.log",
+      "smtp.log",
+      "files.log (files observed on the wire: hashes, MIME, size)"
+    ],
+    "remote_access_and_admin_protocol_logs": [
+      "ssh.log",
+      "rdp.log",
+      "smb_mapping.log (share / tree connects)",
+      "smb_files.log (SMB file access)",
+      "smb_cmd.log (SMB commands)",
+      "dce_rpc.log (Windows RPC on the wire)"
+    ],
+    "authentication_protocol_logs": [
+      "kerberos.log",
+      "ntlm.log"
+    ],
+    "host_configuration_protocol_logs": [
+      "dhcp.log (leases, assigned addresses, hostnames)",
+      "syslog.log (syslog observed on the network)"
+    ],
+    "nids_alerts_and_sensor_notices": [
+      "Suricata alerts (signature hits on the wire)",
+      "notice.log (Zeek noteworthy events)",
+      "weird.log (protocol violations and odd behavior)",
+      "intel.log (hits on threat-intel indicators)"
+    ],
+    "software_and_binary_metadata": [
+      "pe.log (Windows PE metadata from transferred binaries)",
+      "software.log (software / version fingerprints)",
+      "known_hosts.log",
+      "known_services.log",
+      "known_certs.log"
+    ],
+    "tunnel_and_miscellaneous_protocol_logs": [
+      "tunnel.log",
+      "irc.log",
+      "traceroute.log"
+    ],
+    "files_extracted_from_traffic": [
+      "Extracted files (carved from Zeek or Suricata)",
+      "Strelka file analysis metadata"
+    ],
+    "industrial_control_protocol_logs": [
+      "BACnet logs",
+      "DNP3 logs",
+      "EtherNet/IP / CIP logs",
+      "Modbus logs",
+      "other ICS/OT Zeek logs shipped with Security Onion"
+    ]
+  }
+}

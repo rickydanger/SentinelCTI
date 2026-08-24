@@ -1,0 +1,2978 @@
+{
+  "description": "Reversible lookup between MITRE ATT&CK analytic log_source_channel values and host (!SANS_Triage / FOR500 / FOR508) plus network (FOR572 / Security Onion self-generated) artifacts. Strong or moderate only.",
+  "channel_to_artifacts": {
+    "API calls": [
+      "Event Trace Logs",
+      "Sysmon Event Log"
+    ],
+    "API tracing / stack tracing via ETW or telemetry-based EDR": [
+      "Elastic Defend",
+      "Event Trace Logs",
+      "Sysmon Event Log"
+    ],
+    "Abnormal sign-in from scripting tools (PowerShell, AADInternals)": [
+      "PowerShell Console Log",
+      "PowerShell Event Log",
+      "PowerShell Transcripts",
+      "Security Event Log"
+    ],
+    "Accessed SharePoint files or pages": [
+      "Chrome History / Downloads / Cookies",
+      "Edge History / Downloads / Cookies",
+      "OneDrive"
+    ],
+    "Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents": [
+      "CrowdStrike Falcon",
+      "Elastic Defend",
+      "Security Event Log",
+      "Sysmon Event Log",
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "dns.log (DNS queries and responses, passive DNS from the wire)"
+    ],
+    "Amsi/Script content + API verdicts during in-memory staging": [
+      "PowerShell Event Log",
+      "PowerShell Transcripts",
+      "Windows Defender",
+      "Windows Defender Event Log"
+    ],
+    "Anomalous logon without MFA enforcement": [
+      "Security Event Log"
+    ],
+    "App reputation telemetry": [
+      "Amcache.hve",
+      "Windows Defender",
+      "Windows Defender Event Log"
+    ],
+    "AssemblyLoad/ModuleLoad (Loader keyword) from Microsoft-Windows-DotNETRuntime": [
+      "Amcache.hve",
+      "Event Trace Logs"
+    ],
+    "Behavioral rule for registry enumeration under credential-related paths": [
+      "NTUSER.DAT",
+      "SOFTWARE hive",
+      "Security Event Log",
+      "Sysmon Event Log"
+    ],
+    "Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events": [
+      "Brave",
+      "Chrome History / Downloads / Cookies",
+      "Edge History / Downloads / Cookies",
+      "Firefox History / Downloads / Cookies",
+      "Internet Explorer History",
+      "Opera",
+      "Other Chromium-based browsers collected by the browser targets",
+      "Vivaldi"
+    ],
+    "CLSID activation events where ProcessName=mmc.exe and CLSID not in allowed baseline": [
+      "Amcache.hve",
+      "Prefetch",
+      "SOFTWARE hive",
+      "UserAssist"
+    ],
+    "Cmdlet - New-InboxRule": [
+      "PowerShell Console Log",
+      "PowerShell Event Log",
+      "PowerShell Transcripts"
+    ],
+    "CodeIntegrity/WDAC events indicating unsigned/invalid DLL loads": [
+      "Amcache.hve",
+      "Application Event Log",
+      "Windows Defender",
+      "Windows Defender Event Log"
+    ],
+    "Command Line Telemetry": [
+      "PowerShell Event Log",
+      "Security Event Log",
+      "Sysmon Event Log"
+    ],
+    "CommandLine=copy-item or robocopy from UNC path": [
+      "$MFT",
+      "PowerShell Event Log",
+      "PowerShell Transcripts",
+      "Prefetch",
+      "Security Event Log",
+      "USN Journal ($J)",
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "smb_cmd.log (SMB commands)",
+      "smb_files.log (SMB file access)",
+      "smb_mapping.log (share / tree connects)"
+    ],
+    "Creation or modification of __EventFilter, __FilterToConsumerBinding, or CommandLineEventConsumer": [
+      "Sysmon Event Log",
+      "WMI Repository (WBEM)"
+    ],
+    "Device Object Creation": [
+      "SYSTEM hive",
+      "Sysmon Event Log"
+    ],
+    "Enrollment events (e.g., MDMDeviceRegistration)": [
+      "Group Policy",
+      "SOFTWARE hive",
+      "System Event Log"
+    ],
+    "Enumerate Winlogon subkeys for unknown or unsigned binaries": [
+      "Amcache.hve",
+      "SOFTWARE hive",
+      "Security Event Log",
+      "Sysmon Event Log"
+    ],
+    "EventCode=1": [
+      "Amcache.hve",
+      "BAM / DAM",
+      "Prefetch",
+      "Security Event Log",
+      "Shimcache (AppCompatCache)",
+      "Sysmon Event Log",
+      "UserAssist"
+    ],
+    "EventCode=10": [
+      "Sysmon Event Log"
+    ],
+    "EventCode=1000": [
+      "Application Event Log",
+      "WER"
+    ],
+    "EventCode=1006": [
+      "Application Event Log",
+      "WER"
+    ],
+    "EventCode=106": [
+      "Scheduled Tasks",
+      "Task Scheduler Event Log"
+    ],
+    "EventCode=106, 200": [
+      "Scheduled Tasks",
+      "Task Scheduler Event Log"
+    ],
+    "EventCode=1074": [
+      "System Event Log"
+    ],
+    "EventCode=11": [
+      "$MFT",
+      "Sysmon Event Log",
+      "USN Journal ($J)"
+    ],
+    "EventCode=1102": [
+      "Security Event Log"
+    ],
+    "EventCode=12": [
+      "NTUSER.DAT",
+      "Run / RunOnce",
+      "SOFTWARE hive",
+      "SYSTEM hive",
+      "Sysmon Event Log"
+    ],
+    "EventCode=13, 14": [
+      "NTUSER.DAT",
+      "Run / RunOnce",
+      "SOFTWARE hive",
+      "SYSTEM hive",
+      "Sysmon Event Log"
+    ],
+    "EventCode=15": [
+      "$MFT",
+      "Sysmon Event Log"
+    ],
+    "EventCode=1502, 1503": [
+      "Group Policy"
+    ],
+    "EventCode=17": [
+      "Sysmon Event Log"
+    ],
+    "EventCode=2": [
+      "$MFT",
+      "Sysmon Event Log",
+      "USN Journal ($J)"
+    ],
+    "EventCode=2003": [
+      "Task Scheduler Event Log",
+      "Windows Firewall Log"
+    ],
+    "EventCode=2004, 2005, 2006": [
+      "SYSTEM hive",
+      "Windows Firewall Log"
+    ],
+    "EventCode=23": [
+      "$MFT",
+      "Recycle Bin $I files",
+      "Sysmon Event Log",
+      "USN Journal ($J)"
+    ],
+    "EventCode=25": [
+      "Amcache.hve",
+      "Prefetch",
+      "Sysmon Event Log"
+    ],
+    "EventCode=3, 22": [
+      "SRUM",
+      "Sysmon Event Log",
+      "Windows Firewall Log",
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "dns.log (DNS queries and responses, passive DNS from the wire)"
+    ],
+    "EventCode=31001": [
+      "Application Event Log",
+      "Windows Defender",
+      "Windows Defender Event Log"
+    ],
+    "EventCode=4": [
+      "SYSTEM hive",
+      "Sysmon Event Log",
+      "System Event Log"
+    ],
+    "EventCode=400, 403": [
+      "PowerShell Console Log",
+      "PowerShell Event Log",
+      "PowerShell Transcripts"
+    ],
+    "EventCode=4103, 4104, 4105, 4106": [
+      "PowerShell Console Log",
+      "PowerShell Event Log",
+      "PowerShell Transcripts"
+    ],
+    "EventCode=4624": [
+      "Security Event Log"
+    ],
+    "EventCode=4624, 4625, 4768, 4769": [
+      "Security Event Log",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "kerberos.log",
+      "ntlm.log"
+    ],
+    "EventCode=4624, 4648": [
+      "Security Event Log"
+    ],
+    "EventCode=4625": [
+      "Security Event Log"
+    ],
+    "EventCode=4625, 4771, 4648": [
+      "Security Event Log",
+      "kerberos.log",
+      "ntlm.log"
+    ],
+    "EventCode=4648": [
+      "Security Event Log"
+    ],
+    "EventCode=4657": [
+      "NTUSER.DAT",
+      "Run / RunOnce",
+      "SOFTWARE hive",
+      "SYSTEM hive",
+      "Security Event Log"
+    ],
+    "EventCode=4661": [
+      "SAM hive",
+      "Security Event Log"
+    ],
+    "EventCode=4662": [
+      "Security Event Log"
+    ],
+    "EventCode=4663, 4670, 4656": [
+      "$MFT",
+      "Security Event Log",
+      "USN Journal ($J)"
+    ],
+    "EventCode=4672": [
+      "Security Event Log"
+    ],
+    "EventCode=4672, 4634": [
+      "Security Event Log"
+    ],
+    "EventCode=4673": [
+      "Security Event Log"
+    ],
+    "EventCode=4688": [
+      "Amcache.hve",
+      "BAM / DAM",
+      "Prefetch",
+      "Security Event Log",
+      "Shimcache (AppCompatCache)",
+      "UserAssist"
+    ],
+    "EventCode=4697": [
+      "Amcache.hve",
+      "Prefetch",
+      "Security Event Log",
+      "Services and system configuration stored in the SYSTEM hive"
+    ],
+    "EventCode=4698": [
+      "Scheduled Tasks",
+      "Security Event Log",
+      "Task Scheduler Event Log"
+    ],
+    "EventCode=4702": [
+      "Scheduled Tasks",
+      "Security Event Log",
+      "Task Scheduler Event Log"
+    ],
+    "EventCode=4704": [
+      "Security Event Log"
+    ],
+    "EventCode=4720": [
+      "SAM hive",
+      "Security Event Log"
+    ],
+    "EventCode=4728, 4729, 4732, 4733, 4756, 4757": [
+      "SAM hive",
+      "Security Event Log"
+    ],
+    "EventCode=4738, 4728, 4670": [
+      "SAM hive",
+      "Security Event Log"
+    ],
+    "EventCode=4739": [
+      "Group Policy",
+      "Security Event Log"
+    ],
+    "EventCode=4768": [
+      "Security Event Log",
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "kerberos.log"
+    ],
+    "EventCode=4769": [
+      "Security Event Log",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "kerberos.log"
+    ],
+    "EventCode=4776, 4625": [
+      "Security Event Log",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "ntlm.log"
+    ],
+    "EventCode=4776, 4771, 4770": [
+      "Security Event Log",
+      "kerberos.log",
+      "ntlm.log"
+    ],
+    "EventCode=4778, EventCode=4779": [
+      "RDP Bitmap Cache",
+      "RDP Logs",
+      "Security Event Log",
+      "Terminal Services / RDP Event Logs",
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "rdp.log"
+    ],
+    "EventCode=4798, 4799": [
+      "SAM hive",
+      "Security Event Log"
+    ],
+    "EventCode=4800, 4801": [
+      "Security Event Log"
+    ],
+    "EventCode=4929": [
+      "Security Event Log"
+    ],
+    "EventCode=5": [
+      "Sysmon Event Log"
+    ],
+    "EventCode=5136": [
+      "Security Event Log"
+    ],
+    "EventCode=5140": [
+      "Security Event Log",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "smb_files.log (SMB file access)",
+      "smb_mapping.log (share / tree connects)"
+    ],
+    "EventCode=5145": [
+      "Security Event Log",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "smb_cmd.log (SMB commands)",
+      "smb_files.log (SMB file access)"
+    ],
+    "EventCode=5156, 5157": [
+      "Security Event Log",
+      "Windows Firewall Log",
+      "PCAP / PCAPNG",
+      "Suricata alerts (signature hits on the wire)",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)"
+    ],
+    "EventCode=5857, 5858, 5860, 5861": [
+      "System Event Log",
+      "WMI Repository (WBEM)"
+    ],
+    "EventCode=6": [
+      "Amcache.hve",
+      "SYSTEM hive",
+      "Shimcache (AppCompatCache)",
+      "Sysmon Event Log"
+    ],
+    "EventCode=7": [
+      "Amcache.hve",
+      "Shimcache (AppCompatCache)",
+      "Sysmon Event Log"
+    ],
+    "EventCode=7035": [
+      "Services and system configuration stored in the SYSTEM hive",
+      "System Event Log"
+    ],
+    "EventCode=7036": [
+      "Services and system configuration stored in the SYSTEM hive",
+      "System Event Log"
+    ],
+    "EventCode=7045": [
+      "Amcache.hve",
+      "Prefetch",
+      "Services and system configuration stored in the SYSTEM hive",
+      "System Event Log"
+    ],
+    "EventCode=8": [
+      "Amcache.hve",
+      "Prefetch",
+      "Sysmon Event Log"
+    ],
+    "EventCode=8001, 8002, 8003": [
+      "Amcache.hve",
+      "Application Event Log",
+      "Prefetch",
+      "Windows Defender",
+      "Windows Defender Event Log"
+    ],
+    "EventCode=9": [
+      "$MFT",
+      "Sysmon Event Log"
+    ],
+    "Excessive lookups for domains with suspicious WHOIS or short TTL values": [
+      "Sysmon Event Log",
+      "PCAP / PCAPNG",
+      "dns.log (DNS queries and responses, passive DNS from the wire)",
+      "intel.log (hits on threat-intel indicators)"
+    ],
+    "Exchange logs or header artifacts": [
+      "PowerShell Event Log",
+      "PowerShell Transcripts",
+      "PCAP / PCAPNG",
+      "smtp.log"
+    ],
+    "Execution of 'Get-WmiObject Win32_Product' or similar PowerShell cmdlets": [
+      "PowerShell Console Log",
+      "PowerShell Event Log",
+      "PowerShell Transcripts",
+      "WMI Repository (WBEM)"
+    ],
+    "First-time egress to non-approved update hosts right after install/update": [
+      "Amcache.hve",
+      "Prefetch",
+      "SRUM",
+      "Sysmon Event Log",
+      "Windows Firewall Log",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "dns.log (DNS queries and responses, passive DNS from the wire)",
+      "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+      "software.log (software / version fingerprints)",
+      "ssl.log (TLS handshake: SNI, version, cipher)"
+    ],
+    "Firewall Rule Modification": [
+      "SYSTEM hive",
+      "Windows Firewall Log"
+    ],
+    "High-frequency or suspicious sequence of QueryPerformanceCounter/GetTickCount API calls from a non-standard process lineage": [
+      "Event Trace Logs",
+      "Sysmon Event Log"
+    ],
+    "ICMP/UDP traffic (Wireshark, Suricata, Zeek)": [
+      "Sysmon Event Log",
+      "Windows Firewall Log",
+      "PCAP / PCAPNG",
+      "Suricata alerts (signature hits on the wire)",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "traceroute.log",
+      "weird.log (protocol violations and odd behavior)"
+    ],
+    "Inbound HTTP POST with suspicious payload size or user-agent": [
+      "Extracted files (carved from Zeek or Suricata)",
+      "PCAP / PCAPNG",
+      "Suricata alerts (signature hits on the wire)",
+      "files.log (files observed on the wire: hashes, MIME, size)",
+      "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+      "http2.log"
+    ],
+    "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.": [
+      "RDP Bitmap Cache",
+      "RDP Logs",
+      "Security Event Log",
+      "Terminal Services / RDP Event Logs",
+      "Windows Firewall Log",
+      "PCAP / PCAPNG",
+      "Suricata alerts (signature hits on the wire)",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "kerberos.log",
+      "ntlm.log",
+      "rdp.log",
+      "smb_mapping.log (share / tree connects)"
+    ],
+    "LDAP Bind/Search": [
+      "Security Event Log",
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "dce_rpc.log (Windows RPC on the wire)",
+      "kerberos.log",
+      "ssl.log (TLS handshake: SNI, version, cipher)"
+    ],
+    "Outbound Connection": [
+      "SRUM",
+      "Sysmon Event Log",
+      "Windows Firewall Log",
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "dns.log (DNS queries and responses, passive DNS from the wire)",
+      "ssl.log (TLS handshake: SNI, version, cipher)"
+    ],
+    "Outbound resolution to hidden service domains (e.g., `.onion`)": [
+      "Sysmon Event Log",
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "dns.log (DNS queries and responses, passive DNS from the wire)",
+      "intel.log (hits on threat-intel indicators)"
+    ],
+    "Process Tree + Script Block Logging": [
+      "PowerShell Event Log",
+      "PowerShell Transcripts",
+      "Security Event Log",
+      "Sysmon Event Log"
+    ],
+    "Process lineage and API usage enrichment (GetSystemTime, GetTimeZoneInformation, NtQuerySystemTime)": [
+      "Event Trace Logs",
+      "Sysmon Event Log"
+    ],
+    "ScriptBlockLogging + AMSI": [
+      "PowerShell Event Log",
+      "PowerShell Transcripts",
+      "Windows Defender",
+      "Windows Defender Event Log"
+    ],
+    "Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types": [
+      "Extracted files (carved from Zeek or Suricata)",
+      "PCAP / PCAPNG",
+      "Strelka file analysis metadata",
+      "Suricata alerts (signature hits on the wire)",
+      "files.log (files observed on the wire: hashes, MIME, size)",
+      "smtp.log"
+    ],
+    "Send/Receive: Inbound emails containing embedded or shortened URLs": [
+      "PCAP / PCAPNG",
+      "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+      "smtp.log"
+    ],
+    "Send/Receive: Inbound emails with attachments from suspicious or spoofed senders": [
+      "$MFT",
+      "LNK files",
+      "USN Journal ($J)",
+      "Extracted files (carved from Zeek or Suricata)",
+      "PCAP / PCAPNG",
+      "Strelka file analysis metadata",
+      "files.log (files observed on the wire: hashes, MIME, size)",
+      "pe.log (Windows PE metadata from transferred binaries)",
+      "smtp.log"
+    ],
+    "SendOnBehalf, MessageSend, ClickThrough, MailItemsAccessed": [
+      "PowerShell Event Log",
+      "PowerShell Transcripts",
+      "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+      "smtp.log"
+    ],
+    "SendOnBehalf/SendAs: Emails sent where the sending identity mismatches account ownership": [
+      "PowerShell Event Log",
+      "PowerShell Transcripts",
+      "Security Event Log",
+      "PCAP / PCAPNG",
+      "smtp.log"
+    ],
+    "Service stopped or RecoveryDisabled set via REAgentC": [
+      "Prefetch",
+      "Services and system configuration stored in the SYSTEM hive",
+      "System Event Log"
+    ],
+    "Session Transfer Content": [
+      "RDP Bitmap Cache",
+      "RDP Logs",
+      "Terminal Services / RDP Event Logs",
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "rdp.log"
+    ],
+    "Set-ADUser or Set-ADAuthenticationPolicy with MFA attributes disabled": [
+      "PowerShell Event Log",
+      "PowerShell Transcripts",
+      "Security Event Log"
+    ],
+    "SetFileTime": [
+      "$MFT",
+      "Sysmon Event Log",
+      "USN Journal ($J)"
+    ],
+    "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST": [
+      "Brave",
+      "Chrome History / Downloads / Cookies",
+      "Edge History / Downloads / Cookies",
+      "Firefox History / Downloads / Cookies",
+      "Internet Explorer History",
+      "Other Chromium-based browsers collected by the browser targets",
+      "Sysmon Event Log",
+      "PCAP / PCAPNG",
+      "dns.log (DNS queries and responses, passive DNS from the wire)",
+      "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+      "http2.log",
+      "intel.log (hits on threat-intel indicators)",
+      "ssl.log (TLS handshake: SNI, version, cipher)"
+    ],
+    "Suspicious file execution on removable media path": [
+      "Amcache.hve",
+      "LNK files",
+      "MountedDevices",
+      "Prefetch",
+      "Shimcache (AppCompatCache)",
+      "USB Device SetupAPI Logs",
+      "USBSTOR"
+    ],
+    "TCP/UDP": [
+      "SRUM",
+      "Security Event Log",
+      "Sysmon Event Log",
+      "Windows Firewall Log",
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "known_services.log"
+    ],
+    "TLS Handshake/Network Flow": [
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "known_certs.log",
+      "ssl.log (TLS handshake: SNI, version, cipher)",
+      "x509.log (certificate details)"
+    ],
+    "TLS handshake + HTTP headers": [
+      "Chrome History / Downloads / Cookies",
+      "Edge History / Downloads / Cookies",
+      "Firefox History / Downloads / Cookies",
+      "PCAP / PCAPNG",
+      "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+      "http2.log",
+      "ssl.log (TLS handshake: SNI, version, cipher)",
+      "x509.log (certificate details)"
+    ],
+    "Task registration/execution shortly after a time discovery event": [
+      "Prefetch",
+      "Scheduled Tasks",
+      "Security Event Log",
+      "Task Scheduler Event Log"
+    ],
+    "Token issuance events showing anomalous claims or issuers": [
+      "Security Event Log"
+    ],
+    "Traffic on RPC DRSUAPI": [
+      "Security Event Log",
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "dce_rpc.log (Windows RPC on the wire)"
+    ],
+    "Transport Rule Modification": [
+      "PowerShell Event Log",
+      "PowerShell Transcripts"
+    ],
+    "Unexpected DLL or component loaded at Office startup": [
+      "Amcache.hve",
+      "Prefetch",
+      "Shimcache (AppCompatCache)",
+      "Sysmon Event Log",
+      "Windows Defender Event Log"
+    ],
+    "Unsigned or invalid image for newly installed/updated binaries": [
+      "Amcache.hve",
+      "Prefetch",
+      "Shimcache (AppCompatCache)",
+      "Windows Defender",
+      "Windows Defender Event Log"
+    ],
+    "Unusual external domain access": [
+      "Chrome History / Downloads / Cookies",
+      "Edge History / Downloads / Cookies",
+      "Sysmon Event Log",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "dns.log (DNS queries and responses, passive DNS from the wire)",
+      "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+      "intel.log (hits on threat-intel indicators)",
+      "ssl.log (TLS handshake: SNI, version, cipher)"
+    ],
+    "UserLogin, ConditionalAccessPolicyEvaluated": [
+      "Security Event Log"
+    ],
+    "VPN, Citrix, or remote access gateway logs showing external IP addresses": [
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "ssl.log (TLS handshake: SNI, version, cipher)"
+    ],
+    "Volume Shadow Copy Creation": [
+      "$MFT",
+      "System Event Log",
+      "USN Journal ($J)"
+    ],
+    "WMI Object Creation Events": [
+      "Sysmon Event Log",
+      "WMI Repository (WBEM)"
+    ],
+    "Windows Backup Catalog deletion or catalog corruption": [
+      "$MFT",
+      "System Event Log",
+      "USN Journal ($J)"
+    ],
+    "api_call: CreateProcessWithTokenW, CreateProcessAsUserW": [
+      "Event Trace Logs",
+      "Security Event Log",
+      "Sysmon Event Log"
+    ],
+    "api_call: DuplicateTokenEx, ImpersonateLoggedOnUser, SetThreadToken": [
+      "Event Trace Logs",
+      "Security Event Log",
+      "Sysmon Event Log"
+    ],
+    "api_call: LogonUser(A|W), LsaLogonUser, SetThreadToken, ImpersonateLoggedOnUser": [
+      "Event Trace Logs",
+      "Security Event Log",
+      "Sysmon Event Log"
+    ],
+    "api_call: UpdateProcThreadAttribute (PROC_THREAD_ATTRIBUTE_PARENT_PROCESS) and CreateProcess* with EXTENDED_STARTUPINFO_PRESENT / StartupInfoEx": [
+      "Prefetch",
+      "Security Event Log",
+      "Sysmon Event Log"
+    ],
+    "dns.log": [
+      "Sysmon Event Log",
+      "PCAP / PCAPNG",
+      "dns.log (DNS queries and responses, passive DNS from the wire)",
+      "intel.log (hits on threat-intel indicators)"
+    ],
+    "ftp.log, smb_files.log": [
+      "FileZilla Client",
+      "FileZilla Server",
+      "Robo-FTP",
+      "Security Event Log",
+      "WinSCP",
+      "Extracted files (carved from Zeek or Suricata)",
+      "PCAP / PCAPNG",
+      "files.log (files observed on the wire: hashes, MIME, size)",
+      "ftp.log",
+      "smb_cmd.log (SMB commands)",
+      "smb_files.log (SMB file access)",
+      "smb_mapping.log (share / tree connects)"
+    ],
+    "http.log, ftp.log": [
+      "Chrome History / Downloads / Cookies",
+      "Edge History / Downloads / Cookies",
+      "FileZilla Client",
+      "Robo-FTP",
+      "WinSCP",
+      "Extracted files (carved from Zeek or Suricata)",
+      "PCAP / PCAPNG",
+      "files.log (files observed on the wire: hashes, MIME, size)",
+      "ftp.log",
+      "http.log (URLs, User-Agents, Referrers, MIME types, status codes)"
+    ],
+    "http.log, ssl.log": [
+      "Chrome History / Downloads / Cookies",
+      "Edge History / Downloads / Cookies",
+      "Firefox History / Downloads / Cookies",
+      "Sysmon Event Log",
+      "PCAP / PCAPNG",
+      "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+      "http2.log",
+      "ssl.log (TLS handshake: SNI, version, cipher)",
+      "x509.log (certificate details)"
+    ],
+    "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources": [
+      "$MFT",
+      "Brave",
+      "Chrome History / Downloads / Cookies",
+      "Edge History / Downloads / Cookies",
+      "Firefox History / Downloads / Cookies",
+      "Internet Explorer History",
+      "Other Chromium-based browsers collected by the browser targets",
+      "USN Journal ($J)",
+      "Extracted files (carved from Zeek or Suricata)",
+      "PCAP / PCAPNG",
+      "Strelka file analysis metadata",
+      "files.log (files observed on the wire: hashes, MIME, size)",
+      "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+      "http2.log"
+    ],
+    "modification to Winlogon registry keys such as Shell, Notify, or Userinit": [
+      "Run / RunOnce",
+      "SOFTWARE hive",
+      "Security Event Log",
+      "Sysmon Event Log"
+    ],
+    "new rule allowing inbound or outbound connections for remote desktop software": [
+      "SYSTEM hive",
+      "Windows Firewall Log",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "rdp.log"
+    ],
+    "port 5900 inbound": [
+      "Prefetch",
+      "Security Event Log",
+      "VNC",
+      "Windows Firewall Log",
+      "PCAP / PCAPNG",
+      "Suricata alerts (signature hits on the wire)",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "known_services.log"
+    ],
+    "process_start: EventHeader.ProcessId true parent vs reported PPID mismatch": [
+      "Security Event Log",
+      "Sysmon Event Log"
+    ],
+    "query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes": [
+      "Group Policy",
+      "Security Event Log",
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "dce_rpc.log (Windows RPC on the wire)",
+      "ssl.log (TLS handshake: SNI, version, cipher)"
+    ],
+    "rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes": [
+      "Security Event Log",
+      "Sysmon Event Log",
+      "PCAP / PCAPNG",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "dce_rpc.log (Windows RPC on the wire)",
+      "smb_cmd.log (SMB commands)",
+      "smb_mapping.log (share / tree connects)"
+    ],
+    "smtp.log": [
+      "Extracted files (carved from Zeek or Suricata)",
+      "PCAP / PCAPNG",
+      "files.log (files observed on the wire: hashes, MIME, size)",
+      "smtp.log"
+    ],
+    "ssl.log - Certificate Analysis": [
+      "PCAP / PCAPNG",
+      "known_certs.log",
+      "ssl.log (TLS handshake: SNI, version, cipher)",
+      "x509.log (certificate details)"
+    ],
+    "token_analysis: API calls such as DuplicateTokenEx or ImpersonateLoggedOnUser": [
+      "Event Trace Logs",
+      "Security Event Log",
+      "Sysmon Event Log"
+    ],
+    "uncommon ports": [
+      "Security Event Log",
+      "Sysmon Event Log",
+      "Windows Firewall Log",
+      "PCAP / PCAPNG",
+      "Suricata alerts (signature hits on the wire)",
+      "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+      "known_services.log",
+      "notice.log (Zeek noteworthy events)"
+    ]
+  },
+  "channel_to_artifacts_by_vantage": {
+    "API calls": {
+      "host": [
+        "Event Trace Logs",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "API tracing / stack tracing via ETW or telemetry-based EDR": {
+      "host": [
+        "Elastic Defend",
+        "Event Trace Logs",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "Abnormal sign-in from scripting tools (PowerShell, AADInternals)": {
+      "host": [
+        "PowerShell Console Log",
+        "PowerShell Event Log",
+        "PowerShell Transcripts",
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "Accessed SharePoint files or pages": {
+      "host": [
+        "Chrome History / Downloads / Cookies",
+        "Edge History / Downloads / Cookies",
+        "OneDrive"
+      ],
+      "network": []
+    },
+    "Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents": {
+      "host": [
+        "CrowdStrike Falcon",
+        "Elastic Defend",
+        "Security Event Log",
+        "Sysmon Event Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "dns.log (DNS queries and responses, passive DNS from the wire)"
+      ]
+    },
+    "Amsi/Script content + API verdicts during in-memory staging": {
+      "host": [
+        "PowerShell Event Log",
+        "PowerShell Transcripts",
+        "Windows Defender",
+        "Windows Defender Event Log"
+      ],
+      "network": []
+    },
+    "Anomalous logon without MFA enforcement": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "App reputation telemetry": {
+      "host": [
+        "Amcache.hve",
+        "Windows Defender",
+        "Windows Defender Event Log"
+      ],
+      "network": []
+    },
+    "AssemblyLoad/ModuleLoad (Loader keyword) from Microsoft-Windows-DotNETRuntime": {
+      "host": [
+        "Amcache.hve",
+        "Event Trace Logs"
+      ],
+      "network": []
+    },
+    "Behavioral rule for registry enumeration under credential-related paths": {
+      "host": [
+        "NTUSER.DAT",
+        "SOFTWARE hive",
+        "Security Event Log",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events": {
+      "host": [
+        "Brave",
+        "Chrome History / Downloads / Cookies",
+        "Edge History / Downloads / Cookies",
+        "Firefox History / Downloads / Cookies",
+        "Internet Explorer History",
+        "Opera",
+        "Other Chromium-based browsers collected by the browser targets",
+        "Vivaldi"
+      ],
+      "network": []
+    },
+    "CLSID activation events where ProcessName=mmc.exe and CLSID not in allowed baseline": {
+      "host": [
+        "Amcache.hve",
+        "Prefetch",
+        "SOFTWARE hive",
+        "UserAssist"
+      ],
+      "network": []
+    },
+    "Cmdlet - New-InboxRule": {
+      "host": [
+        "PowerShell Console Log",
+        "PowerShell Event Log",
+        "PowerShell Transcripts"
+      ],
+      "network": []
+    },
+    "CodeIntegrity/WDAC events indicating unsigned/invalid DLL loads": {
+      "host": [
+        "Amcache.hve",
+        "Application Event Log",
+        "Windows Defender",
+        "Windows Defender Event Log"
+      ],
+      "network": []
+    },
+    "Command Line Telemetry": {
+      "host": [
+        "PowerShell Event Log",
+        "Security Event Log",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "CommandLine=copy-item or robocopy from UNC path": {
+      "host": [
+        "$MFT",
+        "PowerShell Event Log",
+        "PowerShell Transcripts",
+        "Prefetch",
+        "Security Event Log",
+        "USN Journal ($J)"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "smb_cmd.log (SMB commands)",
+        "smb_files.log (SMB file access)",
+        "smb_mapping.log (share / tree connects)"
+      ]
+    },
+    "Creation or modification of __EventFilter, __FilterToConsumerBinding, or CommandLineEventConsumer": {
+      "host": [
+        "Sysmon Event Log",
+        "WMI Repository (WBEM)"
+      ],
+      "network": []
+    },
+    "Device Object Creation": {
+      "host": [
+        "SYSTEM hive",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "Enrollment events (e.g., MDMDeviceRegistration)": {
+      "host": [
+        "Group Policy",
+        "SOFTWARE hive",
+        "System Event Log"
+      ],
+      "network": []
+    },
+    "Enumerate Winlogon subkeys for unknown or unsigned binaries": {
+      "host": [
+        "Amcache.hve",
+        "SOFTWARE hive",
+        "Security Event Log",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=1": {
+      "host": [
+        "Amcache.hve",
+        "BAM / DAM",
+        "Prefetch",
+        "Security Event Log",
+        "Shimcache (AppCompatCache)",
+        "Sysmon Event Log",
+        "UserAssist"
+      ],
+      "network": []
+    },
+    "EventCode=10": {
+      "host": [
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=1000": {
+      "host": [
+        "Application Event Log",
+        "WER"
+      ],
+      "network": []
+    },
+    "EventCode=1006": {
+      "host": [
+        "Application Event Log",
+        "WER"
+      ],
+      "network": []
+    },
+    "EventCode=106": {
+      "host": [
+        "Scheduled Tasks",
+        "Task Scheduler Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=106, 200": {
+      "host": [
+        "Scheduled Tasks",
+        "Task Scheduler Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=1074": {
+      "host": [
+        "System Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=11": {
+      "host": [
+        "$MFT",
+        "Sysmon Event Log",
+        "USN Journal ($J)"
+      ],
+      "network": []
+    },
+    "EventCode=1102": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=12": {
+      "host": [
+        "NTUSER.DAT",
+        "Run / RunOnce",
+        "SOFTWARE hive",
+        "SYSTEM hive",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=13, 14": {
+      "host": [
+        "NTUSER.DAT",
+        "Run / RunOnce",
+        "SOFTWARE hive",
+        "SYSTEM hive",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=15": {
+      "host": [
+        "$MFT",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=1502, 1503": {
+      "host": [
+        "Group Policy"
+      ],
+      "network": []
+    },
+    "EventCode=17": {
+      "host": [
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=2": {
+      "host": [
+        "$MFT",
+        "Sysmon Event Log",
+        "USN Journal ($J)"
+      ],
+      "network": []
+    },
+    "EventCode=2003": {
+      "host": [
+        "Task Scheduler Event Log",
+        "Windows Firewall Log"
+      ],
+      "network": []
+    },
+    "EventCode=2004, 2005, 2006": {
+      "host": [
+        "SYSTEM hive",
+        "Windows Firewall Log"
+      ],
+      "network": []
+    },
+    "EventCode=23": {
+      "host": [
+        "$MFT",
+        "Recycle Bin $I files",
+        "Sysmon Event Log",
+        "USN Journal ($J)"
+      ],
+      "network": []
+    },
+    "EventCode=25": {
+      "host": [
+        "Amcache.hve",
+        "Prefetch",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=3, 22": {
+      "host": [
+        "SRUM",
+        "Sysmon Event Log",
+        "Windows Firewall Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "dns.log (DNS queries and responses, passive DNS from the wire)"
+      ]
+    },
+    "EventCode=31001": {
+      "host": [
+        "Application Event Log",
+        "Windows Defender",
+        "Windows Defender Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4": {
+      "host": [
+        "SYSTEM hive",
+        "Sysmon Event Log",
+        "System Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=400, 403": {
+      "host": [
+        "PowerShell Console Log",
+        "PowerShell Event Log",
+        "PowerShell Transcripts"
+      ],
+      "network": []
+    },
+    "EventCode=4103, 4104, 4105, 4106": {
+      "host": [
+        "PowerShell Console Log",
+        "PowerShell Event Log",
+        "PowerShell Transcripts"
+      ],
+      "network": []
+    },
+    "EventCode=4624": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4624, 4625, 4768, 4769": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": [
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "kerberos.log",
+        "ntlm.log"
+      ]
+    },
+    "EventCode=4624, 4648": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4625": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4625, 4771, 4648": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": [
+        "kerberos.log",
+        "ntlm.log"
+      ]
+    },
+    "EventCode=4648": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4657": {
+      "host": [
+        "NTUSER.DAT",
+        "Run / RunOnce",
+        "SOFTWARE hive",
+        "SYSTEM hive",
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4661": {
+      "host": [
+        "SAM hive",
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4662": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4663, 4670, 4656": {
+      "host": [
+        "$MFT",
+        "Security Event Log",
+        "USN Journal ($J)"
+      ],
+      "network": []
+    },
+    "EventCode=4672": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4672, 4634": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4673": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4688": {
+      "host": [
+        "Amcache.hve",
+        "BAM / DAM",
+        "Prefetch",
+        "Security Event Log",
+        "Shimcache (AppCompatCache)",
+        "UserAssist"
+      ],
+      "network": []
+    },
+    "EventCode=4697": {
+      "host": [
+        "Amcache.hve",
+        "Prefetch",
+        "Security Event Log",
+        "Services and system configuration stored in the SYSTEM hive"
+      ],
+      "network": []
+    },
+    "EventCode=4698": {
+      "host": [
+        "Scheduled Tasks",
+        "Security Event Log",
+        "Task Scheduler Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4702": {
+      "host": [
+        "Scheduled Tasks",
+        "Security Event Log",
+        "Task Scheduler Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4704": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4720": {
+      "host": [
+        "SAM hive",
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4728, 4729, 4732, 4733, 4756, 4757": {
+      "host": [
+        "SAM hive",
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4738, 4728, 4670": {
+      "host": [
+        "SAM hive",
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4739": {
+      "host": [
+        "Group Policy",
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4768": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "kerberos.log"
+      ]
+    },
+    "EventCode=4769": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": [
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "kerberos.log"
+      ]
+    },
+    "EventCode=4776, 4625": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": [
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "ntlm.log"
+      ]
+    },
+    "EventCode=4776, 4771, 4770": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": [
+        "kerberos.log",
+        "ntlm.log"
+      ]
+    },
+    "EventCode=4778, EventCode=4779": {
+      "host": [
+        "RDP Bitmap Cache",
+        "RDP Logs",
+        "Security Event Log",
+        "Terminal Services / RDP Event Logs"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "rdp.log"
+      ]
+    },
+    "EventCode=4798, 4799": {
+      "host": [
+        "SAM hive",
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4800, 4801": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=4929": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=5": {
+      "host": [
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=5136": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=5140": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": [
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "smb_files.log (SMB file access)",
+        "smb_mapping.log (share / tree connects)"
+      ]
+    },
+    "EventCode=5145": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": [
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "smb_cmd.log (SMB commands)",
+        "smb_files.log (SMB file access)"
+      ]
+    },
+    "EventCode=5156, 5157": {
+      "host": [
+        "Security Event Log",
+        "Windows Firewall Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "Suricata alerts (signature hits on the wire)",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)"
+      ]
+    },
+    "EventCode=5857, 5858, 5860, 5861": {
+      "host": [
+        "System Event Log",
+        "WMI Repository (WBEM)"
+      ],
+      "network": []
+    },
+    "EventCode=6": {
+      "host": [
+        "Amcache.hve",
+        "SYSTEM hive",
+        "Shimcache (AppCompatCache)",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=7": {
+      "host": [
+        "Amcache.hve",
+        "Shimcache (AppCompatCache)",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=7035": {
+      "host": [
+        "Services and system configuration stored in the SYSTEM hive",
+        "System Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=7036": {
+      "host": [
+        "Services and system configuration stored in the SYSTEM hive",
+        "System Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=7045": {
+      "host": [
+        "Amcache.hve",
+        "Prefetch",
+        "Services and system configuration stored in the SYSTEM hive",
+        "System Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=8": {
+      "host": [
+        "Amcache.hve",
+        "Prefetch",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=8001, 8002, 8003": {
+      "host": [
+        "Amcache.hve",
+        "Application Event Log",
+        "Prefetch",
+        "Windows Defender",
+        "Windows Defender Event Log"
+      ],
+      "network": []
+    },
+    "EventCode=9": {
+      "host": [
+        "$MFT",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "Excessive lookups for domains with suspicious WHOIS or short TTL values": {
+      "host": [
+        "Sysmon Event Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "dns.log (DNS queries and responses, passive DNS from the wire)",
+        "intel.log (hits on threat-intel indicators)"
+      ]
+    },
+    "Exchange logs or header artifacts": {
+      "host": [
+        "PowerShell Event Log",
+        "PowerShell Transcripts"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "smtp.log"
+      ]
+    },
+    "Execution of 'Get-WmiObject Win32_Product' or similar PowerShell cmdlets": {
+      "host": [
+        "PowerShell Console Log",
+        "PowerShell Event Log",
+        "PowerShell Transcripts",
+        "WMI Repository (WBEM)"
+      ],
+      "network": []
+    },
+    "First-time egress to non-approved update hosts right after install/update": {
+      "host": [
+        "Amcache.hve",
+        "Prefetch",
+        "SRUM",
+        "Sysmon Event Log",
+        "Windows Firewall Log"
+      ],
+      "network": [
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "dns.log (DNS queries and responses, passive DNS from the wire)",
+        "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+        "software.log (software / version fingerprints)",
+        "ssl.log (TLS handshake: SNI, version, cipher)"
+      ]
+    },
+    "Firewall Rule Modification": {
+      "host": [
+        "SYSTEM hive",
+        "Windows Firewall Log"
+      ],
+      "network": []
+    },
+    "High-frequency or suspicious sequence of QueryPerformanceCounter/GetTickCount API calls from a non-standard process lineage": {
+      "host": [
+        "Event Trace Logs",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "ICMP/UDP traffic (Wireshark, Suricata, Zeek)": {
+      "host": [
+        "Sysmon Event Log",
+        "Windows Firewall Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "Suricata alerts (signature hits on the wire)",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "traceroute.log",
+        "weird.log (protocol violations and odd behavior)"
+      ]
+    },
+    "Inbound HTTP POST with suspicious payload size or user-agent": {
+      "host": [],
+      "network": [
+        "Extracted files (carved from Zeek or Suricata)",
+        "PCAP / PCAPNG",
+        "Suricata alerts (signature hits on the wire)",
+        "files.log (files observed on the wire: hashes, MIME, size)",
+        "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+        "http2.log"
+      ]
+    },
+    "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.": {
+      "host": [
+        "RDP Bitmap Cache",
+        "RDP Logs",
+        "Security Event Log",
+        "Terminal Services / RDP Event Logs",
+        "Windows Firewall Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "Suricata alerts (signature hits on the wire)",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "kerberos.log",
+        "ntlm.log",
+        "rdp.log",
+        "smb_mapping.log (share / tree connects)"
+      ]
+    },
+    "LDAP Bind/Search": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "dce_rpc.log (Windows RPC on the wire)",
+        "kerberos.log",
+        "ssl.log (TLS handshake: SNI, version, cipher)"
+      ]
+    },
+    "Outbound Connection": {
+      "host": [
+        "SRUM",
+        "Sysmon Event Log",
+        "Windows Firewall Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "dns.log (DNS queries and responses, passive DNS from the wire)",
+        "ssl.log (TLS handshake: SNI, version, cipher)"
+      ]
+    },
+    "Outbound resolution to hidden service domains (e.g., `.onion`)": {
+      "host": [
+        "Sysmon Event Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "dns.log (DNS queries and responses, passive DNS from the wire)",
+        "intel.log (hits on threat-intel indicators)"
+      ]
+    },
+    "Process Tree + Script Block Logging": {
+      "host": [
+        "PowerShell Event Log",
+        "PowerShell Transcripts",
+        "Security Event Log",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "Process lineage and API usage enrichment (GetSystemTime, GetTimeZoneInformation, NtQuerySystemTime)": {
+      "host": [
+        "Event Trace Logs",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "ScriptBlockLogging + AMSI": {
+      "host": [
+        "PowerShell Event Log",
+        "PowerShell Transcripts",
+        "Windows Defender",
+        "Windows Defender Event Log"
+      ],
+      "network": []
+    },
+    "Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types": {
+      "host": [],
+      "network": [
+        "Extracted files (carved from Zeek or Suricata)",
+        "PCAP / PCAPNG",
+        "Strelka file analysis metadata",
+        "Suricata alerts (signature hits on the wire)",
+        "files.log (files observed on the wire: hashes, MIME, size)",
+        "smtp.log"
+      ]
+    },
+    "Send/Receive: Inbound emails containing embedded or shortened URLs": {
+      "host": [],
+      "network": [
+        "PCAP / PCAPNG",
+        "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+        "smtp.log"
+      ]
+    },
+    "Send/Receive: Inbound emails with attachments from suspicious or spoofed senders": {
+      "host": [
+        "$MFT",
+        "LNK files",
+        "USN Journal ($J)"
+      ],
+      "network": [
+        "Extracted files (carved from Zeek or Suricata)",
+        "PCAP / PCAPNG",
+        "Strelka file analysis metadata",
+        "files.log (files observed on the wire: hashes, MIME, size)",
+        "pe.log (Windows PE metadata from transferred binaries)",
+        "smtp.log"
+      ]
+    },
+    "SendOnBehalf, MessageSend, ClickThrough, MailItemsAccessed": {
+      "host": [
+        "PowerShell Event Log",
+        "PowerShell Transcripts"
+      ],
+      "network": [
+        "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+        "smtp.log"
+      ]
+    },
+    "SendOnBehalf/SendAs: Emails sent where the sending identity mismatches account ownership": {
+      "host": [
+        "PowerShell Event Log",
+        "PowerShell Transcripts",
+        "Security Event Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "smtp.log"
+      ]
+    },
+    "Service stopped or RecoveryDisabled set via REAgentC": {
+      "host": [
+        "Prefetch",
+        "Services and system configuration stored in the SYSTEM hive",
+        "System Event Log"
+      ],
+      "network": []
+    },
+    "Session Transfer Content": {
+      "host": [
+        "RDP Bitmap Cache",
+        "RDP Logs",
+        "Terminal Services / RDP Event Logs"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "rdp.log"
+      ]
+    },
+    "Set-ADUser or Set-ADAuthenticationPolicy with MFA attributes disabled": {
+      "host": [
+        "PowerShell Event Log",
+        "PowerShell Transcripts",
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "SetFileTime": {
+      "host": [
+        "$MFT",
+        "Sysmon Event Log",
+        "USN Journal ($J)"
+      ],
+      "network": []
+    },
+    "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST": {
+      "host": [
+        "Brave",
+        "Chrome History / Downloads / Cookies",
+        "Edge History / Downloads / Cookies",
+        "Firefox History / Downloads / Cookies",
+        "Internet Explorer History",
+        "Other Chromium-based browsers collected by the browser targets",
+        "Sysmon Event Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "dns.log (DNS queries and responses, passive DNS from the wire)",
+        "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+        "http2.log",
+        "intel.log (hits on threat-intel indicators)",
+        "ssl.log (TLS handshake: SNI, version, cipher)"
+      ]
+    },
+    "Suspicious file execution on removable media path": {
+      "host": [
+        "Amcache.hve",
+        "LNK files",
+        "MountedDevices",
+        "Prefetch",
+        "Shimcache (AppCompatCache)",
+        "USB Device SetupAPI Logs",
+        "USBSTOR"
+      ],
+      "network": []
+    },
+    "TCP/UDP": {
+      "host": [
+        "SRUM",
+        "Security Event Log",
+        "Sysmon Event Log",
+        "Windows Firewall Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "known_services.log"
+      ]
+    },
+    "TLS Handshake/Network Flow": {
+      "host": [],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "known_certs.log",
+        "ssl.log (TLS handshake: SNI, version, cipher)",
+        "x509.log (certificate details)"
+      ]
+    },
+    "TLS handshake + HTTP headers": {
+      "host": [
+        "Chrome History / Downloads / Cookies",
+        "Edge History / Downloads / Cookies",
+        "Firefox History / Downloads / Cookies"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+        "http2.log",
+        "ssl.log (TLS handshake: SNI, version, cipher)",
+        "x509.log (certificate details)"
+      ]
+    },
+    "Task registration/execution shortly after a time discovery event": {
+      "host": [
+        "Prefetch",
+        "Scheduled Tasks",
+        "Security Event Log",
+        "Task Scheduler Event Log"
+      ],
+      "network": []
+    },
+    "Token issuance events showing anomalous claims or issuers": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "Traffic on RPC DRSUAPI": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "dce_rpc.log (Windows RPC on the wire)"
+      ]
+    },
+    "Transport Rule Modification": {
+      "host": [
+        "PowerShell Event Log",
+        "PowerShell Transcripts"
+      ],
+      "network": []
+    },
+    "Unexpected DLL or component loaded at Office startup": {
+      "host": [
+        "Amcache.hve",
+        "Prefetch",
+        "Shimcache (AppCompatCache)",
+        "Sysmon Event Log",
+        "Windows Defender Event Log"
+      ],
+      "network": []
+    },
+    "Unsigned or invalid image for newly installed/updated binaries": {
+      "host": [
+        "Amcache.hve",
+        "Prefetch",
+        "Shimcache (AppCompatCache)",
+        "Windows Defender",
+        "Windows Defender Event Log"
+      ],
+      "network": []
+    },
+    "Unusual external domain access": {
+      "host": [
+        "Chrome History / Downloads / Cookies",
+        "Edge History / Downloads / Cookies",
+        "Sysmon Event Log"
+      ],
+      "network": [
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "dns.log (DNS queries and responses, passive DNS from the wire)",
+        "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+        "intel.log (hits on threat-intel indicators)",
+        "ssl.log (TLS handshake: SNI, version, cipher)"
+      ]
+    },
+    "UserLogin, ConditionalAccessPolicyEvaluated": {
+      "host": [
+        "Security Event Log"
+      ],
+      "network": []
+    },
+    "VPN, Citrix, or remote access gateway logs showing external IP addresses": {
+      "host": [],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "ssl.log (TLS handshake: SNI, version, cipher)"
+      ]
+    },
+    "Volume Shadow Copy Creation": {
+      "host": [
+        "$MFT",
+        "System Event Log",
+        "USN Journal ($J)"
+      ],
+      "network": []
+    },
+    "WMI Object Creation Events": {
+      "host": [
+        "Sysmon Event Log",
+        "WMI Repository (WBEM)"
+      ],
+      "network": []
+    },
+    "Windows Backup Catalog deletion or catalog corruption": {
+      "host": [
+        "$MFT",
+        "System Event Log",
+        "USN Journal ($J)"
+      ],
+      "network": []
+    },
+    "api_call: CreateProcessWithTokenW, CreateProcessAsUserW": {
+      "host": [
+        "Event Trace Logs",
+        "Security Event Log",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "api_call: DuplicateTokenEx, ImpersonateLoggedOnUser, SetThreadToken": {
+      "host": [
+        "Event Trace Logs",
+        "Security Event Log",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "api_call: LogonUser(A|W), LsaLogonUser, SetThreadToken, ImpersonateLoggedOnUser": {
+      "host": [
+        "Event Trace Logs",
+        "Security Event Log",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "api_call: UpdateProcThreadAttribute (PROC_THREAD_ATTRIBUTE_PARENT_PROCESS) and CreateProcess* with EXTENDED_STARTUPINFO_PRESENT / StartupInfoEx": {
+      "host": [
+        "Prefetch",
+        "Security Event Log",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "dns.log": {
+      "host": [
+        "Sysmon Event Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "dns.log (DNS queries and responses, passive DNS from the wire)",
+        "intel.log (hits on threat-intel indicators)"
+      ]
+    },
+    "ftp.log, smb_files.log": {
+      "host": [
+        "FileZilla Client",
+        "FileZilla Server",
+        "Robo-FTP",
+        "Security Event Log",
+        "WinSCP"
+      ],
+      "network": [
+        "Extracted files (carved from Zeek or Suricata)",
+        "PCAP / PCAPNG",
+        "files.log (files observed on the wire: hashes, MIME, size)",
+        "ftp.log",
+        "smb_cmd.log (SMB commands)",
+        "smb_files.log (SMB file access)",
+        "smb_mapping.log (share / tree connects)"
+      ]
+    },
+    "http.log, ftp.log": {
+      "host": [
+        "Chrome History / Downloads / Cookies",
+        "Edge History / Downloads / Cookies",
+        "FileZilla Client",
+        "Robo-FTP",
+        "WinSCP"
+      ],
+      "network": [
+        "Extracted files (carved from Zeek or Suricata)",
+        "PCAP / PCAPNG",
+        "files.log (files observed on the wire: hashes, MIME, size)",
+        "ftp.log",
+        "http.log (URLs, User-Agents, Referrers, MIME types, status codes)"
+      ]
+    },
+    "http.log, ssl.log": {
+      "host": [
+        "Chrome History / Downloads / Cookies",
+        "Edge History / Downloads / Cookies",
+        "Firefox History / Downloads / Cookies",
+        "Sysmon Event Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+        "http2.log",
+        "ssl.log (TLS handshake: SNI, version, cipher)",
+        "x509.log (certificate details)"
+      ]
+    },
+    "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources": {
+      "host": [
+        "$MFT",
+        "Brave",
+        "Chrome History / Downloads / Cookies",
+        "Edge History / Downloads / Cookies",
+        "Firefox History / Downloads / Cookies",
+        "Internet Explorer History",
+        "Other Chromium-based browsers collected by the browser targets",
+        "USN Journal ($J)"
+      ],
+      "network": [
+        "Extracted files (carved from Zeek or Suricata)",
+        "PCAP / PCAPNG",
+        "Strelka file analysis metadata",
+        "files.log (files observed on the wire: hashes, MIME, size)",
+        "http.log (URLs, User-Agents, Referrers, MIME types, status codes)",
+        "http2.log"
+      ]
+    },
+    "modification to Winlogon registry keys such as Shell, Notify, or Userinit": {
+      "host": [
+        "Run / RunOnce",
+        "SOFTWARE hive",
+        "Security Event Log",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "new rule allowing inbound or outbound connections for remote desktop software": {
+      "host": [
+        "SYSTEM hive",
+        "Windows Firewall Log"
+      ],
+      "network": [
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "rdp.log"
+      ]
+    },
+    "port 5900 inbound": {
+      "host": [
+        "Prefetch",
+        "Security Event Log",
+        "VNC",
+        "Windows Firewall Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "Suricata alerts (signature hits on the wire)",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "known_services.log"
+      ]
+    },
+    "process_start: EventHeader.ProcessId true parent vs reported PPID mismatch": {
+      "host": [
+        "Security Event Log",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes": {
+      "host": [
+        "Group Policy",
+        "Security Event Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "dce_rpc.log (Windows RPC on the wire)",
+        "ssl.log (TLS handshake: SNI, version, cipher)"
+      ]
+    },
+    "rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes": {
+      "host": [
+        "Security Event Log",
+        "Sysmon Event Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "dce_rpc.log (Windows RPC on the wire)",
+        "smb_cmd.log (SMB commands)",
+        "smb_mapping.log (share / tree connects)"
+      ]
+    },
+    "smtp.log": {
+      "host": [],
+      "network": [
+        "Extracted files (carved from Zeek or Suricata)",
+        "PCAP / PCAPNG",
+        "files.log (files observed on the wire: hashes, MIME, size)",
+        "smtp.log"
+      ]
+    },
+    "ssl.log - Certificate Analysis": {
+      "host": [],
+      "network": [
+        "PCAP / PCAPNG",
+        "known_certs.log",
+        "ssl.log (TLS handshake: SNI, version, cipher)",
+        "x509.log (certificate details)"
+      ]
+    },
+    "token_analysis: API calls such as DuplicateTokenEx or ImpersonateLoggedOnUser": {
+      "host": [
+        "Event Trace Logs",
+        "Security Event Log",
+        "Sysmon Event Log"
+      ],
+      "network": []
+    },
+    "uncommon ports": {
+      "host": [
+        "Security Event Log",
+        "Sysmon Event Log",
+        "Windows Firewall Log"
+      ],
+      "network": [
+        "PCAP / PCAPNG",
+        "Suricata alerts (signature hits on the wire)",
+        "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)",
+        "known_services.log",
+        "notice.log (Zeek noteworthy events)"
+      ]
+    }
+  },
+  "artifact_to_channels": {
+    "$MFT": [
+      "CommandLine=copy-item or robocopy from UNC path",
+      "EventCode=11",
+      "EventCode=15",
+      "EventCode=2",
+      "EventCode=23",
+      "EventCode=4663, 4670, 4656",
+      "EventCode=9",
+      "Send/Receive: Inbound emails with attachments from suspicious or spoofed senders",
+      "SetFileTime",
+      "Volume Shadow Copy Creation",
+      "Windows Backup Catalog deletion or catalog corruption",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources"
+    ],
+    "Amcache.hve": [
+      "App reputation telemetry",
+      "AssemblyLoad/ModuleLoad (Loader keyword) from Microsoft-Windows-DotNETRuntime",
+      "CLSID activation events where ProcessName=mmc.exe and CLSID not in allowed baseline",
+      "CodeIntegrity/WDAC events indicating unsigned/invalid DLL loads",
+      "Enumerate Winlogon subkeys for unknown or unsigned binaries",
+      "EventCode=1",
+      "EventCode=25",
+      "EventCode=4688",
+      "EventCode=4697",
+      "EventCode=6",
+      "EventCode=7",
+      "EventCode=7045",
+      "EventCode=8",
+      "EventCode=8001, 8002, 8003",
+      "First-time egress to non-approved update hosts right after install/update",
+      "Suspicious file execution on removable media path",
+      "Unexpected DLL or component loaded at Office startup",
+      "Unsigned or invalid image for newly installed/updated binaries"
+    ],
+    "Application Event Log": [
+      "CodeIntegrity/WDAC events indicating unsigned/invalid DLL loads",
+      "EventCode=1000",
+      "EventCode=1006",
+      "EventCode=31001",
+      "EventCode=8001, 8002, 8003"
+    ],
+    "BAM / DAM": [
+      "EventCode=1",
+      "EventCode=4688"
+    ],
+    "Brave": [
+      "Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",
+      "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources"
+    ],
+    "Chrome History / Downloads / Cookies": [
+      "Accessed SharePoint files or pages",
+      "Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",
+      "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",
+      "TLS handshake + HTTP headers",
+      "Unusual external domain access",
+      "http.log, ftp.log",
+      "http.log, ssl.log",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources"
+    ],
+    "CrowdStrike Falcon": [
+      "Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents"
+    ],
+    "Edge History / Downloads / Cookies": [
+      "Accessed SharePoint files or pages",
+      "Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",
+      "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",
+      "TLS handshake + HTTP headers",
+      "Unusual external domain access",
+      "http.log, ftp.log",
+      "http.log, ssl.log",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources"
+    ],
+    "Elastic Defend": [
+      "API tracing / stack tracing via ETW or telemetry-based EDR",
+      "Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents"
+    ],
+    "Event Trace Logs": [
+      "API calls",
+      "API tracing / stack tracing via ETW or telemetry-based EDR",
+      "AssemblyLoad/ModuleLoad (Loader keyword) from Microsoft-Windows-DotNETRuntime",
+      "High-frequency or suspicious sequence of QueryPerformanceCounter/GetTickCount API calls from a non-standard process lineage",
+      "Process lineage and API usage enrichment (GetSystemTime, GetTimeZoneInformation, NtQuerySystemTime)",
+      "api_call: CreateProcessWithTokenW, CreateProcessAsUserW",
+      "api_call: DuplicateTokenEx, ImpersonateLoggedOnUser, SetThreadToken",
+      "api_call: LogonUser(A|W), LsaLogonUser, SetThreadToken, ImpersonateLoggedOnUser",
+      "token_analysis: API calls such as DuplicateTokenEx or ImpersonateLoggedOnUser"
+    ],
+    "Extracted files (carved from Zeek or Suricata)": [
+      "Inbound HTTP POST with suspicious payload size or user-agent",
+      "Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types",
+      "Send/Receive: Inbound emails with attachments from suspicious or spoofed senders",
+      "ftp.log, smb_files.log",
+      "http.log, ftp.log",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",
+      "smtp.log"
+    ],
+    "FileZilla Client": [
+      "ftp.log, smb_files.log",
+      "http.log, ftp.log"
+    ],
+    "FileZilla Server": [
+      "ftp.log, smb_files.log"
+    ],
+    "Firefox History / Downloads / Cookies": [
+      "Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",
+      "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",
+      "TLS handshake + HTTP headers",
+      "http.log, ssl.log",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources"
+    ],
+    "Group Policy": [
+      "Enrollment events (e.g., MDMDeviceRegistration)",
+      "EventCode=1502, 1503",
+      "EventCode=4739",
+      "query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes"
+    ],
+    "Internet Explorer History": [
+      "Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",
+      "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources"
+    ],
+    "LNK files": [
+      "Send/Receive: Inbound emails with attachments from suspicious or spoofed senders",
+      "Suspicious file execution on removable media path"
+    ],
+    "MountedDevices": [
+      "Suspicious file execution on removable media path"
+    ],
+    "NTUSER.DAT": [
+      "Behavioral rule for registry enumeration under credential-related paths",
+      "EventCode=12",
+      "EventCode=13, 14",
+      "EventCode=4657"
+    ],
+    "OneDrive": [
+      "Accessed SharePoint files or pages"
+    ],
+    "Opera": [
+      "Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events"
+    ],
+    "Other Chromium-based browsers collected by the browser targets": [
+      "Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events",
+      "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources"
+    ],
+    "PCAP / PCAPNG": [
+      "Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents",
+      "CommandLine=copy-item or robocopy from UNC path",
+      "EventCode=3, 22",
+      "EventCode=4768",
+      "EventCode=4778, EventCode=4779",
+      "EventCode=5156, 5157",
+      "Excessive lookups for domains with suspicious WHOIS or short TTL values",
+      "Exchange logs or header artifacts",
+      "ICMP/UDP traffic (Wireshark, Suricata, Zeek)",
+      "Inbound HTTP POST with suspicious payload size or user-agent",
+      "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",
+      "LDAP Bind/Search",
+      "Outbound Connection",
+      "Outbound resolution to hidden service domains (e.g., `.onion`)",
+      "Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types",
+      "Send/Receive: Inbound emails containing embedded or shortened URLs",
+      "Send/Receive: Inbound emails with attachments from suspicious or spoofed senders",
+      "SendOnBehalf/SendAs: Emails sent where the sending identity mismatches account ownership",
+      "Session Transfer Content",
+      "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",
+      "TCP/UDP",
+      "TLS Handshake/Network Flow",
+      "TLS handshake + HTTP headers",
+      "Traffic on RPC DRSUAPI",
+      "VPN, Citrix, or remote access gateway logs showing external IP addresses",
+      "dns.log",
+      "ftp.log, smb_files.log",
+      "http.log, ftp.log",
+      "http.log, ssl.log",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",
+      "port 5900 inbound",
+      "query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes",
+      "rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes",
+      "smtp.log",
+      "ssl.log - Certificate Analysis",
+      "uncommon ports"
+    ],
+    "PowerShell Console Log": [
+      "Abnormal sign-in from scripting tools (PowerShell, AADInternals)",
+      "Cmdlet - New-InboxRule",
+      "EventCode=400, 403",
+      "EventCode=4103, 4104, 4105, 4106",
+      "Execution of 'Get-WmiObject Win32_Product' or similar PowerShell cmdlets"
+    ],
+    "PowerShell Event Log": [
+      "Abnormal sign-in from scripting tools (PowerShell, AADInternals)",
+      "Amsi/Script content + API verdicts during in-memory staging",
+      "Cmdlet - New-InboxRule",
+      "Command Line Telemetry",
+      "CommandLine=copy-item or robocopy from UNC path",
+      "EventCode=400, 403",
+      "EventCode=4103, 4104, 4105, 4106",
+      "Exchange logs or header artifacts",
+      "Execution of 'Get-WmiObject Win32_Product' or similar PowerShell cmdlets",
+      "Process Tree + Script Block Logging",
+      "ScriptBlockLogging + AMSI",
+      "SendOnBehalf, MessageSend, ClickThrough, MailItemsAccessed",
+      "SendOnBehalf/SendAs: Emails sent where the sending identity mismatches account ownership",
+      "Set-ADUser or Set-ADAuthenticationPolicy with MFA attributes disabled",
+      "Transport Rule Modification"
+    ],
+    "PowerShell Transcripts": [
+      "Abnormal sign-in from scripting tools (PowerShell, AADInternals)",
+      "Amsi/Script content + API verdicts during in-memory staging",
+      "Cmdlet - New-InboxRule",
+      "CommandLine=copy-item or robocopy from UNC path",
+      "EventCode=400, 403",
+      "EventCode=4103, 4104, 4105, 4106",
+      "Exchange logs or header artifacts",
+      "Execution of 'Get-WmiObject Win32_Product' or similar PowerShell cmdlets",
+      "Process Tree + Script Block Logging",
+      "ScriptBlockLogging + AMSI",
+      "SendOnBehalf, MessageSend, ClickThrough, MailItemsAccessed",
+      "SendOnBehalf/SendAs: Emails sent where the sending identity mismatches account ownership",
+      "Set-ADUser or Set-ADAuthenticationPolicy with MFA attributes disabled",
+      "Transport Rule Modification"
+    ],
+    "Prefetch": [
+      "CLSID activation events where ProcessName=mmc.exe and CLSID not in allowed baseline",
+      "CommandLine=copy-item or robocopy from UNC path",
+      "EventCode=1",
+      "EventCode=25",
+      "EventCode=4688",
+      "EventCode=4697",
+      "EventCode=7045",
+      "EventCode=8",
+      "EventCode=8001, 8002, 8003",
+      "First-time egress to non-approved update hosts right after install/update",
+      "Service stopped or RecoveryDisabled set via REAgentC",
+      "Suspicious file execution on removable media path",
+      "Task registration/execution shortly after a time discovery event",
+      "Unexpected DLL or component loaded at Office startup",
+      "Unsigned or invalid image for newly installed/updated binaries",
+      "api_call: UpdateProcThreadAttribute (PROC_THREAD_ATTRIBUTE_PARENT_PROCESS) and CreateProcess* with EXTENDED_STARTUPINFO_PRESENT / StartupInfoEx",
+      "port 5900 inbound"
+    ],
+    "RDP Bitmap Cache": [
+      "EventCode=4778, EventCode=4779",
+      "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",
+      "Session Transfer Content"
+    ],
+    "RDP Logs": [
+      "EventCode=4778, EventCode=4779",
+      "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",
+      "Session Transfer Content"
+    ],
+    "Recycle Bin $I files": [
+      "EventCode=23"
+    ],
+    "Robo-FTP": [
+      "ftp.log, smb_files.log",
+      "http.log, ftp.log"
+    ],
+    "Run / RunOnce": [
+      "EventCode=12",
+      "EventCode=13, 14",
+      "EventCode=4657",
+      "modification to Winlogon registry keys such as Shell, Notify, or Userinit"
+    ],
+    "SAM hive": [
+      "EventCode=4661",
+      "EventCode=4720",
+      "EventCode=4728, 4729, 4732, 4733, 4756, 4757",
+      "EventCode=4738, 4728, 4670",
+      "EventCode=4798, 4799"
+    ],
+    "SOFTWARE hive": [
+      "Behavioral rule for registry enumeration under credential-related paths",
+      "CLSID activation events where ProcessName=mmc.exe and CLSID not in allowed baseline",
+      "Enrollment events (e.g., MDMDeviceRegistration)",
+      "Enumerate Winlogon subkeys for unknown or unsigned binaries",
+      "EventCode=12",
+      "EventCode=13, 14",
+      "EventCode=4657",
+      "modification to Winlogon registry keys such as Shell, Notify, or Userinit"
+    ],
+    "SRUM": [
+      "EventCode=3, 22",
+      "First-time egress to non-approved update hosts right after install/update",
+      "Outbound Connection",
+      "TCP/UDP"
+    ],
+    "SYSTEM hive": [
+      "Device Object Creation",
+      "EventCode=12",
+      "EventCode=13, 14",
+      "EventCode=2004, 2005, 2006",
+      "EventCode=4",
+      "EventCode=4657",
+      "EventCode=6",
+      "Firewall Rule Modification",
+      "new rule allowing inbound or outbound connections for remote desktop software"
+    ],
+    "Scheduled Tasks": [
+      "EventCode=106",
+      "EventCode=106, 200",
+      "EventCode=4698",
+      "EventCode=4702",
+      "Task registration/execution shortly after a time discovery event"
+    ],
+    "Security Event Log": [
+      "Abnormal sign-in from scripting tools (PowerShell, AADInternals)",
+      "Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents",
+      "Anomalous logon without MFA enforcement",
+      "Behavioral rule for registry enumeration under credential-related paths",
+      "Command Line Telemetry",
+      "CommandLine=copy-item or robocopy from UNC path",
+      "Enumerate Winlogon subkeys for unknown or unsigned binaries",
+      "EventCode=1",
+      "EventCode=1102",
+      "EventCode=4624",
+      "EventCode=4624, 4625, 4768, 4769",
+      "EventCode=4624, 4648",
+      "EventCode=4625",
+      "EventCode=4625, 4771, 4648",
+      "EventCode=4648",
+      "EventCode=4657",
+      "EventCode=4661",
+      "EventCode=4662",
+      "EventCode=4663, 4670, 4656",
+      "EventCode=4672",
+      "EventCode=4672, 4634",
+      "EventCode=4673",
+      "EventCode=4688",
+      "EventCode=4697",
+      "EventCode=4698",
+      "EventCode=4702",
+      "EventCode=4704",
+      "EventCode=4720",
+      "EventCode=4728, 4729, 4732, 4733, 4756, 4757",
+      "EventCode=4738, 4728, 4670",
+      "EventCode=4739",
+      "EventCode=4768",
+      "EventCode=4769",
+      "EventCode=4776, 4625",
+      "EventCode=4776, 4771, 4770",
+      "EventCode=4778, EventCode=4779",
+      "EventCode=4798, 4799",
+      "EventCode=4800, 4801",
+      "EventCode=4929",
+      "EventCode=5136",
+      "EventCode=5140",
+      "EventCode=5145",
+      "EventCode=5156, 5157",
+      "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",
+      "LDAP Bind/Search",
+      "Process Tree + Script Block Logging",
+      "SendOnBehalf/SendAs: Emails sent where the sending identity mismatches account ownership",
+      "Set-ADUser or Set-ADAuthenticationPolicy with MFA attributes disabled",
+      "TCP/UDP",
+      "Task registration/execution shortly after a time discovery event",
+      "Token issuance events showing anomalous claims or issuers",
+      "Traffic on RPC DRSUAPI",
+      "UserLogin, ConditionalAccessPolicyEvaluated",
+      "api_call: CreateProcessWithTokenW, CreateProcessAsUserW",
+      "api_call: DuplicateTokenEx, ImpersonateLoggedOnUser, SetThreadToken",
+      "api_call: LogonUser(A|W), LsaLogonUser, SetThreadToken, ImpersonateLoggedOnUser",
+      "api_call: UpdateProcThreadAttribute (PROC_THREAD_ATTRIBUTE_PARENT_PROCESS) and CreateProcess* with EXTENDED_STARTUPINFO_PRESENT / StartupInfoEx",
+      "ftp.log, smb_files.log",
+      "modification to Winlogon registry keys such as Shell, Notify, or Userinit",
+      "port 5900 inbound",
+      "process_start: EventHeader.ProcessId true parent vs reported PPID mismatch",
+      "query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes",
+      "rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes",
+      "token_analysis: API calls such as DuplicateTokenEx or ImpersonateLoggedOnUser",
+      "uncommon ports"
+    ],
+    "Services and system configuration stored in the SYSTEM hive": [
+      "EventCode=4697",
+      "EventCode=7035",
+      "EventCode=7036",
+      "EventCode=7045",
+      "Service stopped or RecoveryDisabled set via REAgentC"
+    ],
+    "Shimcache (AppCompatCache)": [
+      "EventCode=1",
+      "EventCode=4688",
+      "EventCode=6",
+      "EventCode=7",
+      "Suspicious file execution on removable media path",
+      "Unexpected DLL or component loaded at Office startup",
+      "Unsigned or invalid image for newly installed/updated binaries"
+    ],
+    "Strelka file analysis metadata": [
+      "Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types",
+      "Send/Receive: Inbound emails with attachments from suspicious or spoofed senders",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources"
+    ],
+    "Suricata alerts (signature hits on the wire)": [
+      "EventCode=5156, 5157",
+      "ICMP/UDP traffic (Wireshark, Suricata, Zeek)",
+      "Inbound HTTP POST with suspicious payload size or user-agent",
+      "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",
+      "Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types",
+      "port 5900 inbound",
+      "uncommon ports"
+    ],
+    "Sysmon Event Log": [
+      "API calls",
+      "API tracing / stack tracing via ETW or telemetry-based EDR",
+      "Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents",
+      "Behavioral rule for registry enumeration under credential-related paths",
+      "Command Line Telemetry",
+      "Creation or modification of __EventFilter, __FilterToConsumerBinding, or CommandLineEventConsumer",
+      "Device Object Creation",
+      "Enumerate Winlogon subkeys for unknown or unsigned binaries",
+      "EventCode=1",
+      "EventCode=10",
+      "EventCode=11",
+      "EventCode=12",
+      "EventCode=13, 14",
+      "EventCode=15",
+      "EventCode=17",
+      "EventCode=2",
+      "EventCode=23",
+      "EventCode=25",
+      "EventCode=3, 22",
+      "EventCode=4",
+      "EventCode=5",
+      "EventCode=6",
+      "EventCode=7",
+      "EventCode=8",
+      "EventCode=9",
+      "Excessive lookups for domains with suspicious WHOIS or short TTL values",
+      "First-time egress to non-approved update hosts right after install/update",
+      "High-frequency or suspicious sequence of QueryPerformanceCounter/GetTickCount API calls from a non-standard process lineage",
+      "ICMP/UDP traffic (Wireshark, Suricata, Zeek)",
+      "Outbound Connection",
+      "Outbound resolution to hidden service domains (e.g., `.onion`)",
+      "Process Tree + Script Block Logging",
+      "Process lineage and API usage enrichment (GetSystemTime, GetTimeZoneInformation, NtQuerySystemTime)",
+      "SetFileTime",
+      "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",
+      "TCP/UDP",
+      "Unexpected DLL or component loaded at Office startup",
+      "Unusual external domain access",
+      "WMI Object Creation Events",
+      "api_call: CreateProcessWithTokenW, CreateProcessAsUserW",
+      "api_call: DuplicateTokenEx, ImpersonateLoggedOnUser, SetThreadToken",
+      "api_call: LogonUser(A|W), LsaLogonUser, SetThreadToken, ImpersonateLoggedOnUser",
+      "api_call: UpdateProcThreadAttribute (PROC_THREAD_ATTRIBUTE_PARENT_PROCESS) and CreateProcess* with EXTENDED_STARTUPINFO_PRESENT / StartupInfoEx",
+      "dns.log",
+      "http.log, ssl.log",
+      "modification to Winlogon registry keys such as Shell, Notify, or Userinit",
+      "process_start: EventHeader.ProcessId true parent vs reported PPID mismatch",
+      "rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes",
+      "token_analysis: API calls such as DuplicateTokenEx or ImpersonateLoggedOnUser",
+      "uncommon ports"
+    ],
+    "System Event Log": [
+      "Enrollment events (e.g., MDMDeviceRegistration)",
+      "EventCode=1074",
+      "EventCode=4",
+      "EventCode=5857, 5858, 5860, 5861",
+      "EventCode=7035",
+      "EventCode=7036",
+      "EventCode=7045",
+      "Service stopped or RecoveryDisabled set via REAgentC",
+      "Volume Shadow Copy Creation",
+      "Windows Backup Catalog deletion or catalog corruption"
+    ],
+    "Task Scheduler Event Log": [
+      "EventCode=106",
+      "EventCode=106, 200",
+      "EventCode=2003",
+      "EventCode=4698",
+      "EventCode=4702",
+      "Task registration/execution shortly after a time discovery event"
+    ],
+    "Terminal Services / RDP Event Logs": [
+      "EventCode=4778, EventCode=4779",
+      "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",
+      "Session Transfer Content"
+    ],
+    "USB Device SetupAPI Logs": [
+      "Suspicious file execution on removable media path"
+    ],
+    "USBSTOR": [
+      "Suspicious file execution on removable media path"
+    ],
+    "USN Journal ($J)": [
+      "CommandLine=copy-item or robocopy from UNC path",
+      "EventCode=11",
+      "EventCode=2",
+      "EventCode=23",
+      "EventCode=4663, 4670, 4656",
+      "Send/Receive: Inbound emails with attachments from suspicious or spoofed senders",
+      "SetFileTime",
+      "Volume Shadow Copy Creation",
+      "Windows Backup Catalog deletion or catalog corruption",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources"
+    ],
+    "UserAssist": [
+      "CLSID activation events where ProcessName=mmc.exe and CLSID not in allowed baseline",
+      "EventCode=1",
+      "EventCode=4688"
+    ],
+    "VNC": [
+      "port 5900 inbound"
+    ],
+    "Vivaldi": [
+      "Browser or plugin/application logs showing script errors, plugin enumerations, or unusual extension load events"
+    ],
+    "WER": [
+      "EventCode=1000",
+      "EventCode=1006"
+    ],
+    "WMI Repository (WBEM)": [
+      "Creation or modification of __EventFilter, __FilterToConsumerBinding, or CommandLineEventConsumer",
+      "EventCode=5857, 5858, 5860, 5861",
+      "Execution of 'Get-WmiObject Win32_Product' or similar PowerShell cmdlets",
+      "WMI Object Creation Events"
+    ],
+    "WinSCP": [
+      "ftp.log, smb_files.log",
+      "http.log, ftp.log"
+    ],
+    "Windows Defender": [
+      "Amsi/Script content + API verdicts during in-memory staging",
+      "App reputation telemetry",
+      "CodeIntegrity/WDAC events indicating unsigned/invalid DLL loads",
+      "EventCode=31001",
+      "EventCode=8001, 8002, 8003",
+      "ScriptBlockLogging + AMSI",
+      "Unsigned or invalid image for newly installed/updated binaries"
+    ],
+    "Windows Defender Event Log": [
+      "Amsi/Script content + API verdicts during in-memory staging",
+      "App reputation telemetry",
+      "CodeIntegrity/WDAC events indicating unsigned/invalid DLL loads",
+      "EventCode=31001",
+      "EventCode=8001, 8002, 8003",
+      "ScriptBlockLogging + AMSI",
+      "Unexpected DLL or component loaded at Office startup",
+      "Unsigned or invalid image for newly installed/updated binaries"
+    ],
+    "Windows Firewall Log": [
+      "EventCode=2003",
+      "EventCode=2004, 2005, 2006",
+      "EventCode=3, 22",
+      "EventCode=5156, 5157",
+      "First-time egress to non-approved update hosts right after install/update",
+      "Firewall Rule Modification",
+      "ICMP/UDP traffic (Wireshark, Suricata, Zeek)",
+      "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",
+      "Outbound Connection",
+      "TCP/UDP",
+      "new rule allowing inbound or outbound connections for remote desktop software",
+      "port 5900 inbound",
+      "uncommon ports"
+    ],
+    "conn.log (TCP/UDP/ICMP connections, NetFlow-like view of traffic)": [
+      "Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents",
+      "CommandLine=copy-item or robocopy from UNC path",
+      "EventCode=3, 22",
+      "EventCode=4624, 4625, 4768, 4769",
+      "EventCode=4768",
+      "EventCode=4769",
+      "EventCode=4776, 4625",
+      "EventCode=4778, EventCode=4779",
+      "EventCode=5140",
+      "EventCode=5145",
+      "EventCode=5156, 5157",
+      "First-time egress to non-approved update hosts right after install/update",
+      "ICMP/UDP traffic (Wireshark, Suricata, Zeek)",
+      "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",
+      "LDAP Bind/Search",
+      "Outbound Connection",
+      "Outbound resolution to hidden service domains (e.g., `.onion`)",
+      "Session Transfer Content",
+      "TCP/UDP",
+      "TLS Handshake/Network Flow",
+      "Traffic on RPC DRSUAPI",
+      "Unusual external domain access",
+      "VPN, Citrix, or remote access gateway logs showing external IP addresses",
+      "new rule allowing inbound or outbound connections for remote desktop software",
+      "port 5900 inbound",
+      "query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes",
+      "rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes",
+      "uncommon ports"
+    ],
+    "dce_rpc.log (Windows RPC on the wire)": [
+      "LDAP Bind/Search",
+      "Traffic on RPC DRSUAPI",
+      "query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes",
+      "rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes"
+    ],
+    "dns.log (DNS queries and responses, passive DNS from the wire)": [
+      "Advanced Hunting: DeviceProcessEvents + DeviceNetworkEvents",
+      "EventCode=3, 22",
+      "Excessive lookups for domains with suspicious WHOIS or short TTL values",
+      "First-time egress to non-approved update hosts right after install/update",
+      "Outbound Connection",
+      "Outbound resolution to hidden service domains (e.g., `.onion`)",
+      "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",
+      "Unusual external domain access",
+      "dns.log"
+    ],
+    "files.log (files observed on the wire: hashes, MIME, size)": [
+      "Inbound HTTP POST with suspicious payload size or user-agent",
+      "Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types",
+      "Send/Receive: Inbound emails with attachments from suspicious or spoofed senders",
+      "ftp.log, smb_files.log",
+      "http.log, ftp.log",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources",
+      "smtp.log"
+    ],
+    "ftp.log": [
+      "ftp.log, smb_files.log",
+      "http.log, ftp.log"
+    ],
+    "http.log (URLs, User-Agents, Referrers, MIME types, status codes)": [
+      "First-time egress to non-approved update hosts right after install/update",
+      "Inbound HTTP POST with suspicious payload size or user-agent",
+      "Send/Receive: Inbound emails containing embedded or shortened URLs",
+      "SendOnBehalf, MessageSend, ClickThrough, MailItemsAccessed",
+      "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",
+      "TLS handshake + HTTP headers",
+      "Unusual external domain access",
+      "http.log, ftp.log",
+      "http.log, ssl.log",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources"
+    ],
+    "http2.log": [
+      "Inbound HTTP POST with suspicious payload size or user-agent",
+      "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",
+      "TLS handshake + HTTP headers",
+      "http.log, ssl.log",
+      "http.request: HTTP requests and responses for specific script resources, unexpected content-types (application/octet-stream for script URLs), suspicious referrers, or obfuscated javascript resources"
+    ],
+    "intel.log (hits on threat-intel indicators)": [
+      "Excessive lookups for domains with suspicious WHOIS or short TTL values",
+      "Outbound resolution to hidden service domains (e.g., `.onion`)",
+      "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",
+      "Unusual external domain access",
+      "dns.log"
+    ],
+    "kerberos.log": [
+      "EventCode=4624, 4625, 4768, 4769",
+      "EventCode=4625, 4771, 4648",
+      "EventCode=4768",
+      "EventCode=4769",
+      "EventCode=4776, 4771, 4770",
+      "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",
+      "LDAP Bind/Search"
+    ],
+    "known_certs.log": [
+      "TLS Handshake/Network Flow",
+      "ssl.log - Certificate Analysis"
+    ],
+    "known_services.log": [
+      "TCP/UDP",
+      "port 5900 inbound",
+      "uncommon ports"
+    ],
+    "notice.log (Zeek noteworthy events)": [
+      "uncommon ports"
+    ],
+    "ntlm.log": [
+      "EventCode=4624, 4625, 4768, 4769",
+      "EventCode=4625, 4771, 4648",
+      "EventCode=4776, 4625",
+      "EventCode=4776, 4771, 4770",
+      "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval."
+    ],
+    "pe.log (Windows PE metadata from transferred binaries)": [
+      "Send/Receive: Inbound emails with attachments from suspicious or spoofed senders"
+    ],
+    "rdp.log": [
+      "EventCode=4778, EventCode=4779",
+      "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",
+      "Session Transfer Content",
+      "new rule allowing inbound or outbound connections for remote desktop software"
+    ],
+    "smb_cmd.log (SMB commands)": [
+      "CommandLine=copy-item or robocopy from UNC path",
+      "EventCode=5145",
+      "ftp.log, smb_files.log",
+      "rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes"
+    ],
+    "smb_files.log (SMB file access)": [
+      "CommandLine=copy-item or robocopy from UNC path",
+      "EventCode=5140",
+      "EventCode=5145",
+      "ftp.log, smb_files.log"
+    ],
+    "smb_mapping.log (share / tree connects)": [
+      "CommandLine=copy-item or robocopy from UNC path",
+      "EventCode=5140",
+      "Inbound connections to 445, 3389, 5985-5986 with high error/connection-reset rate, followed by new outbound sessions from the same host to internal assets within short interval.",
+      "ftp.log, smb_files.log",
+      "rpc_call: srvsvc.NetShareEnum / NetShareEnumAll from non-admin or unusual processes"
+    ],
+    "smtp.log": [
+      "Exchange logs or header artifacts",
+      "Send/Receive: Emails with suspicious sender domains, spoofed headers, or anomalous attachment types",
+      "Send/Receive: Inbound emails containing embedded or shortened URLs",
+      "Send/Receive: Inbound emails with attachments from suspicious or spoofed senders",
+      "SendOnBehalf, MessageSend, ClickThrough, MailItemsAccessed",
+      "SendOnBehalf/SendAs: Emails sent where the sending identity mismatches account ownership",
+      "smtp.log"
+    ],
+    "software.log (software / version fingerprints)": [
+      "First-time egress to non-approved update hosts right after install/update"
+    ],
+    "ssl.log (TLS handshake: SNI, version, cipher)": [
+      "First-time egress to non-approved update hosts right after install/update",
+      "LDAP Bind/Search",
+      "Outbound Connection",
+      "Suspicious URL patterns, uncommon TLDs, short-lived domains, URL shorteners; HTTP method GET/POST",
+      "TLS Handshake/Network Flow",
+      "TLS handshake + HTTP headers",
+      "Unusual external domain access",
+      "VPN, Citrix, or remote access gateway logs showing external IP addresses",
+      "http.log, ssl.log",
+      "query: High-volume LDAP traffic with filters targeting groupPolicyContainer attributes",
+      "ssl.log - Certificate Analysis"
+    ],
+    "traceroute.log": [
+      "ICMP/UDP traffic (Wireshark, Suricata, Zeek)"
+    ],
+    "weird.log (protocol violations and odd behavior)": [
+      "ICMP/UDP traffic (Wireshark, Suricata, Zeek)"
+    ],
+    "x509.log (certificate details)": [
+      "TLS Handshake/Network Flow",
+      "TLS handshake + HTTP headers",
+      "http.log, ssl.log",
+      "ssl.log - Certificate Analysis"
+    ]
+  },
+  "unmapped_channels": [],
+  "counts": {
+    "channels": 148,
+    "channels_mapped": 148,
+    "channels_unmapped": 0,
+    "artifacts_used": 82,
+    "associations": 573,
+    "host_associations": 389,
+    "network_associations": 184
+  }
+}

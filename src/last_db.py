@@ -1,7 +1,7 @@
 import json
 import os
 
-def get_last_db(args, config):
+def get_db(args, config):
     """Load a database via --last or --db. Returns the data or None on error."""
     if args.last:
         if not config.get("last_run"):
