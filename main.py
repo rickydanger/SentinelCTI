@@ -8,39 +8,50 @@ from src.filter_db import get_filtered_json
 from src.plot_mca import get_sankey, get_table
 from src.config_db import load_config
 from src.list_entities import get_entities_list
-from src.last_db import get_db
+from src.last_db import get_last_db
 from src.new_db import get_new_db
-
 
 def main():
     mitre_data = MitreAttackData("enterprise-attack.json")
     config = load_config()
 
     parser = argparse.ArgumentParser(
-        description="Generate a Sankey diagram or Table from MITRE ATT&CK telemetry data (malware & APTs).",
+        description="Generate a Sankey diagram from MITRE ATT&CK telemetry data (malware & APTs).",
         formatter_class=argparse.RawTextHelpFormatter,
         epilog="""
-Notes:
-  - Wrap names with spaces in quotes (e.g. "volt typhoon")
+    Notes:
+  - If a malware or group name contains spaces, wrap it in quotes.
+    Example: "volt typhoon", "Lazarus Group"
+  - Each entity is saved as its own file: volt_typhoon_mcadb.json
+  - Visualizations read those files from data/mca_config.json (--last)
 
-Examples:
-  # List all malware / groups
-  python main.py -e malware
-  python main.py -e groups
+    Examples:
+    # List all malware
+    python main.py -e malware
 
-  # Extract new data and show Sankey
-  python main.py -e "volt typhoon" APT29 -p windows -v sankey
+    # List all groups / APTs
+    python main.py -e groups
 
-  # Use last run (Sankey or Table)
-  python main.py -l -v sankey
-  python main.py -l -v table
+    # Extract one JSON per entity, then table
+    python main.py -e "volt typhoon" APT29 "scattered spider" akira "lumma stealer" -p windows -t 10 -v table
 
-  # Use specific database
-  python main.py -d my_old_db.json -v table
+    # Quickly return the last run
+    python main.py -l
 
-  # Filter techniques
-  python main.py -l -t 10 -v sankey      # top 10
-  python main.py -l -t 0 -v table        # no filter
+    # Last run as table
+    python main.py -l -v table
+
+    # Use a specific existing database file
+    python main.py -d apt29_mcadb.json
+
+    # Keep only the top 10 techniques
+    python main.py -e APT29 -p windows -t 10
+
+    # Return last run and keep top 5 techniques
+    python main.py -l -t 5
+
+    # Return last run and list all techniques (no filtering)
+    python main.py -l -t 0
 """
     )
 
@@ -49,37 +60,32 @@ Examples:
     parser.add_argument("-p", "--platform",
                         help="Platform (e.g. windows). Required when extracting new data.")
     parser.add_argument("-l", "--last", action="store_true",
-                        help="Use the last database from the config file")
+                        help="Return the last database(s) from the config file")
     parser.add_argument("-d", "--db",
-                        help="Path to an existing mca database file")
+                        help="Path to an existing mca database file to use")
     parser.add_argument("-t", "--technique-top", type=int, default=None,
                         help="Filter technique_name (None=median, 0=all, N=top N)")
-    parser.add_argument("-v", "--view", choices=["sankey", "table"], required=True,
-                        help="Visualization type: sankey or table")
+    parser.add_argument("-v", "--view", choices=["sankey", "table"], default="sankey",
+                        help="Visualization: sankey (default) or table")
 
     args = parser.parse_args()
 
-    # === Get Entities ===
     if get_entities_list(args, mitre_data):
         return
 
-    # === Get last database ===
     if args.last or args.db:
-        mca_telem_json = get_db(args, config)
+        mca_telem_json = get_last_db(args, config)
         if mca_telem_json is None:
             return
 
-    # === Get new telemetry data from MITRE ===
     else:
         mca_telem_json = get_new_db(args, mitre_data, config)
         if mca_telem_json is None:
             return
 
-    # === Filter ===
     mca_telem_json = get_filtered_json(mca_telem_json, args.technique_top)
     get_json(mca_telem_json, "filtered_mca_db.json")
 
-    # === Visualize ===
     if args.view == "table":
         get_table(mca_telem_json)
     else:

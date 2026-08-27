@@ -7,11 +7,20 @@ import json
 from pathlib import Path
 
 LOOKUP_PATH = Path("data/lookup/channel_artifact_lookup.json")
+TOOL_LOOKUP_PATH = Path("data/lookup/artifact_tool_lookup.json")
+
 
 def load_channel_lookup():
     with open(LOOKUP_PATH, encoding="utf-8") as f:
         data = json.load(f)
     return data.get("channel_to_artifacts", {})
+
+
+def load_tool_lookup():
+    with open(TOOL_LOOKUP_PATH, encoding="utf-8") as f:
+        data = json.load(f)
+    return data.get("artifact_to_tool", {})
+
 
 def get_mca_telem_json(names, platform, mitre_data):
     """
@@ -19,14 +28,13 @@ def get_mca_telem_json(names, platform, mitre_data):
     Automatically detects whether each name is malware or a group (APT).
     """
     channel_lookup = load_channel_lookup()
+    tool_lookup = load_tool_lookup()
     mca_telemetry_json = []
 
     for name in names:
-        # Try malware first
         tech_list = get_techniques_for_malware(name, mitre_data)
         entity_type = "malware"
 
-        # If not found as malware, try as group/APT
         if not tech_list:
             tech_list = get_techniques_for_group(name, mitre_data)
             entity_type = "group"
@@ -43,7 +51,6 @@ def get_mca_telem_json(names, platform, mitre_data):
                 tactics = ["unknown"]
 
             analytics = get_analytics_for_technique(pattern_id, platform, mitre_data)
-            
 
             for a in analytics:
                 analytic_id, analytic_name, platform_name = a
@@ -53,6 +60,7 @@ def get_mca_telem_json(names, platform, mitre_data):
 
                     for tactic in tactics:
                         for artifact in artifacts:
+                            tool = tool_lookup.get(artifact, "Unmapped")
                             record = {
                                 "entity_type": entity_type,
                                 "entity_name": name,
@@ -63,7 +71,8 @@ def get_mca_telem_json(names, platform, mitre_data):
                                 "analytic_name": analytic_name,
                                 "platform": platform_name,
                                 "log_source_channel": channel,
-                                "related_artifact": artifact
+                                "related_artifact": artifact,
+                                "related_tool": tool,
                             }
                             mca_telemetry_json.append(record)
 

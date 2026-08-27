@@ -1,11 +1,12 @@
 from datetime import datetime
 
 from src.build_db import get_mca_telem_json
-from src.config_db import save_config, make_db_name
+from src.config_db import save_config, make_entity_db_name, make_run_name
 from src.write_json import get_json
 
+
 def get_new_db(args, mitre_data, config):
-    """Extract new data from MITRE ATT&CK and save it. Returns the data or None on error."""
+    """Extract one JSON per entity. Returns combined records or None on error."""
     if not args.entities:
         print("Error: --entities is required when not using --last or --db")
         return None
@@ -18,25 +19,34 @@ def get_new_db(args, mitre_data, config):
         print("Currently only 'windows' platform is supported.")
         return None
 
-    db_name = make_db_name(args.entities)
-
     print(f"Extracting data for: {args.entities}")
-    mca_telem_json = get_mca_telem_json(args.entities, args.platform, mitre_data)
 
-    get_json(mca_telem_json, db_name)
-    print(f"Database saved → {db_name}")
+    combined = []
+    db_paths = []
 
-    config_name = db_name.replace("_db.json", "")
+    for name in args.entities:
+        db_name = make_entity_db_name(name)
+        print(f"→ {name} → {db_name}")
 
-    config["configs"][config_name] = {
-        "mca_db_path": db_name,
-        "entities": args.entities,
+        records = get_mca_telem_json([name], args.platform, mitre_data)
+        get_json(records, db_name)
+        print(f"  Database saved → {db_name} ({len(records)} records)")
+
+        db_paths.append(db_name)
+        combined.extend(records)
+
+    run_name = make_run_name(args.entities)
+
+    config["configs"][run_name] = {
+        "mca_db_paths": db_paths,
+        "entities": list(args.entities),
         "platform": args.platform,
-        "created": datetime.now().isoformat(timespec="seconds")
+        "created": datetime.now().isoformat(timespec="seconds"),
     }
-    config["last_run"] = config_name
+    config["last_run"] = run_name
 
     save_config(config)
-    print(f"Config entry created → {config_name}")
+    print(f"Config entry created → {run_name}")
+    print(f"Files: {', '.join(db_paths)}")
 
-    return mca_telem_json
+    return combined

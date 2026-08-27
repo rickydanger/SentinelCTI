@@ -1,37 +1,23 @@
 from collections import Counter
-from statistics import median
 
 def get_filtered_json(mca_telem_json, technique_top=None):
     """
-    Filters records by technique_name and/or log_source_channel frequency.
+    Filters records by technique_name frequency.
 
-    Behavior for each parameter:
-    - None  → keep items with count >= median (default)
-    - 0     → bypass filter (keep all)
-    - N     → keep only the top N most frequent
+    - None or 0 → keep all
+    - N         → keep only the top N most frequent technique_name values
     """
     if not mca_telem_json:
         return []
 
-    def apply_filter(data, field, top, label):
-        if top == 0 or not data:
-            return data
+    if not technique_top:
+        print(f"[Technique] No filter → {len(mca_telem_json)} records")
+        return mca_telem_json
 
-        counter = Counter(r[field] for r in data)
+    counter = Counter(r["technique_name"] for r in mca_telem_json)
+    keep = {k for k, _ in counter.most_common(technique_top)}
+    filtered = [r for r in mca_telem_json if r["technique_name"] in keep]
 
-        if top is None:
-            med = median(counter.values())
-            keep = {k for k, cnt in counter.items() if cnt > med}
-            print(f"[{label}] Median: {med:.1f} → keeping {len(keep)} items")
-        else:
-            keep = {k for k, _ in counter.most_common(top)}
-            print(f"[{label}] Top: {top}")
-
-        filtered = [r for r in data if r[field] in keep]
-        print(f"[{label}] Records remaining: {len(filtered)}")
-        return filtered
-
-
-    mca_telem_json = apply_filter(mca_telem_json, "technique_name", technique_top, "Technique")
-
-    return mca_telem_json
+    print(f"[Technique] Top {technique_top} → keeping {len(keep)} techniques")
+    print(f"[Technique] Records remaining: {len(filtered)}")
+    return filtered

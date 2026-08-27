@@ -2,7 +2,13 @@
   "last_run": "voltt_apt29_scatt_akira_lumma",
   "configs": {
     "voltt_apt29_scatt_akira_lumma": {
-      "mca_db_path": "voltt_apt29_scatt_akira_lumma_db.json",
+      "mca_db_paths": [
+        "volt_typhoon_mcadb.json",
+        "apt29_mcadb.json",
+        "scattered_spider_mcadb.json",
+        "akira_mcadb.json",
+        "lumma_stealer_mcadb.json"
+      ],
       "entities": [
         "volt typhoon",
         "APT29",
@@ -11,7 +17,7 @@
         "lumma stealer"
       ],
       "platform": "windows",
-      "created": "2026-08-23T21:04:46"
+      "created": "2026-08-26T20:35:01"
     }
   }
 }

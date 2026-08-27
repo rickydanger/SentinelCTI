@@ -17,14 +17,22 @@ def save_config(config):
     print(f"Config saved → {CONFIG_FILE}")
 
 
-def make_db_name(entities):
+def make_entity_db_name(entity):
     """
-    Automatically create a database filename from entity names.
-    Uses the first 5 characters of each name (spaces removed).
-    Example: ["volt typhoon", "apt29"] → "voltt_apt29_db.json"
+    One database file per entity.
+    Example: "volt typhoon" → "volt_typhoon_mcadb.json"
+    """
+    clean = entity.strip().lower().replace(" ", "_")
+    return f"{clean}_mcadb.json"
+
+
+def make_run_name(entities):
+    """
+    Config key for a multi-entity run (first 5 letters each, spaces removed).
+    Example: ["volt typhoon", "apt29"] → "voltt_apt29"
     """
     parts = []
     for name in entities:
         clean = name.lower().replace(" ", "")
         parts.append(clean[:5])
-    return "_".join(parts) + "_db.json"
+    return "_".join(parts)
