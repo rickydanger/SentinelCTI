@@ -62,7 +62,7 @@ def prepare_data(mca_telemetry_json):
     }
 
 
-def get_sankey(mca_telemetry_json):
+def get_sankey(mca_telemetry_json, show=True):
     """
     Builds a 6-layer Sankey:
     Entity → Tactic → Technique → Log Source → Related Artifact → Tool
@@ -143,10 +143,12 @@ def get_sankey(mca_telemetry_json):
         height=950
     )
 
-    fig.show()
+    if show:
+        fig.show()
+    return fig
 
 
-def get_table(mca_telemetry_json):
+def get_table(mca_telemetry_json, show=True):
     """
     Displays an interactive table in the browser.
     """
@@ -221,4 +223,6 @@ def get_table(mca_telemetry_json):
         height=1000
     )
 
-    fig.show()
+    if show:
+        fig.show()
+    return fig
